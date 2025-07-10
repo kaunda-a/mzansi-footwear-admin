@@ -4,12 +4,16 @@ import { CreditCard } from "lucide-react";
 
 type PaymentDetailsProps = {
   id: number;
-  rzr_order_id: string | null; // Will be renamed to gateway_order_id
-  rzr_payment_id: string | null; // Will be renamed to gateway_payment_id
+  gateway_order_id: string | null;
+  gateway_payment_id: string | null;
   orderId: string;
   amount: number;
   method: string;
   via: string;
+  gateway_name: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 const PaymentDetails = ({ data }: { data: PaymentDetailsProps }) => {
@@ -32,13 +36,13 @@ const PaymentDetails = ({ data }: { data: PaymentDetailsProps }) => {
             <li className="text-[#878a99]">
               Gateway Order ID:{" "}
               <span className="font-medium text-black dark:text-white">
-                {data.rzr_order_id ? data.rzr_order_id : "******"}
+                {data.gateway_order_id ? data.gateway_order_id : "******"}
               </span>
             </li>
             <li className="text-[#878a99]">
               Gateway Payment ID:{" "}
               <span className="font-medium text-black dark:text-white">
-                {data.rzr_payment_id ? data.rzr_payment_id : "******"}
+                {data.gateway_payment_id ? data.gateway_payment_id : "******"}
               </span>
             </li>
             <li className="text-[#878a99]">
@@ -51,6 +55,18 @@ const PaymentDetails = ({ data }: { data: PaymentDetailsProps }) => {
               Via:{" "}
               <span className="font-medium text-black dark:text-white">
                 {data.via}
+              </span>
+            </li>
+            <li className="text-[#878a99]">
+              Gateway:{" "}
+              <span className="font-medium text-black dark:text-white">
+                {data.gateway_name.toUpperCase()}
+              </span>
+            </li>
+            <li className="text-[#878a99]">
+              Status:{" "}
+              <span className="font-medium text-black dark:text-white">
+                {data.status.toUpperCase()}
               </span>
             </li>
             <li className="text-[#878a99]">
