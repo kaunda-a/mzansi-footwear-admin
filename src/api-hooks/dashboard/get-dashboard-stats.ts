@@ -16,6 +16,10 @@ type DashboardStatsResponse = {
         value: number;
       };
     };
+    pendingRevenue: {
+      value: number;
+      percentage: null;
+    };
     totalCustomers: {
       value: number;
       percentage: {
