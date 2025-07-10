@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
         User: true,
         OrderItem: {
           include: {
-            product: true,
+            Product: true,
           },
         },
       },
