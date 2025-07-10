@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       where: { id: orderId },
       include: {
         User: true,
-        orderItems: {
+        OrderItem: {
           include: {
             product: true,
           },
@@ -72,11 +72,11 @@ export async function POST(req: NextRequest) {
       customerName: order.User?.name || "Customer",
       customerEmail: order.User?.email || order.email || "",
       customerPhone: order.User?.phone || undefined,
-      description: `Order containing ${order.orderItems.length} items`,
+      description: `Order containing ${order.OrderItem.length} items`,
       metadata: {
         userId: order.userId,
         orderDate: order.orderDate.toISOString(),
-        itemCount: order.orderItems.length
+        itemCount: order.OrderItem.length
       }
     };
 
