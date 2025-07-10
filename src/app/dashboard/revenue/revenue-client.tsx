@@ -15,7 +15,7 @@ const RevenueClient = () => {
   const { data: topCustomersData, isLoading: customersLoading } = useTopCustomers();
 
   // Transform top customers data to match TopSales component format
-  const topSalesData = topCustomersData?.customers?.map((customer: any) => ({
+  const topSalesData = topCustomersData?.topCustomers?.map((customer: any) => ({
     image: `https://i.pravatar.cc/150?u=${customer.id}`,
     amountSpent: customer.amountSpent || 0,
     name: customer.name,
