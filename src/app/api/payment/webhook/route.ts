@@ -9,7 +9,7 @@ export async function POST(req: NextRequest, { params }: { params: { gateway: st
     const gatewayName = params.gateway;
 
     if (!gatewayName) {
-      return error400("Gateway name is required");
+      return error400("Gateway name is required", {});
     }
 
     // Parse webhook data based on content type
@@ -21,9 +21,9 @@ export async function POST(req: NextRequest, { params }: { params: { gateway: st
     } else if (contentType.includes('application/x-www-form-urlencoded')) {
       const formData = await req.formData();
       webhookData = {};
-      for (const [key, value] of formData.entries()) {
+      formData.forEach((value, key) => {
         webhookData[key] = value.toString();
-      }
+      });
     } else {
       webhookData = await req.text();
     }
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest, { params }: { params: { gateway: st
     });
 
     if (!notification) {
-      return error400("Failed to process webhook notification");
+      return error400("Failed to process webhook notification", {});
     }
 
     // Find the order and payment
@@ -50,13 +50,13 @@ export async function POST(req: NextRequest, { params }: { params: { gateway: st
 
     if (!order) {
       console.error("Order not found:", notification.orderId);
-      return error400("Order not found");
+      return error400("Order not found", {});
     }
 
-    const payment = order.Payment[0];
+    const payment = order.Payment;
     if (!payment) {
       console.error("Payment record not found for order:", notification.orderId);
-      return error400("Payment record not found");
+      return error400("Payment record not found", {});
     }
 
     // Update payment record based on status
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest, { params }: { params: { gateway: st
     await db.paymentLog.create({
       data: {
         paymentId: payment.id,
-        event: notification.payment_status,
+        event: notification.status,
         data: JSON.stringify(notification),
         createdAt: new Date(),
       },
