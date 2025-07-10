@@ -42,7 +42,7 @@ export async function GET(
       return error401("Unauthorized to access this order");
     }
 
-    const payment = order.Payment[0];
+    const payment = order.Payment;
 
     return success200({
       orderId: order.id,
