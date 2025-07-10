@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!order) {
-      return error404("Order not found");
+      return error404("Order not found", {});
     }
 
     // Check if order belongs to user (for customer orders) or user is admin
