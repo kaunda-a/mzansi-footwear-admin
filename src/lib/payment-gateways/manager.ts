@@ -92,7 +92,7 @@ export class PaymentManager {
     } catch (error) {
       return {
         success: false,
-        error: `Payment creation failed: ${error.message}`
+        error: `Payment creation failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }
