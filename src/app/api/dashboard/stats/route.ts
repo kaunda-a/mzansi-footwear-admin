@@ -15,6 +15,7 @@ export async function GET() {
     const [
       pendingOrdersCount,
       totalRevenue,
+      pendingRevenue,
       totalCustomers,
       totalSales,
       recentOrders,
@@ -33,6 +34,16 @@ export async function GET() {
           status: {
             in: ["delivered", "ongoing"],
           },
+        },
+        _sum: {
+          total: true,
+        },
+      }),
+
+      // Pending revenue from pending orders
+      db.order.aggregate({
+        where: {
+          status: "pending",
         },
         _sum: {
           total: true,
@@ -152,6 +163,10 @@ export async function GET() {
             increased: revenuePercentageChange >= 0,
             value: Math.abs(revenuePercentageChange),
           },
+        },
+        pendingRevenue: {
+          value: pendingRevenue._sum.total || 0,
+          percentage: null, // No percentage calculation for pending revenue
         },
         totalCustomers: {
           value: totalCustomers,

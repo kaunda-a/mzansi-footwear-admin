@@ -16,54 +16,52 @@ import { formatCurrency, textTruncate } from "@/lib/utils";
 import { useCallback } from "react";
 import { ChevronRight, Eye } from "lucide-react";
 import { toast } from "sonner";
-import {
-  topSellingProducts,
-  topSellingProductsColumns,
-} from "@/lib/table-data/top-selling";
 import Link from "next/link";
 import DeleteProduct from "@/components/dialog/products/delete-product";
+import { useProducts } from "@/api-hooks/products/get-products";
 
-type Product = (typeof topSellingProducts)[0];
+const topSellingProductsColumns = [
+  { name: "PRODUCT", uid: "title" },
+  { name: "CATEGORY", uid: "category" },
+  { name: "PRICE", uid: "basePrice" },
+  { name: "STOCK", uid: "stock" },
+  { name: "ACTIONS", uid: "actions" },
+];
 
 export default function TopSellingProducts() {
-  const renderCell = useCallback((product: Product, columnKey: React.Key) => {
-    const cellValue = product[columnKey as keyof Product];
+  const { data } = useProducts();
+
+  // Get the first 5 products as "top selling" (in a real app, this would be sorted by sales)
+  const topSellingProducts = data?.products?.slice(0, 5) || [];
+
+  const renderCell = useCallback((product: any, columnKey: React.Key) => {
+    const cellValue = product[columnKey as keyof typeof product];
 
     switch (columnKey) {
-      case "pid":
-        return (
-          <Tooltip content="Copy PID" placement="top">
-            <span
-              className="cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(product.pid);
-                toast.success("Product ID copied to clipboard");
-              }}
-            >
-              {textTruncate(product.pid, 10)}
-            </span>
-          </Tooltip>
-        );
-      case "product":
+      case "title":
         return (
           <User
             avatarProps={{
               radius: "full",
-              src: product.image,
+              src: product.Image?.[0]?.url || "/placeholder-product.jpg",
               classNames: { img: "bg-zinc-200 dark:bg-zinc-500" },
             }}
             classNames={{
               name: "whitespace-pre",
             }}
-            name={textTruncate(product.product, 17)}
+            name={textTruncate(product.title, 17)}
           >
-            {product.product}
+            {product.title}
           </User>
         );
-      case "base_p":
-        return <h1>{formatCurrency(product.base_p)}</h1>;
-      case "offer_p":
-        return <h1>{formatCurrency(product.offer_p)}</h1>;
+      case "category":
+        return (
+          <span className="text-sm">
+            {product.Category?.name || "Uncategorized"}
+          </span>
+        );
+      case "basePrice":
+        return <h1>{formatCurrency(product.basePrice)}</h1>;
       case "stock":
         return (
           <Chip
@@ -77,14 +75,6 @@ export default function TopSellingProducts() {
               : `in stock (${product.stock})`}
           </Chip>
         );
-      case "sold":
-        return <h1 className="text-center">{product.sold}</h1>;
-      case "earnings":
-        return (
-          <h1 className="font-medium text-success">
-            {formatCurrency(product.earnings)}
-          </h1>
-        );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -95,7 +85,7 @@ export default function TopSellingProducts() {
                 variant="light"
                 as={Link}
                 radius="full"
-                href={`/dashboard/products/${product.pid}`}
+                href={`/dashboard/products/${product.id}`}
               >
                 <Eye className="text-zinc-500" />
               </Button>
@@ -140,7 +130,16 @@ export default function TopSellingProducts() {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={topSellingProducts}>
+        <TableBody
+          emptyContent={
+            <div className="text-center py-4">
+              <div className="text-sm text-gray-500">
+                No products available yet
+              </div>
+            </div>
+          }
+          items={topSellingProducts}
+        >
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (
