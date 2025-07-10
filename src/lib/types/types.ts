@@ -10,7 +10,6 @@ import {
   Product,
 } from "@prisma/client";
 import { LucideIcon } from "lucide-react";
-import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { ZodProductSchema } from "../zod-schemas/schema";
 import { Dispatch, SetStateAction } from "react";
@@ -172,7 +171,7 @@ type ProductOrdersResProps = Res & {
 };
 
 type ProductFormProps = {
-  form: UseFormReturn<z.infer<typeof ZodProductSchema>, any, undefined>;
+  form: any; // Simplified to avoid react-hook-form type conflicts
 };
 
 type EditProductProps = {
