@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
       amount: order.total,
       currency: 'ZAR',
       customerName: order.User?.name || "Customer",
-      customerEmail: order.User?.email || order.email || "",
+      customerEmail: order.User?.email || "",
       customerPhone: order.User?.phone || undefined,
       description: `Order containing ${order.OrderItem.length} items`,
       metadata: {
