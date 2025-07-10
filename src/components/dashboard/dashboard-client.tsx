@@ -35,7 +35,7 @@ export default function DashboardClient() {
       color: "text-danger",
       bgcolor: "bg-danger",
       value: statsData.stats.pendingOrders.value,
-      percentage: statsData.stats.pendingOrders.percentage,
+      percentage: statsData.stats.pendingOrders.percentage || undefined,
     },
     {
       icon: Wallet,
@@ -44,7 +44,7 @@ export default function DashboardClient() {
       color: "text-indigo-500",
       bgcolor: "bg-indigo-500",
       value: statsData.stats.totalRevenue.value,
-      percentage: statsData.stats.totalRevenue.percentage,
+      percentage: statsData.stats.totalRevenue.percentage || undefined,
       isCurrency: true,
     },
     {
@@ -54,7 +54,7 @@ export default function DashboardClient() {
       color: "text-[#23B7E5]",
       bgcolor: "bg-[#23B7E5]",
       value: statsData.stats.totalCustomers.value,
-      percentage: statsData.stats.totalCustomers.percentage,
+      percentage: statsData.stats.totalCustomers.percentage || undefined,
     },
     {
       icon: Package,
@@ -63,7 +63,7 @@ export default function DashboardClient() {
       color: "text-[#F5B849]",
       bgcolor: "bg-[#F5B849]",
       value: statsData.stats.totalSales.value,
-      percentage: statsData.stats.totalSales.percentage,
+      percentage: statsData.stats.totalSales.percentage || undefined,
     },
   ] : [];
 
