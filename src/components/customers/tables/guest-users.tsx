@@ -71,7 +71,19 @@ export default function GuestUsers() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={guestUsers?.guest_users}>
+      <TableBody
+        emptyContent={
+          <div className="text-center py-8">
+            <div className="text-lg font-semibold text-gray-600 mb-2">
+              No Guest Users Yet
+            </div>
+            <div className="text-sm text-gray-500">
+              Guest users will appear here when customers browse without creating accounts.
+            </div>
+          </div>
+        }
+        items={guestUsers?.guest_users || []}
+      >
         {(item) => (
           <TableRow key={item.user_id}>
             {(columnKey) => (

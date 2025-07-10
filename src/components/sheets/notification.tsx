@@ -23,38 +23,15 @@ type NotificationProps = {
   date?: string;
 };
 
-const data = [
-  {
-    key: "OOS",
-    value: "OnePlus Buds Z2",
-    date: "12/11/2023",
-  },
-  {
-    key: "OP",
-    value: "John Doe",
-    date: "03/12/2023 05:05 pm",
-  },
-  {
-    key: "OP",
-    value: "John Doe",
-    date: "03/12/2023 05:01 pm",
-  },
-  {
-    key: "NUR",
-    value: "john.doe@example.com",
-    date: "03/12/2023",
-  },
-  {
-    key: "EGU",
-    value: "7",
-  },
+const data: NotificationProps[] = [
+  // Real notifications will be populated here when integrated with notification system
 ];
 
 const Notification = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <Badge content="5" size="lg" color="primary">
+        <Badge content={data.length.toString()} size="lg" color="primary">
           <Bell className="text-zinc-500 dark:text-zinc-400" />
         </Badge>
       </SheetTrigger>
@@ -65,9 +42,19 @@ const Notification = () => {
           </SheetTitle>
         </SheetHeader>
         <div className="scrollbar-thin flex-1 overflow-y-scroll px-5">
-          {data.map((item, i) => (
-            <NotificationCard value={item} key={i} />
-          ))}
+          {data.length > 0 ? (
+            data.map((item, i) => (
+              <NotificationCard value={item} key={i} />
+            ))
+          ) : (
+            <div className="flex items-center justify-center h-32">
+              <div className="text-center">
+                <div className="text-sm text-gray-500">
+                  No notifications yet
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <SheetFooter className="border-t p-3">
           <Button size="sm" variant="light" color="danger">

@@ -12,9 +12,9 @@ const VisitDetails = () => {
           <VisitOptions />
         </div>
         <h2 className="text-lg font-semibold">
-          <CountUpValue value={5264} />
+          <CountUpValue value={0} />
         </h2>
-        <span className="text-xs text-muted-foreground">Today</span>
+        <span className="text-xs text-muted-foreground">Analytics coming soon</span>
       </div>
       <div className="relative h-32 ps-3 pt-5 after:absolute after:bottom-0 after:left-[50%] after:h-0 after:w-[80%] after:translate-x-[-50%] after:border after:border-zinc-200 @md:after:left-auto @md:after:right-0 @md:after:top-[50%] @md:after:h-[80%] @md:after:w-0 @md:after:translate-y-[-50%] dark:after:border-zinc-700">
         <div className="flex items-center justify-between">
@@ -24,9 +24,9 @@ const VisitDetails = () => {
           <VisitOptions />
         </div>
         <h2 className="text-lg font-semibold">
-          <CountUpValue value={10937} />
+          <CountUpValue value={0} />
         </h2>
-        <span className="text-xs text-muted-foreground">Today</span>
+        <span className="text-xs text-muted-foreground">Analytics coming soon</span>
       </div>
       <div className="h-32 ps-3 pt-5">
         <div className="flex items-center justify-between">
@@ -36,9 +36,9 @@ const VisitDetails = () => {
           <VisitOptions />
         </div>
         <h2 className="text-lg font-semibold">
-          <CountUpValue value={60} />%
+          <CountUpValue value={0} />%
         </h2>
-        <span className="text-xs text-muted-foreground">Today</span>
+        <span className="text-xs text-muted-foreground">Analytics coming soon</span>
       </div>
     </div>
   );

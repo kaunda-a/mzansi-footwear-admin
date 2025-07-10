@@ -3,9 +3,8 @@
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 
-const data = [
-  { name: "Mobile", value: 400 },
-  { name: "PC", value: 300 },
+const data: any[] = [
+  // Device analytics data will be populated here when integrated with analytics service
 ];
 
 const COLORS = ["#463acb", "#18BF60"];
@@ -37,6 +36,18 @@ const renderCustomizedLabel = ({
 };
 
 const DeviceOriginGraph = () => {
+  if (data.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="text-sm text-gray-500">
+            Device analytics will appear here when integrated with analytics service.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <PieChart width={400} height={400}>

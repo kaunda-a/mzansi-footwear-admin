@@ -18,10 +18,14 @@ import { Eye, ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { useCallback } from "react";
-import {
-  recentOrderColumns,
-  recentOrders,
-} from "@/lib/table-data/recent-orders";
+import { useOrders } from "@/api-hooks/orders/get-orders";
+
+const recentOrderColumns = [
+  { name: "ORDER ID", uid: "id" },
+  { name: "AMOUNT", uid: "total" },
+  { name: "STATUS", uid: "status" },
+  { name: "ACTIONS", uid: "actions" },
+];
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   delivered: "success",
@@ -29,35 +33,20 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   ongoing: "warning",
 };
 
-type Order = (typeof recentOrders)[0];
-
 const RecentOrders = () => {
-  const renderCell = useCallback((order: Order, columnKey: React.Key) => {
-    const cellValue = order[columnKey as keyof Order];
+  const { data } = useOrders();
+
+  // Get the 5 most recent orders
+  const recentOrders = data?.orders?.slice(0, 5) || [];
+
+  const renderCell = useCallback((order: any, columnKey: React.Key) => {
+    const cellValue = order[columnKey as keyof typeof order];
 
     switch (columnKey) {
-      case "oid":
-        return <h1>{order.oid}</h1>;
-      case "user":
-        return (
-          <Link href="/dashboard/customers" className="hover:text-primary">
-            {order.user}
-          </Link>
-        );
-      case "amount":
-        return <h1>{formatCurrency(order.amount)}</h1>;
-      case "date":
-        return <h1>{order.date}</h1>;
-      case "payment":
-        return (
-          <h1
-            className={`${
-              order.payment === "true" ? "text-success" : "text-danger"
-            } ms-10`}
-          >
-            {order.payment}
-          </h1>
-        );
+      case "id":
+        return <h1 className="text-sm">{order.id.slice(0, 8)}...</h1>;
+      case "total":
+        return <h1>{formatCurrency(order.total)}</h1>;
       case "status":
         return (
           <Chip
@@ -66,50 +55,24 @@ const RecentOrders = () => {
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            {order.status}
           </Chip>
-        );
-      case "update_status":
-        return (
-          <Select
-            placeholder="Update status"
-            className="max-w-xs"
-            defaultSelectedKeys={[order.status]}
-            classNames={{
-              trigger: "h-fit min-h-fit p-2",
-              value: "text-xs",
-            }}
-            aria-label="Update status"
-            size="sm"
-          >
-            {["pending", "ongoing", "delivered"].map((value) => (
-              <SelectItem
-                key={value}
-                value={value}
-                className="capitalize"
-                classNames={{
-                  title: "text-xs",
-                }}
-              >
-                {value}
-              </SelectItem>
-            ))}
-          </Select>
         );
       case "actions":
         return (
-          <Tooltip content="View Details">
-            <Button
-              isIconOnly
-              size="sm"
-              variant="light"
-              as={Link}
-              radius="full"
-              href={`/dashboard/orders`}
-            >
-              <Eye className="text-zinc-500" />
-            </Button>
-          </Tooltip>
+          <div className="relative flex items-center gap-2">
+            <Tooltip content="View order details">
+              <Button
+                as={Link}
+                href={`/dashboard/orders/${order.id}`}
+                isIconOnly
+                size="sm"
+                variant="light"
+              >
+                <Eye className="h-4 w-4" />
+              </Button>
+            </Tooltip>
+          </div>
         );
       default:
         return cellValue;
@@ -148,7 +111,16 @@ const RecentOrders = () => {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={recentOrders}>
+        <TableBody
+          emptyContent={
+            <div className="text-center py-4">
+              <div className="text-sm text-gray-500">
+                No recent orders yet
+              </div>
+            </div>
+          }
+          items={recentOrders}
+        >
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

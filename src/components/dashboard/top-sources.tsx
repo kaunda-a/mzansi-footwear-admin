@@ -1,12 +1,8 @@
 import { Avatar, Button, Card, CardBody } from "@nextui-org/react";
 import { ChevronRight, Link } from "lucide-react";
 
-const topSources = [
-  { source: "instagram.com", value: "1232", progressPercentage: 95 },
-  { source: "whatsapp.com", value: "932", progressPercentage: 72 },
-  { source: "google.com", value: "789", progressPercentage: 61 },
-  { source: "Direct / None", value: "636", progressPercentage: 49 },
-  { source: "youtube.com", value: "611", progressPercentage: 47 },
+const topSources: any[] = [
+  // Analytics data will be populated here when integrated with analytics service
 ];
 
 const TopSources = () => {
@@ -25,11 +21,19 @@ const TopSources = () => {
             View All
           </Button> */}
         </div>
-        <ul className="mt-4 space-y-3 ps-1">
-          {topSources.map((data, i) => (
-            <SourceList {...data} key={i} />
-          ))}
-        </ul>
+        {topSources.length > 0 ? (
+          <ul className="mt-4 space-y-3 ps-1">
+            {topSources.map((data, i) => (
+              <SourceList {...data} key={i} />
+            ))}
+          </ul>
+        ) : (
+          <div className="mt-4 text-center py-8">
+            <div className="text-sm text-gray-500">
+              Traffic analytics will appear here when integrated with analytics service.
+            </div>
+          </div>
+        )}
       </CardBody>
     </Card>
   );

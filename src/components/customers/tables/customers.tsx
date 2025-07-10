@@ -360,7 +360,19 @@ export default function Customers() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No Customers found"} items={sortedItems}>
+      <TableBody
+        emptyContent={
+          <div className="text-center py-8">
+            <div className="text-lg font-semibold text-gray-600 mb-2">
+              No Customers Yet
+            </div>
+            <div className="text-sm text-gray-500">
+              Customers will appear here once they register and create accounts.
+            </div>
+          </div>
+        }
+        items={sortedItems}
+      >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

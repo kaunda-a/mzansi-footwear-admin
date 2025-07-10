@@ -44,7 +44,7 @@ const RevenueGraph = ({ data }: { data: any[] }) => {
             tickLine={false}
             axisLine={false}
             fontFamily="Roboto"
-            tickFormatter={(value) => `₹ ${value}`}
+            tickFormatter={(value) => `R ${value}`}
           />
 
           <Bar dataKey="total" fill="#adfa1d" radius={[4, 4, 0, 0]} />

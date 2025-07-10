@@ -1,18 +1,8 @@
 import { Button, Card, CardBody } from "@nextui-org/react";
 import { ChevronRight } from "lucide-react";
 
-const topPages = [
-  { page: "/", value: "2117", progressPercentage: 96 },
-  { page: "/store", value: "697", progressPercentage: 32 },
-  {
-    page: "/store/c/audio-video/earphones",
-    value: "789",
-    progressPercentage: 36,
-  },
-  { page: "/store/oneplus-buds-z2", value: "586", progressPercentage: 27 },
-  { page: "/store/zeb-pods-1", value: "516", progressPercentage: 23 },
-  { page: "/authentication", value: "163", progressPercentage: 7 },
-  { page: "/account", value: "121", progressPercentage: 6 },
+const topPages: any[] = [
+  // Page analytics data will be populated here when integrated with analytics service
 ];
 
 const TopPages = () => {
@@ -31,11 +21,19 @@ const TopPages = () => {
             View All
           </Button> */}
         </div>
-        <ul className="mt-4 space-y-3 ps-1">
-          {topPages.map((data, i) => (
-            <SourceList {...data} key={i} />
-          ))}
-        </ul>
+        {topPages.length > 0 ? (
+          <ul className="mt-4 space-y-3 ps-1">
+            {topPages.map((data, i) => (
+              <SourceList {...data} key={i} />
+            ))}
+          </ul>
+        ) : (
+          <div className="mt-4 text-center py-8">
+            <div className="text-sm text-gray-500">
+              Page analytics will appear here when integrated with analytics service.
+            </div>
+          </div>
+        )}
       </CardBody>
     </Card>
   );
