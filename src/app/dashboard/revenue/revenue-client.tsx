@@ -11,7 +11,9 @@ import { Skeleton } from "@nextui-org/react";
 
 const RevenueClient = () => {
   const { data: statsData, isLoading: statsLoading } = useDashboardStats();
-  const { data: revenueData, isLoading: revenueLoading } = useRevenueData();
+  const { data: weeklyData, isLoading: weeklyLoading } = useRevenueData("weekly");
+  const { data: monthlyData, isLoading: monthlyLoading } = useRevenueData("monthly");
+  const { data: yearlyData, isLoading: yearlyLoading } = useRevenueData("yearly");
   const { data: topCustomersData, isLoading: customersLoading } = useTopCustomers();
 
   // Transform top customers data to match TopSales component format
@@ -23,7 +25,14 @@ const RevenueClient = () => {
     lastPurchase: customer.lastPurchase || "Never",
   })) || [];
 
-  if (statsLoading || revenueLoading || customersLoading) {
+  // Combine revenue data for all periods
+  const combinedRevenueData = {
+    weeklyData: weeklyData?.revenueData || [],
+    monthlyData: monthlyData?.revenueData || [],
+    yearlyData: yearlyData?.revenueData || [],
+  };
+
+  if (statsLoading || weeklyLoading || monthlyLoading || yearlyLoading || customersLoading) {
     return (
       <div className="mb-10 mt-5 @container">
         <div className="grid grid-cols-1 gap-3 @md:grid-cols-2 @4xl:grid-cols-4">
@@ -70,7 +79,7 @@ const RevenueClient = () => {
         />
       </div>
       <div className="my-10 grid grid-cols-1 @3xl:grid-cols-5 md:gap-3">
-        <RevenueOverview data={revenueData?.revenueData || []} />
+        <RevenueOverview data={combinedRevenueData} />
         <TopSales data={topSalesData} />
       </div>
     </div>
