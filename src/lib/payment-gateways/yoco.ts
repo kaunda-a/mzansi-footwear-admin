@@ -95,7 +95,7 @@ export class YocoGateway implements PaymentGateway {
     } catch (error) {
       return {
         success: false,
-        error: `Yoco payment creation failed: ${error.message}`
+        error: `Yoco payment creation failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }
@@ -197,7 +197,7 @@ export class YocoGateway implements PaymentGateway {
         rawData: data
       }
     } catch (error) {
-      throw new Error(`Yoco status check failed: ${error.message}`)
+      throw new Error(`Yoco status check failed: ${error instanceof Error ? error.message : String(error)}`)
     }
   }
 
@@ -231,7 +231,7 @@ export class YocoGateway implements PaymentGateway {
     } catch (error) {
       return {
         success: false,
-        error: `Yoco refund failed: ${error.message}`
+        error: `Yoco refund failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }

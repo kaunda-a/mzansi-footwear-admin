@@ -109,7 +109,7 @@ export class PayGateGateway implements PaymentGateway {
     } catch (error) {
       return {
         success: false,
-        error: `PayGate payment creation failed: ${error.message}`
+        error: `PayGate payment creation failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }
@@ -231,7 +231,7 @@ export class PayGateGateway implements PaymentGateway {
         rawData: responseData
       }
     } catch (error) {
-      throw new Error(`PayGate status check failed: ${error.message}`)
+      throw new Error(`PayGate status check failed: ${error instanceof Error ? error.message : String(error)}`)
     }
   }
 

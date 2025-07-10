@@ -160,7 +160,7 @@ export class PeachGateway implements PaymentGateway {
     } catch (error) {
       return {
         success: false,
-        error: `Peach payment creation failed: ${error.message}`
+        error: `Peach payment creation failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }
@@ -241,7 +241,7 @@ export class PeachGateway implements PaymentGateway {
         rawData: data
       }
     } catch (error) {
-      throw new Error(`Peach status check failed: ${error.message}`)
+      throw new Error(`Peach status check failed: ${error instanceof Error ? error.message : String(error)}`)
     }
   }
 
@@ -281,7 +281,7 @@ export class PeachGateway implements PaymentGateway {
     } catch (error) {
       return {
         success: false,
-        error: `Peach refund failed: ${error.message}`
+        error: `Peach refund failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }

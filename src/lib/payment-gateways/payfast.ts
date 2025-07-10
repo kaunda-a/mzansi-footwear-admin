@@ -88,7 +88,7 @@ export class PayFastGateway implements PaymentGateway {
     } catch (error) {
       return {
         success: false,
-        error: `PayFast payment creation failed: ${error.message}`
+        error: `PayFast payment creation failed: ${error instanceof Error ? error.message : String(error)}`
       }
     }
   }
