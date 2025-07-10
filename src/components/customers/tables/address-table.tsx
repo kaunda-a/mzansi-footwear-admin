@@ -79,7 +79,9 @@ export default function AddressTable() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredAddresses = [...addressData?.addresses!];
+    if (!addressData?.addresses || addressData.addresses.length === 0) return [];
+
+    let filteredAddresses = [...addressData.addresses];
 
     if (hasSearchFilter) {
       filteredAddresses = filteredAddresses.filter((address) =>
@@ -88,7 +90,7 @@ export default function AddressTable() {
     }
 
     return filteredAddresses;
-  }, [addressData, filterValue]);
+  }, [addressData?.addresses, filterValue, hasSearchFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -100,6 +102,8 @@ export default function AddressTable() {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
+    if (!items || items.length === 0) return [];
+
     return [...items].sort((a: Address, b: Address) => {
       const first = a[sortDescriptor.column as keyof Address] as number;
       const second = b[sortDescriptor.column as keyof Address] as number;
@@ -287,7 +291,19 @@ export default function AddressTable() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No addresses found"} items={sortedItems}>
+      <TableBody
+        emptyContent={
+          <div className="text-center py-8">
+            <div className="text-lg font-semibold text-gray-600 mb-2">
+              No Customer Addresses Yet
+            </div>
+            <div className="text-sm text-gray-500">
+              Customer addresses will appear here when customers add shipping addresses to their accounts.
+            </div>
+          </div>
+        }
+        items={sortedItems}
+      >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
