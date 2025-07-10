@@ -129,7 +129,13 @@ export default function HeroBannerTable({
               <DeleteHeroBanner
                 id={banner.id}
                 setBannerData={setBannerData}
-                publicId={banner.imageUrl.split(".").at(-2)!.split("/").at(-1)!}
+                publicId={
+                  banner.imageUrl
+                    ?.split(".")
+                    ?.at(-2)
+                    ?.split("/")
+                    ?.at(-1) || "unknown"
+                }
               />
             </div>
           );
@@ -159,7 +165,19 @@ export default function HeroBannerTable({
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={data || []} emptyContent={"No offers to display."}>
+      <TableBody
+        items={data || []}
+        emptyContent={
+          <div className="text-center py-8">
+            <div className="text-lg font-semibold text-gray-600 mb-2">
+              No Hero Banners Yet
+            </div>
+            <div className="text-sm text-gray-500">
+              Create hero banners to showcase featured products and promotions on your storefront.
+            </div>
+          </div>
+        }
+      >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

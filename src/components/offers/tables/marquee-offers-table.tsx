@@ -63,7 +63,19 @@ export default function MarqueeOffersTable({
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={data || []} emptyContent={"No offers to display."}>
+      <TableBody
+        items={data || []}
+        emptyContent={
+          <div className="text-center py-8">
+            <div className="text-lg font-semibold text-gray-600 mb-2">
+              No Marquee Offers Yet
+            </div>
+            <div className="text-sm text-gray-500">
+              Create marquee offers to display scrolling promotional messages on your storefront.
+            </div>
+          </div>
+        }
+      >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
