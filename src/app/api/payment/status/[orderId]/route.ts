@@ -22,7 +22,7 @@ export async function GET(
       where: { id: orderId },
       include: {
         Payment: true,
-        user: {
+        User: {
           select: {
             id: true,
             name: true,
@@ -62,8 +62,8 @@ export async function GET(
         updatedAt: payment.updatedAt,
       } : null,
       customer: {
-        name: order.user?.name,
-        email: order.user?.email,
+        name: order.User?.name,
+        email: order.User?.email,
       },
     });
   } catch (error) {

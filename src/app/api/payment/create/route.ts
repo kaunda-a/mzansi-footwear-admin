@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     const order = await db.order.findUnique({
       where: { id: orderId },
       include: {
-        user: true,
+        User: true,
         orderItems: {
           include: {
             product: true,
@@ -69,9 +69,9 @@ export async function POST(req: NextRequest) {
       orderId: order.id,
       amount: order.total,
       currency: 'ZAR',
-      customerName: order.user?.name || "Customer",
-      customerEmail: order.user?.email || order.email || "",
-      customerPhone: order.user?.phone || undefined,
+      customerName: order.User?.name || "Customer",
+      customerEmail: order.User?.email || order.email || "",
+      customerPhone: order.User?.phone || undefined,
       description: `Order containing ${order.orderItems.length} items`,
       metadata: {
         userId: order.userId,
