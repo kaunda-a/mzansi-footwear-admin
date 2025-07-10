@@ -83,10 +83,12 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredOrders = [...orders!];
+    if (!orders || orders.length === 0) return [];
+
+    let filteredOrders = [...orders];
 
     if (hasSearchFilter) {
-      filteredOrders = filteredOrders?.filter((order) =>
+      filteredOrders = filteredOrders.filter((order) =>
         order.id.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
@@ -104,7 +106,9 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items]?.sort((a: OrderProps, b: OrderProps) => {
+    if (!items || items.length === 0) return [];
+
+    return [...items].sort((a: OrderProps, b: OrderProps) => {
       const first = a[sortDescriptor.column as keyof OrderProps] as number;
       const second = b[sortDescriptor.column as keyof OrderProps] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
@@ -356,7 +360,19 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No Orders found"} items={sortedItems || []}>
+      <TableBody
+        emptyContent={
+          <div className="text-center py-8">
+            <div className="text-lg font-semibold text-gray-600 mb-2">
+              No Orders Yet
+            </div>
+            <div className="text-sm text-gray-500">
+              Orders will appear here once customers start making purchases.
+            </div>
+          </div>
+        }
+        items={sortedItems || []}
+      >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

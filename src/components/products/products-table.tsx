@@ -82,7 +82,9 @@ export default function ProductsTable() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredProducts = [...data?.products!];
+    if (!data?.products || data.products.length === 0) return [];
+
+    let filteredProducts = [...data.products];
 
     if (hasSearchFilter) {
       filteredProducts = filteredProducts.filter((product) =>
@@ -91,7 +93,7 @@ export default function ProductsTable() {
     }
 
     return filteredProducts;
-  }, [data, filterValue]);
+  }, [data?.products, filterValue, hasSearchFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 

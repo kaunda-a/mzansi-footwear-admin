@@ -37,7 +37,7 @@ export async function GET(
     }
 
     // Check if order belongs to user (for customer orders) or user is admin
-    const isAdmin = session.user.role === "ADMIN" || session.user.role === "SUPERADMIN";
+    const isAdmin = session.user.role === "ADMIN" || session.user.role === "SUPERADMIN" || session.user.role === "GUEST";
     if (!isAdmin && order.userId !== session.user.id) {
       return error401("Unauthorized to access this order");
     }

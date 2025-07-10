@@ -76,7 +76,9 @@ export default function Customers() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...customers?.customers!];
+    if (!customers?.customers || customers.customers.length === 0) return [];
+
+    let filteredUsers = [...customers.customers];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -85,7 +87,7 @@ export default function Customers() {
     }
 
     return filteredUsers;
-  }, [filterValue, hasSearchFilter]);
+  }, [customers?.customers, filterValue, hasSearchFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 

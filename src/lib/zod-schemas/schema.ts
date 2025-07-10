@@ -45,14 +45,14 @@ export const ZodAdminSchema = z.object({
     .union([z.string().length(0), z.string().min(7)])
     .optional()
     .transform((e) => (e === "" ? undefined : e)),
-  role: z.enum(["ADMIN", "GUEST"]),
+  role: z.enum(["ADMIN", "GUEST", "SUPERADMIN"]),
 });
 
 export const ZodAdminSchemaWithPassword = z.object({
   name: z.string().min(3).max(20),
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(8, "Password must be 8 or more characters long"),
-  role: z.enum(["ADMIN", "GUEST"]),
+  role: z.enum(["ADMIN", "GUEST", "SUPERADMIN"]),
 });
 
 export const ZodProductSchema = z.object({
