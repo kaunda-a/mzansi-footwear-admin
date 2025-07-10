@@ -61,7 +61,7 @@ export async function PATCH(req: NextRequest) {
       const updateData: {
         email: string;
         name: string;
-        role: "ADMIN" | "GUEST";
+        role: "ADMIN" | "GUEST" | "SUPERADMIN";
         password?: string;
       } = {
         email: result.data.email,
