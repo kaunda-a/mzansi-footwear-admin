@@ -91,7 +91,7 @@ const Sidebar = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 rounded-xl blur-sm opacity-30"></div>
             <div className="relative bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 p-2.5 rounded-xl shadow-lg shadow-cyan-500/20">
               <Image
-                src="/mzansi-footwear-logo.svg"
+                src="/logo.png"
                 className="flex-shrink-0 filter brightness-0 invert"
                 alt="Mzansi Footwear Logo"
                 width={20}
