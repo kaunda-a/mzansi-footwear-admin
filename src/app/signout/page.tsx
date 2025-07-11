@@ -76,8 +76,8 @@ const SignOut = async () => {
                 End Your Session?
               </h2>
               <p className="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
-                You're about to sign out of your Mzansi Footwear admin dashboard.
-                You'll need to sign in again to access your business operations.
+                You&apos;re about to sign out of your Mzansi Footwear admin dashboard.
+                You&apos;ll need to sign in again to access your business operations.
               </p>
             </div>
 

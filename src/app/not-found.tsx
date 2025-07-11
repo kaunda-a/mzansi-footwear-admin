@@ -44,8 +44,8 @@ export default function NotFound() {
                   Page Not Found
                 </h2>
                 <p className="text-slate-600 dark:text-zinc-400 leading-relaxed">
-                  Oops! The page you're looking for seems to have wandered off.
-                  Let's get you back to your Mzansi Footwear dashboard.
+                  Oops! The page you&apos;re looking for seems to have wandered off.
+                  Let&apos;s get you back to your Mzansi Footwear dashboard.
                 </p>
               </div>
             </div>
