@@ -1,13 +1,9 @@
+"use client";
+
 import { Button, Card, CardBody } from "@nextui-org/react";
-import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, ArrowLeft, Search } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: "404 - Page Not Found",
-  description: "The page you're looking for doesn't exist",
-};
 
 export default function NotFound() {
   return (

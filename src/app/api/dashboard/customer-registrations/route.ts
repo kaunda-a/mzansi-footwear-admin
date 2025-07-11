@@ -3,6 +3,8 @@ import { db } from "@/lib/prisma";
 import { error401, error500, success200 } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const session = await getServerSession(authOptions);

@@ -2,6 +2,8 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/prisma";
 import { error401, error500, success200, formateDate } from "@/lib/utils";
 import { getServerSession } from "next-auth";
+
+export const dynamic = 'force-dynamic';
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
