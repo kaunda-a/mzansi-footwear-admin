@@ -1,13 +1,10 @@
 import { Button, Card, CardBody } from "@nextui-org/react";
 import { ChevronRight } from "lucide-react";
 
-const topStateData = [
-  { state: "Kerala", value: "1221", progressPercentage: 85 },
-  { state: "Karnataka", value: "1017", progressPercentage: 75 },
-  { state: "Tamil Nadu", value: "798", progressPercentage: 50 },
-  { state: "Telangana", value: "567", progressPercentage: 30 },
-  { state: "Goa", value: "436", progressPercentage: 21 },
-  { state: "Maharashtra", value: "129", progressPercentage: 15 },
+const topStateData: any[] = [
+  // Real provincial sales data will be populated here when integrated with analytics service
+  // South African provinces: Western Cape, Gauteng, KwaZulu-Natal, Eastern Cape,
+  // Limpopo, Mpumalanga, North West, Free State, Northern Cape
 ];
 
 const TopStateBySales = () => {
@@ -15,7 +12,7 @@ const TopStateBySales = () => {
     <Card className="shadow-md">
       <CardBody>
         <div className="flex items-center justify-between">
-          <h1 className="text-lg font-medium">Top States By Sales</h1>
+          <h1 className="text-lg font-medium">Top Provinces By Sales</h1>
           {/* <Button
             variant="flat"
             size="sm"
@@ -26,11 +23,19 @@ const TopStateBySales = () => {
             View All
           </Button> */}
         </div>
-        <ul className="mt-4 space-y-3 ps-1">
-          {topStateData.map((data, i) => (
-            <StateList {...data} key={i} />
-          ))}
-        </ul>
+        {topStateData.length > 0 ? (
+          <ul className="mt-4 space-y-3 ps-1">
+            {topStateData.map((data, i) => (
+              <StateList {...data} key={i} />
+            ))}
+          </ul>
+        ) : (
+          <div className="mt-4 text-center py-8">
+            <div className="text-sm text-gray-500">
+              Provincial sales analytics will appear here when integrated with analytics service.
+            </div>
+          </div>
+        )}
       </CardBody>
     </Card>
   );
