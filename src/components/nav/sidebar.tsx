@@ -84,7 +84,7 @@ const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? "open" : "closed"}
-        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-hidden lg:relative bg-gradient-to-b from-[#0a0a0b] via-[#111113] to-[#0a0a0b] backdrop-blur-xl border border-[#1f1f23]/60 shadow-2xl shadow-black/40 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)]"
+        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-hidden lg:relative border border-[#1f1f23]/60 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)]"
       >
         <div className="mx-4 flex items-center gap-3 py-6 border-b border-[#1f1f23]/40">
           <div className="relative">
