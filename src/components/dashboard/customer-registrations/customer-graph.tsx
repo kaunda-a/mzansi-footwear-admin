@@ -23,6 +23,18 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 const CustomerGraph = ({ data }: { data: any[] }) => {
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-[300px]">
+        <div className="text-center">
+          <div className="text-sm text-gray-500">
+            Customer registration analytics will appear here when integrated with analytics service.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart

@@ -19,16 +19,35 @@ import {
 } from "@nextui-org/react";
 import { ChevronDown, Search } from "lucide-react";
 import { capitalize, formatCurrency } from "@/lib/utils";
-import {
-  topCustomersColumns as columns,
-  topCustomersData as users,
-} from "@/lib/table-data/customers";
+import { useCustomers } from "@/api-hooks/customers/get-customers";
+
+const columns = [
+  { name: "ID", uid: "id", sortable: true },
+  { name: "NAME", uid: "name", sortable: true },
+  { name: "EMAIL", uid: "email" },
+  { name: "TOTAL PURCHASES", uid: "total_purchases", sortable: true },
+  { name: "AMOUNT SPENT", uid: "amount", sortable: true },
+];
 
 const INITIAL_VISIBLE_COLUMNS = ["id", "name", "amount", "total_purchases"];
 
-type User = (typeof users)[0];
-
 export default function TopCustomers() {
+  const { data: customersData } = useCustomers();
+
+  // Transform customer data to include calculated fields
+  const users = React.useMemo(() => {
+    if (!customersData?.customers) return [];
+
+    return customersData.customers.map(customer => ({
+      id: customer.id,
+      name: customer.name,
+      email: customer.email,
+      total_purchases: customer.orders?.length || 0,
+      amount: customer.orders?.reduce((sum, order) => sum + (order.total || 0), 0) || 0,
+    })).sort((a, b) => b.amount - a.amount).slice(0, 20); // Top 20 customers
+  }, [customersData?.customers]);
+
+  type User = typeof users[0];
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([]),
