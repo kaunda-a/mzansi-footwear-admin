@@ -37,30 +37,30 @@ const OrdersPage = () => {
       <div className="mb-10 @container">
         <div className="grid grid-cols-1 gap-3 @md:grid-cols-2 @4xl:grid-cols-4">
           <SummaryCard
-            bgcolor="bg-danger"
-            color="text-danger"
+            bgcolor="bg-red-500/10 dark:bg-red-400/10"
+            color="text-red-500 dark:text-red-400"
             icon={CalendarClock}
             title="Orders Pending"
             value={findPendingOrders(data?.orders)}
           />
           <SummaryCard
-            bgcolor="bg-indigo-500"
-            color="text-indigo-500"
+            bgcolor="bg-blue-500/10 dark:bg-blue-400/10"
+            color="text-blue-600 dark:text-blue-400"
             icon={Boxes}
             title="Total Orders"
             value={data?.orders.length || 0}
             percentage={{ increased: true, value: 3 }}
           />
           <SummaryCard
-            bgcolor="bg-success"
-            color="text-success"
+            bgcolor="bg-emerald-500/10 dark:bg-emerald-400/10"
+            color="text-emerald-600 dark:text-emerald-400"
             icon={Boxes}
             title="Today's Orders"
             value={findTodaysOrders(data?.orders)}
           />
           <SummaryCard
-            bgcolor="bg-[#23B7E5]"
-            color="text-[#23B7E5]"
+            bgcolor="bg-cyan-500/10 dark:bg-cyan-400/10"
+            color="text-cyan-600 dark:text-cyan-400"
             icon={CalendarClock}
             title="Ongoing Orders"
             value={findOngoingOrders(data?.orders)}

@@ -44,8 +44,8 @@ const Analytics = () => {
     <div className="mt-5 space-y-5 @container">
       <div className="grid grid-cols-1 gap-3 @sm:grid-cols-2 @lg:grid-cols-4">
         <SummaryCard
-          bgcolor="bg-[#23B7E5]"
-          color="text-[#23B7E5]"
+          bgcolor="bg-cyan-500/10 dark:bg-cyan-400/10"
+          color="text-cyan-600 dark:text-cyan-400"
           icon={Users}
           title="Total Customers"
           url="/dashboard/customers"
@@ -53,8 +53,8 @@ const Analytics = () => {
           percentage={statsData?.stats?.totalCustomers?.percentage || undefined}
         />
         <SummaryCard
-          bgcolor="bg-danger"
-          color="text-danger"
+          bgcolor="bg-red-500/10 dark:bg-red-400/10"
+          color="text-red-500 dark:text-red-400"
           icon={UserMinus}
           title="Guest Users"
           url="/dashboard/customers?tab=guest"
@@ -62,8 +62,8 @@ const Analytics = () => {
           percentage={undefined}
         />
         <SummaryCard
-          bgcolor="bg-[#F5B849]"
-          color="text-[#F5B849]"
+          bgcolor="bg-blue-500/10 dark:bg-blue-400/10"
+          color="text-blue-600 dark:text-blue-400"
           icon={UserCheck}
           title="Buyers Count"
           url="/dashboard/customers?tab=analytics#top-customer"

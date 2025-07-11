@@ -14,8 +14,8 @@ function SummaryCard(props: SummaryCardProps) {
   return (
     <Card>
       <CardBody className="flex-row gap-3">
-        <Button isIconOnly radius="full" className={`mt-1 ${props.bgcolor}`}>
-          <props.icon className="text-white dark:text-dark" />
+        <Button isIconOnly radius="full" className={`mt-1 ${props.bgcolor} border border-slate-200/60 dark:border-zinc-700/40`}>
+          <props.icon className={`${props.color}`} />
         </Button>
         <div className="w-full">
           <span className="text-xs capitalize text-muted-foreground">

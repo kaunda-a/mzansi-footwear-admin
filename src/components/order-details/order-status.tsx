@@ -136,13 +136,13 @@ function StatusList(data: {
         } after:absolute after:left-[50%] after:top-[100%] after:h-full after:-translate-x-[50%] after:border after:border-dashed
           ${
             data.isActive
-              ? "bg-[#46D483] after:border-[#46D483]"
+              ? "bg-emerald-500 dark:bg-emerald-400 after:border-emerald-500 dark:after:border-emerald-400"
               : "bg-zinc-200 after:border-zinc-200 dark:bg-zinc-700 dark:after:border-zinc-700"
           }
         `}
       >
         <data.icon
-          className={data.isActive ? "text-white" : "text-[#46D483]"}
+          className={data.isActive ? "text-white" : "text-emerald-500 dark:text-emerald-400"}
           size={20}
         />
       </div>

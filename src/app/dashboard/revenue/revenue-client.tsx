@@ -52,8 +52,8 @@ const RevenueClient = () => {
     <div className="mb-10 mt-5 @container">
       <div className="grid grid-cols-1 gap-3 @md:grid-cols-2 @4xl:grid-cols-4">
         <SummaryCard
-          bgcolor="bg-indigo-500"
-          color="text-indigo-500"
+          bgcolor="bg-emerald-500/10 dark:bg-emerald-400/10"
+          color="text-emerald-600 dark:text-emerald-400"
           icon={Wallet}
           title="Total Revenue"
           value={statsData?.stats?.totalRevenue?.value || 0}
@@ -61,16 +61,16 @@ const RevenueClient = () => {
           percentage={statsData?.stats?.totalRevenue?.percentage || undefined}
         />
         <SummaryCard
-          bgcolor="bg-yellow-500"
-          color="text-yellow-500"
+          bgcolor="bg-blue-500/10 dark:bg-blue-400/10"
+          color="text-blue-600 dark:text-blue-400"
           icon={Package}
           title="Total Sales"
           value={statsData?.stats?.totalSales?.value || 0}
           percentage={statsData?.stats?.totalSales?.percentage || undefined}
         />
         <SummaryCard
-          bgcolor="bg-[#23B7E5]"
-          color="text-[#23B7E5]"
+          bgcolor="bg-cyan-500/10 dark:bg-cyan-400/10"
+          color="text-cyan-600 dark:text-cyan-400"
           icon={Wallet}
           title="Pending Revenue"
           value={statsData?.stats?.pendingRevenue?.value || 0}

@@ -9,15 +9,15 @@ const Analytics = () => {
     <div className="mt-5 space-y-5 @container">
       <div className="grid grid-cols-1 gap-3 @sm:grid-cols-2 @lg:grid-cols-4">
         <SummaryCard
-          bgcolor="bg-[#23B7E5]"
-          color="text-[#23B7E5]"
+          bgcolor="bg-cyan-500/10 dark:bg-cyan-400/10"
+          color="text-cyan-600 dark:text-cyan-400"
           icon={Boxes}
           title="Total Products"
           value={data?.products.length || 0}
         />
         <SummaryCard
-          bgcolor="bg-danger"
-          color="text-danger"
+          bgcolor="bg-red-500/10 dark:bg-red-400/10"
+          color="text-red-500 dark:text-red-400"
           icon={ArchiveX}
           title="Stock out products"
           value={
