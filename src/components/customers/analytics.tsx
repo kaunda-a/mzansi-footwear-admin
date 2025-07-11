@@ -7,6 +7,7 @@ import TopCustomers from "./tables/top-customers";
 import { useDashboardStats } from "@/api-hooks/dashboard/get-dashboard-stats";
 import { useCustomers } from "@/api-hooks/customers/get-customers";
 import { useGuestUsers } from "@/api-hooks/customers/get-guest-users";
+import { useCustomerRegistrations } from "@/api-hooks/dashboard/get-customer-registrations";
 import { Skeleton } from "@nextui-org/react";
 
 const Analytics = () => {
@@ -14,14 +15,19 @@ const Analytics = () => {
   const { data: customersData, isLoading: customersLoading } = useCustomers();
   const { data: guestUsersData, isLoading: guestLoading } = useGuestUsers();
 
-  // Create empty customer registration data structure
+  // Fetch customer registration data for all periods
+  const { data: weeklyRegistrations, isLoading: weeklyLoading } = useCustomerRegistrations("weekly");
+  const { data: monthlyRegistrations, isLoading: monthlyLoading } = useCustomerRegistrations("monthly");
+  const { data: yearlyRegistrations, isLoading: yearlyLoading } = useCustomerRegistrations("yearly");
+
+  // Combine customer registration data
   const customerRegistrationData = {
-    weeklyData: [],
-    monthlyData: [],
-    yearlyData: [],
+    weeklyData: weeklyRegistrations?.registrationData || [],
+    monthlyData: monthlyRegistrations?.registrationData || [],
+    yearlyData: yearlyRegistrations?.registrationData || [],
   };
 
-  if (statsLoading || customersLoading || guestLoading) {
+  if (statsLoading || customersLoading || guestLoading || weeklyLoading || monthlyLoading || yearlyLoading) {
     return (
       <div className="mt-5 space-y-5 @container">
         <div className="grid grid-cols-1 gap-3 @sm:grid-cols-2 @lg:grid-cols-4">
