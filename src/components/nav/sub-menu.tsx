@@ -47,14 +47,14 @@ const SubMenu = ({
             className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 w-full ${
               findActivePathname(data, pathname)
                 ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
-                : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
+                : "text-zinc-300 hover:bg-zinc-800/40 hover:text-white"
             }`}
             onClick={() => isOpen && setSubMenuOpen(!subMenuOpen)}
           >
             <div className={`p-1.5 rounded-lg transition-colors ${
               findActivePathname(data, pathname)
                 ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
-                : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
+                : "bg-zinc-800/30 text-zinc-400 group-hover:bg-zinc-700/50 group-hover:text-zinc-200"
             }`}>
               <data.icon size={16} />
             </div>
@@ -67,14 +67,14 @@ const SubMenu = ({
         </PopoverTrigger>
         <PopoverContent
           hidden={isOpen}
-          className="bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/60 shadow-xl rounded-2xl p-2"
+          className="bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/40 shadow-xl rounded-2xl p-2"
         >
           <ul className="min-w-[200px] space-y-1">
             {data.menus.map((menu, i) => (
               <li key={i}>
                 <Link
                   href={`/dashboard${menu.url}`}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-300 hover:bg-zinc-800/60 hover:text-white transition-all duration-200"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-300 hover:bg-zinc-800/50 hover:text-white transition-all duration-200"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-zinc-500"></div>
                   {menu.title}

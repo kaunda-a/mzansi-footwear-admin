@@ -84,9 +84,9 @@ const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? "open" : "closed"}
-        className="fixed z-[49] h-screen w-[16rem] max-w-[16rem] overflow-hidden lg:relative bg-gradient-to-b from-zinc-950/95 to-black/95 backdrop-blur-xl border-r border-zinc-800/50 shadow-2xl shadow-black/20"
+        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-hidden lg:relative bg-gradient-to-b from-[#0a0a0b] via-[#111113] to-[#0a0a0b] backdrop-blur-xl border border-[#1f1f23]/60 shadow-2xl shadow-black/40 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)]"
       >
-        <div className="mx-4 flex items-center gap-3 py-6 border-b border-zinc-800/50">
+        <div className="mx-4 flex items-center gap-3 py-6 border-b border-[#1f1f23]/40">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 rounded-xl blur-sm opacity-30"></div>
             <div className="relative bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 p-2.5 rounded-xl shadow-lg shadow-cyan-500/20">
@@ -119,13 +119,13 @@ const Sidebar = () => {
                   className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                     pathname === "/dashboard"
                       ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
-                      : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
+                      : "text-zinc-300 hover:bg-zinc-800/40 hover:text-white"
                   }`}
                 >
                   <div className={`p-1.5 rounded-lg transition-colors ${
                     pathname === "/dashboard"
                       ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
-                      : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
+                      : "bg-zinc-800/30 text-zinc-400 group-hover:bg-zinc-700/50 group-hover:text-zinc-200"
                   }`}>
                     <LayoutDashboard size={16} />
                   </div>
@@ -138,13 +138,13 @@ const Sidebar = () => {
                   className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                     pathname === "/dashboard/orders"
                       ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
-                      : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
+                      : "text-zinc-300 hover:bg-zinc-800/40 hover:text-white"
                   }`}
                 >
                   <div className={`p-1.5 rounded-lg transition-colors ${
                     pathname === "/dashboard/orders"
                       ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
-                      : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
+                      : "bg-zinc-800/30 text-zinc-400 group-hover:bg-zinc-700/50 group-hover:text-zinc-200"
                   }`}>
                     <Boxes size={16} />
                   </div>
@@ -157,13 +157,13 @@ const Sidebar = () => {
                   className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                     pathname === "/dashboard/revenue"
                       ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
-                      : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
+                      : "text-zinc-300 hover:bg-zinc-800/40 hover:text-white"
                   }`}
                 >
                   <div className={`p-1.5 rounded-lg transition-colors ${
                     pathname === "/dashboard/revenue"
                       ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
-                      : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
+                      : "bg-zinc-800/30 text-zinc-400 group-hover:bg-zinc-700/50 group-hover:text-zinc-200"
                   }`}>
                     <Wallet size={16} />
                   </div>
@@ -198,13 +198,13 @@ const Sidebar = () => {
                   className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                     pathname === "/dashboard/offers"
                       ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
-                      : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
+                      : "text-zinc-300 hover:bg-zinc-800/40 hover:text-white"
                   }`}
                 >
                   <div className={`p-1.5 rounded-lg transition-colors ${
                     pathname === "/dashboard/offers"
                       ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
-                      : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
+                      : "bg-zinc-800/30 text-zinc-400 group-hover:bg-zinc-700/50 group-hover:text-zinc-200"
                   }`}>
                     <BadgePercent size={16} />
                   </div>
@@ -217,13 +217,13 @@ const Sidebar = () => {
                   className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                     pathname === "/dashboard/site-traffic"
                       ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
-                      : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
+                      : "text-zinc-300 hover:bg-zinc-800/40 hover:text-white"
                   }`}
                 >
                   <div className={`p-1.5 rounded-lg transition-colors ${
                     pathname === "/dashboard/site-traffic"
                       ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
-                      : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
+                      : "bg-zinc-800/30 text-zinc-400 group-hover:bg-zinc-700/50 group-hover:text-zinc-200"
                   }`}>
                     <BarChart3 size={16} />
                   </div>
@@ -251,8 +251,8 @@ const Sidebar = () => {
             open ? "right-4" : "right-5"
           } z-50 hidden h-fit w-fit cursor-pointer md:block`}
         >
-          <div className="p-2 rounded-xl bg-zinc-800/80 backdrop-blur-sm border border-zinc-700/60 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-zinc-700/80">
-            <ChevronLeft size={18} className="text-zinc-400 hover:text-zinc-200" />
+          <div className="p-2 rounded-xl bg-zinc-800/60 backdrop-blur-sm border border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-zinc-700/70">
+            <ChevronLeft size={18} className="text-zinc-300 hover:text-white" />
           </div>
         </motion.div>
       </motion.div>
@@ -260,7 +260,7 @@ const Sidebar = () => {
         className="absolute top-4 z-20 m-4 cursor-pointer lg:hidden"
         onClick={() => setOpen(true)}
       >
-        <div className="p-2 rounded-xl bg-zinc-900/90 backdrop-blur-sm border border-zinc-700/60 shadow-lg">
+        <div className="p-2 rounded-xl bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/40 shadow-lg">
           <Menu size={20} className="text-zinc-300" />
         </div>
       </div>
