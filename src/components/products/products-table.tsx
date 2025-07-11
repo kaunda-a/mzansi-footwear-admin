@@ -301,7 +301,6 @@ export default function ProductsTable() {
     onSearchChange,
     onRowsPerPageChange,
     data?.products.length,
-    hasSearchFilter,
     onClear,
   ]);
 
@@ -337,7 +336,7 @@ export default function ProductsTable() {
         </div>
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter, onNextPage, onPreviousPage]);
+  }, [page, pages, onNextPage, onPreviousPage]);
 
   return (
     <Table

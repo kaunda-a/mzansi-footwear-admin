@@ -301,7 +301,6 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
     onSearchChange,
     onRowsPerPageChange,
     orders?.length,
-    hasSearchFilter,
     onClear,
   ]);
 
@@ -337,7 +336,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
         </div>
       </div>
     );
-  }, [items?.length, page, pages, hasSearchFilter, onNextPage, onPreviousPage]);
+  }, [page, pages, onNextPage, onPreviousPage]);
 
   return (
     <Table

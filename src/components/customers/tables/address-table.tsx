@@ -261,7 +261,7 @@ export default function AddressTable() {
         </div>
       </div>
     );
-  }, [items.length, page, pages, onNextPage, onPreviousPage]);
+  }, [page, pages, onNextPage, onPreviousPage]);
 
   return (
     <Table
