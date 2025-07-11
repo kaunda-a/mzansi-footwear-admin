@@ -46,15 +46,15 @@ const SubMenu = ({
           <button
             className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 w-full ${
               findActivePathname(data, pathname)
-                ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 dark:text-blue-400 shadow-sm border border-blue-200/50 dark:border-blue-500/20"
-                : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 border border-emerald-500/30"
+                : "text-zinc-300 hover:bg-zinc-800/60 hover:text-white"
             }`}
             onClick={() => isOpen && setSubMenuOpen(!subMenuOpen)}
           >
             <div className={`p-1.5 rounded-lg transition-colors ${
               findActivePathname(data, pathname)
-                ? "bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-sm"
-                : "bg-slate-200/80 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400 group-hover:bg-slate-300/80 dark:group-hover:bg-slate-600/50"
+                ? "bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 text-white shadow-lg shadow-emerald-500/20"
+                : "bg-zinc-800/50 text-zinc-400 group-hover:bg-zinc-700/60 group-hover:text-zinc-200"
             }`}>
               <data.icon size={16} />
             </div>
@@ -67,16 +67,16 @@ const SubMenu = ({
         </PopoverTrigger>
         <PopoverContent
           hidden={isOpen}
-          className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-xl rounded-2xl p-2"
+          className="bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/60 shadow-xl rounded-2xl p-2"
         >
           <ul className="min-w-[200px] space-y-1">
             {data.menus.map((menu, i) => (
               <li key={i}>
                 <Link
                   href={`/dashboard${menu.url}`}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-300 hover:bg-zinc-800/60 hover:text-white transition-all duration-200"
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-500"></div>
                   {menu.title}
                 </Link>
               </li>
