@@ -51,7 +51,7 @@ const NewBannerForm = ({
         prev ? [...prev, mutation.data.newBanner] : [mutation.data.newBanner],
       );
     }
-  }, [mutation.data]);
+  }, [mutation.data, setBannerData]);
 
   async function handleCreateBanner(data: z.infer<typeof ZodHeroBannerSchema>) {
     mutation.mutate({ values: data, images: { image, imageSm } });

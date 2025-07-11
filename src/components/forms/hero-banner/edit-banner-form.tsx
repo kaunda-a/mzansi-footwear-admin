@@ -57,7 +57,7 @@ const EditBannerForm = ({
           : null,
       );
     }
-  }, [mutation.data]);
+  }, [mutation.data, banner.id, setBannerData]);
 
   async function handleEditBanner(data: z.infer<typeof ZodHeroBannerSchema>) {
     mutation.mutate({

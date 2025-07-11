@@ -94,7 +94,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
     }
 
     return filteredOrders;
-  }, [orders, filterValue]);
+  }, [orders, filterValue, hasSearchFilter]);
 
   const pages = Math.ceil(filteredItems?.length / rowsPerPage);
 
@@ -198,7 +198,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
           return cellValue;
       }
     },
-    [],
+    [mutation],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -302,6 +302,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
     onRowsPerPageChange,
     orders?.length,
     hasSearchFilter,
+    onClear,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -336,7 +337,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
         </div>
       </div>
     );
-  }, [items?.length, page, pages, hasSearchFilter]);
+  }, [items?.length, page, pages, hasSearchFilter, onNextPage, onPreviousPage]);
 
   return (
     <Table

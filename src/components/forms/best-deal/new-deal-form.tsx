@@ -46,7 +46,7 @@ const NewDealForm = ({
 
   useEffect(() => {
     if (mutation.data) setDealData(mutation.data.newDeal);
-  }, [mutation.data]);
+  }, [mutation.data, setDealData]);
 
   async function handleCreateDeal(data: z.infer<typeof ZodBestDealSchema>) {
     mutation.mutate({ values: data, imageUrl: image });

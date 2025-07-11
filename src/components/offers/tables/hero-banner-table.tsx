@@ -102,7 +102,7 @@ export default function HeroBannerTable({
         </span>
       </>
     );
-  }, [visibleColumns, data?.length]);
+  }, [visibleColumns, data?.length, setBannerData]);
 
   const renderCell = React.useCallback(
     (banner: HeroBanner, columnKey: React.Key) => {
@@ -143,7 +143,7 @@ export default function HeroBannerTable({
           return cellValue;
       }
     },
-    [],
+    [setBannerData],
   );
 
   return (

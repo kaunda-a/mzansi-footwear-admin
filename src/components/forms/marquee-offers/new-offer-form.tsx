@@ -38,7 +38,7 @@ const NewOfferForm = ({
       setOffersData((prev) =>
         prev ? [...prev, mutation.data.newOffer] : [mutation.data.newOffer],
       );
-  }, [mutation.data]);
+  }, [mutation.data, setOffersData]);
 
   async function handleCreateOffer(
     data: z.infer<typeof ZodMarqueeOfferSchema>,

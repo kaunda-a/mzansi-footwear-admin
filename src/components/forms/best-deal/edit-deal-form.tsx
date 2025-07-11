@@ -41,7 +41,7 @@ const EditDealForm = ({
 
   useEffect(() => {
     setImage(deal.imageUrl);
-  }, []);
+  }, [deal.imageUrl]);
 
   function onSuccess() {
     toast.success("Deal updated successfully.");
@@ -52,7 +52,7 @@ const EditDealForm = ({
 
   useEffect(() => {
     if (mutation.data) setDealData(mutation.data.updatedResult);
-  }, [mutation.data]);
+  }, [mutation.data, setDealData]);
 
   async function handleUpdateDeal(data: z.infer<typeof ZodBestDealSchema>) {
     mutation.mutate({ id: deal.id, values: data, imageUrl: image });

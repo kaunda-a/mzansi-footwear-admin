@@ -49,7 +49,7 @@ const EditOfferForm = ({
           : null,
       );
     }
-  }, [mutation.data]);
+  }, [mutation.data, offer.id, setOffersData]);
 
   async function handleCreateOffer(
     data: z.infer<typeof ZodMarqueeOfferSchema>,

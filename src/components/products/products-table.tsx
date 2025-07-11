@@ -302,6 +302,7 @@ export default function ProductsTable() {
     onRowsPerPageChange,
     data?.products.length,
     hasSearchFilter,
+    onClear,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -336,7 +337,7 @@ export default function ProductsTable() {
         </div>
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages, hasSearchFilter, onNextPage, onPreviousPage]);
 
   return (
     <Table

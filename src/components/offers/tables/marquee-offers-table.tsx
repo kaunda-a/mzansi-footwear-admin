@@ -43,7 +43,7 @@ export default function MarqueeOffersTable({
           return cellValue;
       }
     },
-    [],
+    [setOffersData],
   );
 
   return (
