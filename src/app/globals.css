@@ -74,8 +74,16 @@
   }
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #0a0a0b 0%, #0f0f11 50%, #0a0a0b 100%);
     min-height: 100vh;
+    transition: background 0.3s ease;
+  }
+
+  body.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  }
+
+  body.dark {
+    background: linear-gradient(135deg, #124a4f 0%, #0e3a3f 25%, #07202c 75%, #071316 100%);
   }
 }
 

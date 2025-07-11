@@ -26,6 +26,11 @@ module.exports = {
       },
       colors: {
         dark: "#18181b",
+        navy1: "#07202c",
+        cyan1: "#0e3a3f",
+        blackish: "#071316",
+        teal1: "#124a4f",
+        bluish: "#0a2c3b",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -51,6 +56,10 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(135deg, #124a4f, #0e3a3f, #07202c, #071316)',
+        'light-gradient': 'linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1, #94a3b8)',
       },
       borderRadius: {
         lg: "var(--radius)",

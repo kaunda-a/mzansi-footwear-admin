@@ -10,7 +10,7 @@ const Nav = ({ children }: { children: ReactNode }) => {
     <div className="flex">
       <Sidebar />
       <div className="scrollbar-thin max-h-screen w-full overflow-y-scroll">
-        <nav className="sticky top-0 z-10 flex w-full items-center justify-between px-6 py-3 bg-[#0a0a0b]/90 backdrop-blur-xl border-b border-[#1f1f23]/50 shadow-lg shadow-black/10">
+        <nav className="sticky top-0 z-10 flex w-full items-center justify-between px-6 py-3 bg-white/90 dark:bg-blackish/90 backdrop-blur-xl border-b border-slate-200/60 dark:border-teal1/50 shadow-lg shadow-black/10 transition-all duration-300">
           <div className="flex items-center">
             <NavHeading />
           </div>
@@ -23,10 +23,10 @@ const Nav = ({ children }: { children: ReactNode }) => {
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <div className="p-1.5 rounded-lg hover:bg-zinc-800/50 transition-colors">
+              <div className="p-1.5 rounded-lg hover:bg-slate-100/80 dark:hover:bg-zinc-800/50 transition-colors">
                 <Notification />
               </div>
-              <div className="p-1.5 rounded-lg hover:bg-zinc-800/50 transition-colors">
+              <div className="p-1.5 rounded-lg hover:bg-slate-100/80 dark:hover:bg-zinc-800/50 transition-colors">
                 <ThemeSwitcher />
               </div>
               <div className="ml-1">
@@ -35,7 +35,7 @@ const Nav = ({ children }: { children: ReactNode }) => {
             </div>
           </div>
         </nav>
-        <main className="mx-auto min-h-[calc(100vh_-_80px)] max-w-7xl flex-1 px-6 py-6 bg-gradient-to-br from-[#0a0a0b] via-[#0f0f11] to-[#0a0a0b]">
+        <main className="mx-auto min-h-[calc(100vh_-_80px)] max-w-7xl flex-1 px-6 py-6 bg-slate-50/30 dark:bg-transparent transition-all duration-300">
           <div className="space-y-6">
             {children}
           </div>
