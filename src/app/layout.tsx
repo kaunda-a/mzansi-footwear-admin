@@ -10,8 +10,13 @@ import { GlobalContextProvider } from "@/context/store";
 import Loading from "./loading";
 
 export const metadata: Metadata = {
-  title: "Quirkify dashboard",
-  description: "Discover the Latest Gadgets: Your One-Stop Gadget Shop!",
+  title: "Mzansi Footwear Admin Dashboard",
+  description: "Manage your South African footwear business with our comprehensive admin dashboard",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/mzansi-footwear-logo.svg",
+  },
 };
 
 export default async function RootLayout({

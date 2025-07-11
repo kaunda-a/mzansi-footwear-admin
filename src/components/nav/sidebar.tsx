@@ -88,14 +88,16 @@ const Sidebar = () => {
       >
         <div className="mx-3.5 flex items-center gap-4 py-3 font-medium">
           <Image
-            src="/icon.png"
+            src="/mzansi-footwear-logo.svg"
             className="flex-shrink-0"
-            alt="icon"
+            alt="Mzansi Footwear Logo"
             width={40}
-            height={45}
+            height={40}
             style={{ width: "auto", height: "auto" }}
           />
-          <span className="whitespace-pre text-xl">Quirkify</span>
+          <span className="whitespace-pre text-xl font-semibold text-blue-600 dark:text-blue-400">
+            Mzansi Footwear
+          </span>
         </div>
 
         <div className="flex h-full flex-col pb-32">
