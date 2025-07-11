@@ -44,29 +44,41 @@ const SubMenu = ({
       >
         <PopoverTrigger>
           <button
-            className={`flex cursor-default items-center justify-start rounded-md bg-transparent p-3 font-medium outline-none duration-300 md:cursor-pointer ${
-              findActivePathname(data, pathname) && "text-primary"
+            className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 w-full ${
+              findActivePathname(data, pathname)
+                ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 dark:text-blue-400 shadow-sm border border-blue-200/50 dark:border-blue-500/20"
+                : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
             }`}
             onClick={() => isOpen && setSubMenuOpen(!subMenuOpen)}
           >
-            <data.icon size={23} className="min-w-max" />
-            <p className="ml-5 flex-1 text-left capitalize">{data.name}</p>
+            <div className={`p-1.5 rounded-lg transition-colors ${
+              findActivePathname(data, pathname)
+                ? "bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-sm"
+                : "bg-slate-200/80 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400 group-hover:bg-slate-300/80 dark:group-hover:bg-slate-600/50"
+            }`}>
+              <data.icon size={16} />
+            </div>
+            <span className="flex-1 text-left font-semibold">{data.name}</span>
             <ChevronDown
-              className={`${
-                subMenuOpen && "rotate-180"
-              } flex-shrink-0 duration-200`}
-              size={15}
+              size={16}
+              className={`${subMenuOpen && "rotate-180"} duration-200 transition-transform`}
             />
           </button>
         </PopoverTrigger>
-        <PopoverContent hidden={isOpen} className="dark:bg-zinc-800">
-          <ul className="min-w-[200px] space-y-1 py-1">
+        <PopoverContent
+          hidden={isOpen}
+          className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-xl rounded-2xl p-2"
+        >
+          <ul className="min-w-[200px] space-y-1">
             {data.menus.map((menu, i) => (
-              <li
-                className="cursor-pointer rounded-md py-1 ps-2 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-                key={i}
-              >
-                <Link href={`/dashboard${menu.url}`}>{menu.title}</Link>
+              <li key={i}>
+                <Link
+                  href={`/dashboard${menu.url}`}
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                  {menu.title}
+                </Link>
               </li>
             ))}
           </ul>

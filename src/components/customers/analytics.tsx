@@ -5,15 +5,14 @@ import SummaryCard from "../dashboard/summary/summary-card";
 import { UserCheck, UserMinus, Users } from "lucide-react";
 import TopCustomers from "./tables/top-customers";
 import { useDashboardStats } from "@/api-hooks/dashboard/get-dashboard-stats";
-import { useCustomers } from "@/api-hooks/customers/get-customers";
-import { useGuestUsers } from "@/api-hooks/customers/get-guest-users";
+
+import { useGetGuestUsers } from "@/api-hooks/guest-users/get-guest-users";
 import { useCustomerRegistrations } from "@/api-hooks/dashboard/get-customer-registrations";
 import { Skeleton } from "@nextui-org/react";
 
 const Analytics = () => {
   const { data: statsData, isLoading: statsLoading } = useDashboardStats();
-  const { data: customersData, isLoading: customersLoading } = useCustomers();
-  const { data: guestUsersData, isLoading: guestLoading } = useGuestUsers();
+  const { data: guestUsersData, isLoading: guestLoading } = useGetGuestUsers();
 
   // Fetch customer registration data for all periods
   const { data: weeklyRegistrations, isLoading: weeklyLoading } = useCustomerRegistrations("weekly");
@@ -27,7 +26,7 @@ const Analytics = () => {
     yearlyData: yearlyRegistrations?.registrationData || [],
   };
 
-  if (statsLoading || customersLoading || guestLoading || weeklyLoading || monthlyLoading || yearlyLoading) {
+  if (statsLoading || guestLoading || weeklyLoading || monthlyLoading || yearlyLoading) {
     return (
       <div className="mt-5 space-y-5 @container">
         <div className="grid grid-cols-1 gap-3 @sm:grid-cols-2 @lg:grid-cols-4">
@@ -68,8 +67,8 @@ const Analytics = () => {
           icon={UserCheck}
           title="Buyers Count"
           url="/dashboard/customers?tab=analytics#top-customer"
-          value={customersData?.customers?.filter(customer => customer.orders && customer.orders.length > 0).length || 0}
-          percentage={undefined}
+          value={statsData?.stats?.totalSales?.value || 0}
+          percentage={statsData?.stats?.totalSales?.percentage || undefined}
         />
       </div>
       <NewCustomerRegistrations data={customerRegistrationData} />

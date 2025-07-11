@@ -19,33 +19,26 @@ import {
 } from "@nextui-org/react";
 import { ChevronDown, Search } from "lucide-react";
 import { capitalize, formatCurrency } from "@/lib/utils";
-import { useCustomers } from "@/api-hooks/customers/get-customers";
+import { useTopCustomers } from "@/api-hooks/dashboard/get-customer-analytics";
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
   { name: "EMAIL", uid: "email" },
-  { name: "TOTAL PURCHASES", uid: "total_purchases", sortable: true },
-  { name: "AMOUNT SPENT", uid: "amount", sortable: true },
+  { name: "TOTAL PURCHASES", uid: "purchases", sortable: true },
+  { name: "AMOUNT SPENT", uid: "amountSpent", sortable: true },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "amount", "total_purchases"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "name", "amountSpent", "purchases"];
 
 export default function TopCustomers() {
-  const { data: customersData } = useCustomers();
+  const { data: topCustomersData } = useTopCustomers();
 
-  // Transform customer data to include calculated fields
+  // Use the top customers data directly
   const users = React.useMemo(() => {
-    if (!customersData?.customers) return [];
-
-    return customersData.customers.map(customer => ({
-      id: customer.id,
-      name: customer.name,
-      email: customer.email,
-      total_purchases: customer.orders?.length || 0,
-      amount: customer.orders?.reduce((sum, order) => sum + (order.total || 0), 0) || 0,
-    })).sort((a, b) => b.amount - a.amount).slice(0, 20); // Top 20 customers
-  }, [customersData?.customers]);
+    if (!topCustomersData?.topCustomers) return [];
+    return topCustomersData.topCustomers;
+  }, [topCustomersData?.topCustomers]);
 
   type User = typeof users[0];
   const [filterValue, setFilterValue] = React.useState("");
@@ -111,14 +104,14 @@ export default function TopCustomers() {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
+            avatarProps={{ radius: "lg", src: user.image }}
             name={cellValue}
             description={user.email}
           >
             {user.email}
           </User>
         );
-      case "amount":
+      case "amountSpent":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small">
@@ -126,7 +119,7 @@ export default function TopCustomers() {
             </p>
           </div>
         );
-      case "total_purchases":
+      case "purchases":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small">{cellValue}</p>
