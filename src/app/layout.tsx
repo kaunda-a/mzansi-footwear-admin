@@ -13,9 +13,12 @@ export const metadata: Metadata = {
   title: "Mzansi Footwear Admin Dashboard",
   description: "Manage your South African footwear business with our comprehensive admin dashboard",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -26,6 +29,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body className="font-poppins transition-all duration-300">
         <ErrorBoundaryProvider>
           <AuthProvider>
