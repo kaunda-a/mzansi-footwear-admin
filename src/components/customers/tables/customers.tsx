@@ -299,6 +299,7 @@ export default function Customers() {
     onSearchChange,
     onRowsPerPageChange,
     onClear,
+    customers?.customers.length,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -333,7 +334,7 @@ export default function Customers() {
         </div>
       </div>
     );
-  }, [page, pages, filteredItems.length, onNextPage, onPreviousPage]);
+  }, [page, pages, onNextPage, onPreviousPage]);
 
   return (
     <Table

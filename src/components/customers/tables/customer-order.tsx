@@ -164,7 +164,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
           return cellValue;
       }
     },
-    [],
+    [mutation],
   );
 
   const onRowsPerPageChange = useCallback(
@@ -181,7 +181,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
       return filteredOrders;
     }
     return [];
-  }, []);
+  }, [orders]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -229,7 +229,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
         </div>
       </div>
     );
-  }, [page, pages, filteredItems.length, onNextPage, onPreviousPage]);
+  }, [page, pages, onNextPage, onPreviousPage]);
 
   const topContent = useMemo(() => {
     return (
@@ -279,7 +279,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
         </div>
       </div>
     );
-  }, [visibleColumns]);
+  }, [visibleColumns, onRowsPerPageChange, orders?.orders?.length]);
 
   return (
     <>

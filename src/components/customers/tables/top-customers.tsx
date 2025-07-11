@@ -76,7 +76,7 @@ export default function TopCustomers() {
     }
 
     return filteredUsers;
-  }, [filterValue, hasSearchFilter]);
+  }, [filterValue, hasSearchFilter, users]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -228,6 +228,7 @@ export default function TopCustomers() {
     onSearchChange,
     onRowsPerPageChange,
     onClear,
+    users.length,
   ]);
 
   const bottomContent = React.useMemo(() => {

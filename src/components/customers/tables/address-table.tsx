@@ -224,12 +224,9 @@ export default function AddressTable() {
       </div>
     );
   }, [
-    filterValue,
     visibleColumns,
-    onSearchChange,
     onRowsPerPageChange,
     addressData?.addresses.length,
-    hasSearchFilter,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -264,7 +261,7 @@ export default function AddressTable() {
         </div>
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages, onNextPage, onPreviousPage]);
 
   return (
     <Table
