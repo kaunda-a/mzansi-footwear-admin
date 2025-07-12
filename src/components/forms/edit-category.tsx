@@ -67,7 +67,7 @@ const EditCategoryForm = ({
               <FormItem className="max-w-[120px]">
                 <FormControl>
                   <Input
-                    placeholder="Parent ID"
+                    placeholder="Parent ID (optional)"
                     type="number"
                     {...field}
                     radius="sm"

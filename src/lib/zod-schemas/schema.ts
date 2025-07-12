@@ -105,8 +105,8 @@ export const ZodProductSchema = z.object({
 });
 
 export const ZodCategorySchema = z.object({
-  category: z.string(),
-  parentId: z.string(),
+  category: z.string().min(1, "Category name is required"),
+  parentId: z.string().optional(),
 });
 
 export const ZodBestDealSchema = z.object({

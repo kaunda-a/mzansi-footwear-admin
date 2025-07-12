@@ -136,7 +136,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   label="Category Id"
                   labelPlacement="outside"
                   onChange={field.onChange}
-                  selectedKeys={categories ? [field.value || ""] : ""}
+                  selectedKeys={field.value ? [field.value] : []}
                   radius="sm"
                   isRequired
                   variant="bordered"
@@ -146,15 +146,15 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                       "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50 mt-1 h-unit-10",
                   }}
                 >
-                  {categories ? (
+                  {categories && categories.length > 0 ? (
                     categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
+                      <SelectItem key={category.id.toString()} value={category.id.toString()}>
                         {category.name}
                       </SelectItem>
                     ))
                   ) : (
-                    <SelectItem key={1} value={"empty"}>
-                      No items to select!
+                    <SelectItem key="empty" value="empty" isDisabled>
+                      No categories available
                     </SelectItem>
                   )}
                 </Select>

@@ -62,13 +62,7 @@ const AddProductForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 rounded-lg border bg-white shadow-md dark:bg-dark"
       >
-        <select {...form.register("categoryId")}>
-          {categories?.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+
         <div className="flex flex-col md:flex-row">
           <ProductDetails form={form} />
           <ProductOptions form={form} />

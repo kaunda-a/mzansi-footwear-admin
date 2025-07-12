@@ -12,6 +12,8 @@ import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
@@ -63,7 +65,7 @@ export async function POST(req: NextRequest) {
       await db.category.create({
         data: {
           name: data.category,
-          parentId: Number(data.parentId),
+          parentId: data.parentId === "" ? null : Number(data.parentId),
         },
       });
       return success200({});
@@ -136,7 +138,7 @@ export async function PUT(req: NextRequest) {
         },
         data: {
           name: data.values.category,
-          parentId: Number(data.values.parentId),
+          parentId: data.values.parentId === "" ? null : Number(data.values.parentId),
         },
       });
 
