@@ -7,6 +7,7 @@ export const ZodAuthSchema = z.object({
 
 export const ZodProfileSchema = z.object({
   name: z.string().min(3).max(20),
+  image: z.string().optional(),
 });
 
 export const ZodCustomerSchema = z.object({

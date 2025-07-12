@@ -27,7 +27,8 @@ const EditProfileForm = ({
   const form = useForm<z.infer<typeof ZodProfileSchema>>({
     resolver: zodResolver(ZodProfileSchema),
     defaultValues: {
-      name: session?.user.name,
+      name: session?.user.name || "",
+      image: session?.user.image || "",
     },
   });
 
@@ -39,6 +40,7 @@ const EditProfileForm = ({
     });
     form.reset({
       name: data.data.name,
+      image: data.data.image,
     });
     onClose();
   };
@@ -59,6 +61,18 @@ const EditProfileForm = ({
             <FormItem className="mb-3">
               <FormControl>
                 <Input placeholder="Name" {...field} radius="sm" size="sm" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="mb-3">
+              <FormControl>
+                <Input placeholder="Image URL" {...field} radius="sm" size="sm" />
               </FormControl>
               <FormMessage />
             </FormItem>

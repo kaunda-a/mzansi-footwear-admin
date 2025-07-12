@@ -1,10 +1,12 @@
 import '@testing-library/jest-dom'
 
 // Polyfill for Next.js Response and Request
-global.Response = Response
-global.Request = Request
-global.Headers = Headers
-global.fetch = fetch
+import { Response, Request, Headers } from 'node-fetch';
+
+global.Response = Response;
+global.Request = Request;
+global.Headers = Headers;
+global.fetch = jest.fn();
 
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
