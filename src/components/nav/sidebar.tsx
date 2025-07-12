@@ -84,7 +84,7 @@ const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? "open" : "closed"}
-        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-hidden lg:relative border border-slate-300/60 dark:border-teal1/60 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)] transition-all duration-300"
+        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-hidden lg:relative border border-slate-300/60 dark:border-teal1/60 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)] transition-all duration-300 bg-white/100 dark:bg-zinc-900/100"
       >
         <div className="mx-4 flex items-center gap-3 py-6 border-b border-slate-200/60 dark:border-teal1/40">
           <div className="relative">
@@ -260,7 +260,7 @@ const Sidebar = () => {
         className="absolute top-4 z-20 m-4 cursor-pointer lg:hidden"
         onClick={() => setOpen(true)}
       >
-        <div className="p-2 rounded-xl bg-white/90 dark:bg-zinc-900/80 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg">
+        <div className="p-2 rounded-xl bg-white/90 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-700/40 shadow-lg">
           <Menu size={20} className="text-slate-600 dark:text-zinc-300" />
         </div>
       </div>

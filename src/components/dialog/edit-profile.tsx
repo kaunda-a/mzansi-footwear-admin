@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import React from "react";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import EditProfileForm from "../forms/edit-profile-form";
 
-export default function EditProfile() {
+export default function EditProfile({ update }: { update: any }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -27,7 +27,7 @@ export default function EditProfile() {
                 Edit Profile
               </ModalHeader>
               <ModalBody className="mb-5">
-                <EditProfileForm onClose={onClose} />
+                <EditProfileForm onClose={onClose} update={update} />
               </ModalBody>
             </>
           )}

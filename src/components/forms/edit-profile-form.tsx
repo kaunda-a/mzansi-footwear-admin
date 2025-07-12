@@ -12,14 +12,17 @@ import { ZodProfileSchema } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { useUpdateProfile } from "@/api-hooks/edit-profile";
 import { AdminProfileResProps } from "@/lib/types/types";
 
-const EditProfileForm = ({ onClose }: { onClose: () => void }) => {
-  const { data: session, update } = useSession();
-
-  const router = useRouter();
+const EditProfileForm = ({
+  onClose,
+  update,
+}: {
+  onClose: () => void;
+  update: any;
+}) => {
+  const { data: session } = useSession();
 
   const form = useForm<z.infer<typeof ZodProfileSchema>>({
     resolver: zodResolver(ZodProfileSchema),
@@ -28,28 +31,16 @@ const EditProfileForm = ({ onClose }: { onClose: () => void }) => {
     },
   });
 
-  async function updateSession(updatedData: z.infer<typeof ZodProfileSchema>) {
-    await update({
-      ...session,
-      user: {
-        ...session?.user,
-        name: updatedData.name,
-      },
-    });
-  }
-
   const onSuccess = (data: AdminProfileResProps) => {
-    toast.success(
-      "Profile updated successfully. Refresh the page to see changes!",
-    );
-    updateSession({
-      name: data.name || "",
+    toast.success("Profile updated successfully");
+    update({
+      name: data.data.name,
+      image: data.data.image,
     });
     form.reset({
-      name: data.name,
+      name: data.data.name,
     });
     onClose();
-    router.refresh();
   };
 
   const mutation = useUpdateProfile(onSuccess);
