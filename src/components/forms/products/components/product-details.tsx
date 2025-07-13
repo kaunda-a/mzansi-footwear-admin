@@ -32,7 +32,6 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 isRequired
                 label="Title"
                 labelPlacement="outside"
-                placeholder="Title"
                 variant="bordered"
                 radius="lg"
                 classNames={{
@@ -66,7 +65,6 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   isRequired
                   label="Slug"
                   labelPlacement="outside"
-                  placeholder="Slug"
                   variant="bordered"
                   radius="lg"
                   classNames={{
@@ -215,7 +213,6 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   isRequired
                   label="Stock"
                   labelPlacement="outside"
-                  placeholder="Stock"
                   variant="bordered"
                   radius="lg"
                   classNames={{
@@ -252,7 +249,6 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                     isRequired
                     label={item.replace(/([a-z])([A-Z])/g, "$1 $2")}
                     labelPlacement="outside"
-                    placeholder={item.replace(/([a-z])([A-Z])/g, "$1 $2")}
                     variant="bordered"
                     radius="lg"
                     classNames={{
