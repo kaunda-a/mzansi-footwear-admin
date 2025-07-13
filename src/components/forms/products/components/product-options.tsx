@@ -6,34 +6,18 @@ import {
 } from "@/components/ui/form";
 import { ProductFormProps } from "@/lib/types/types";
 import { Button, Input } from "@nextui-org/react";
-import { Ban, Plus } from "lucide-react";
-import { useState } from "react";
-import AddColorSection from "./add-color-section";
+import AddColorDialog from "@/components/dialog/products/add-color-dialog";
 import { useGlobalContext } from "@/context/store";
 
 const ProductOptions = ({ form }: ProductFormProps) => {
   const { colorVariants, setColorVariants } = useGlobalContext();
   const [disable, setDisable] = useState(false);
 
-  function addColorSection() {
-    setColorVariants((prevVariant) => [
-      ...prevVariant,
-      { color: "", thumbnail: "", others: [] },
-    ]);
-  }
   return (
     <div className="flex-1 p-5 ps-3">
       <div className="mb-3 flex w-full items-center justify-between">
         <p className="font-medium">Color</p>
-        <Button
-          isIconOnly
-          type="button"
-          onClick={addColorSection}
-          isDisabled={disable}
-          className="bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70"
-        >
-          {disable ? <Ban /> : <Plus />}
-        </Button>
+        <AddColorDialog form={form} setDisable={setDisable} />
       </div>
       <hr />
       <div>
