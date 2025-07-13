@@ -20,7 +20,7 @@ import {
   Selection,
   SortDescriptor,
 } from "@nextui-org/react";
-import { ChevronDown, Eye, Pencil, Plus, Search } from "lucide-react";
+import { ChevronDown, Eye, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { capitalize, formatCurrency, textTruncate } from "@/lib/utils";
 import { useProducts } from "@/api-hooks/products/get-products";
 import { ProductProps } from "@/lib/types/types";
