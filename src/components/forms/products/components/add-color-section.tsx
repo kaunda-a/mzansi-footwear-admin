@@ -3,9 +3,7 @@ import { AddColorSectionProps } from "@/lib/types/types";
 import ImagePreview from "./image-preview";
 import { useGlobalContext } from "@/context/store";
 import { capitalizeSearchParam } from "@/lib/utils";
-import { Button } from "@nextui-org/button";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Input } from "@nextui-org/input";
+import { Button, Tooltip, Input } from "@nextui-org/react";
 import ImagePicker from "@/components/dialog/products/image-picker";
 
 const AddColorSection = ({
