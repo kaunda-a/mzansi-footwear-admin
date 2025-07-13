@@ -17,7 +17,8 @@ export function useUpdateProfile(
     mutationFn: handleUpdate,
     onSuccess,
     onError: (error: any) => {
-      if (error.response.status === 403)
+      console.error("Profile update error:", error);
+      if (error.response && error.response.status === 403)
         toast.error(
           error.response.data.message || "Error in updating profile!",
         );
