@@ -3,9 +3,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Button as NextUIButton } from "@nextui-org/react";
+import { Button as NextUIButton, ButtonProps } from "@nextui-org/react";
 
-interface MagicButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagicButtonProps extends ButtonProps {
   children: React.ReactNode;
   className?: string;
 }
