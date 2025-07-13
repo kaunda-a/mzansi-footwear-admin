@@ -30,7 +30,7 @@ const ProductOptions = ({ form }: ProductFormProps) => {
           type="button"
           onClick={addColorSection}
           isDisabled={disable}
-          className="bg-[rgba(0,111,238,0.15)] text-[#006FEE]"
+          className="bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70"
         >
           {disable ? <Ban /> : <Plus />}
         </Button>
@@ -65,13 +65,21 @@ const ProductOptions = ({ form }: ProductFormProps) => {
                       /([a-z])([A-Z])/g,
                       "$1 $2",
                     )} (optional)`}
-                    variant="faded"
-                    radius="sm"
+                    variant="bordered"
+                    radius="lg"
                     classNames={{
                       label: "font-medium capitalize z-0",
-                      inputWrapper:
-                        "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
                       input: "placeholder:capitalize",
+                      inputWrapper: [
+                        "border-2",
+                        "border-slate-200/60",
+                        "bg-transparent",
+                        "dark:border-zinc-700/40",
+                        "group-data-[focus=true]:border-blue-500/60",
+                        "dark:group-data-[focus=true]:border-blue-500/60",
+                        "group-data-[hover=true]:border-slate-300",
+                        "dark:group-data-[hover=true]:border-zinc-600",
+                      ],
                     }}
                   />
                 </FormControl>
@@ -92,12 +100,21 @@ const ProductOptions = ({ form }: ProductFormProps) => {
                 label="Keywords"
                 labelPlacement="outside"
                 placeholder="Keywords"
-                variant="faded"
-                radius="sm"
+                variant="bordered"
+                radius="lg"
                 classNames={{
                   label: "font-medium capitalize",
-                  inputWrapper:
-                    "mt-3 border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                  inputWrapper: [
+                    "border-2",
+                    "border-slate-200/60",
+                    "bg-transparent",
+                    "dark:border-zinc-700/40",
+                    "group-data-[focus=true]:border-blue-500/60",
+                    "dark:group-data-[focus=true]:border-blue-500/60",
+                    "group-data-[hover=true]:border-slate-300",
+                    "dark:group-data-[hover=true]:border-zinc-600",
+                    "mt-3",
+                  ],
                   input: "placeholder:capitalize",
                 }}
               />

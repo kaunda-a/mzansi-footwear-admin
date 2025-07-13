@@ -169,13 +169,23 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   labelPlacement="outside"
                   onChange={field.onChange}
                   selectedKeys={field.value ? [field.value] : []}
-                  radius="sm"
+                  radius="lg"
                   isRequired
                   variant="bordered"
                   classNames={{
                     label: "text-sm font-medium z-0",
-                    trigger:
-                      "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md mt-1 h-unit-10",
+                    trigger: [
+                      "border-2",
+                      "border-slate-200/60",
+                      "bg-transparent",
+                      "dark:border-zinc-700/40",
+                      "group-data-[focus=true]:border-blue-500/60",
+                      "dark:group-data-[focus=true]:border-blue-500/60",
+                      "group-data-[hover=true]:border-slate-300",
+                      "dark:group-data-[hover=true]:border-zinc-600",
+                      "mt-1",
+                      "h-unit-10",
+                    ],
                   }}
                 >
                   {categories && categories.length > 0 ? (
