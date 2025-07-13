@@ -11,6 +11,7 @@ import AddColorSection from "@/components/forms/products/components/add-color-se
 import { useGlobalContext } from "@/context/store";
 import { ProductFormProps } from "@/lib/types/types";
 import { Button } from "@nextui-org/react";
+import MagicButton from "@/components/ui/button";
 
 const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
   const { colorVariants, setColorVariants } = useGlobalContext();
@@ -25,7 +26,7 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
+        <MagicButton
           isIconOnly
           type="button"
           onClick={() => {
@@ -34,7 +35,7 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
           className="bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70"
         >
           <Plus />
-        </Button>
+        </MagicButton>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -44,7 +45,7 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
           </SheetDescription>
         </SheetHeader>
         <div className="mt-5">
-          <Button onClick={addColorSection} className="mb-4">Add New Color</Button>
+          <MagicButton onClick={addColorSection} className="mb-4">Add New Color</MagicButton>
           {colorVariants.map((variant, i) => (
             <AddColorSection
               form={form}
