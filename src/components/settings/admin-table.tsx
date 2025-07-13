@@ -85,15 +85,13 @@ export default function AdminTable() {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={admins?.admins}>
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
+        <TableBody items={admins?.admins}>{(item) => (
+        <TableRow key={item.id}>
+          {(columnKey) => (
+            <TableCell>{renderCell(item, columnKey)}</TableCell>
           )}
-        </TableBody>
+        </TableRow>
+      )}</TableBody>
       </Table>
     </div>
   );
