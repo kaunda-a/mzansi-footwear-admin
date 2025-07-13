@@ -42,7 +42,7 @@ const User = async () => {
             name: "",
             className: "w-8 h-8 md:w-10 md:h-10",
             showFallback: true,
-            classNames: { fallback: "w-full h-full" },
+            classNames: { fallback: "" },
             fallback: <Image src="/avatar.jpg" alt="avatar" radius="full" />,
             src: session?.user.image || "",
           }}
@@ -61,7 +61,7 @@ const UserCard = ({ session }: { session: Session | null }) => {
   return (
     <Card
       shadow="none"
-      className="border-non min-w-[250px] max-w-[300px] bg-transparent"
+      className="border-non min-w-[250px] max-w-[300px] bg-white dark:bg-zinc-900"
     >
       <CardHeader className="justify-between">
         <div className="flex gap-3">
@@ -70,7 +70,7 @@ const UserCard = ({ session }: { session: Session | null }) => {
             radius="full"
             showFallback
             classNames={{
-              fallback: "w-full h-full",
+              fallback: "",
             }}
             fallback={<Image src="/avatar.jpg" alt="avatar" radius="full" />}
             size="md"
