@@ -35,8 +35,10 @@ const EditProfileForm = ({
   const onSuccess = (data: AdminProfileResProps) => {
     toast.success("Profile updated successfully");
     update({
-      name: data.name,
-      image: data.image,
+      user: {
+        name: data.name,
+        image: data.image,
+      },
     });
     form.reset({
       name: data.name,
