@@ -17,6 +17,7 @@ const Offers = async () => {
       </Nav>
     );
   } catch (error) {
+    console.error("Error loading offers data:", error);
     return (
       <Nav>
         <h1 className="text-zinc-400 md:text-xl">Best Deals & Offers</h1>

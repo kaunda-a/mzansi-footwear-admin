@@ -100,7 +100,6 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 {...field}
                 label="Short Description"
                 labelPlacement="outside"
-                placeholder="Short Description (optional)"
                 variant="bordered"
                 radius="lg"
                 classNames={{
