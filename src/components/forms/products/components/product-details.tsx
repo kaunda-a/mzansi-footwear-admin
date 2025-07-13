@@ -33,12 +33,20 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 label="Title"
                 labelPlacement="outside"
                 placeholder="Title"
-                variant="faded"
-                radius="sm"
+                variant="bordered"
+                radius="lg"
                 classNames={{
                   label: "font-medium z-0",
-                  inputWrapper:
-                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                  inputWrapper: [
+                    "border-2",
+                    "border-slate-200/60",
+                    "bg-transparent",
+                    "dark:border-zinc-700/40",
+                    "group-data-[focus=true]:border-blue-500/60",
+                    "dark:group-data-[focus=true]:border-blue-500/60",
+                    "group-data-[hover=true]:border-slate-300",
+                    "dark:group-data-[hover=true]:border-zinc-600",
+                  ],
                 }}
               />
             </FormControl>
@@ -59,12 +67,20 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   label="Slug"
                   labelPlacement="outside"
                   placeholder="Slug"
-                  variant="faded"
-                  radius="sm"
+                  variant="bordered"
+                  radius="lg"
                   classNames={{
                     label: "font-medium z-0",
-                    inputWrapper:
-                      "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                    inputWrapper: [
+                      "border-2",
+                      "border-slate-200/60",
+                      "bg-transparent",
+                      "dark:border-zinc-700/40",
+                      "group-data-[focus=true]:border-blue-500/60",
+                      "dark:group-data-[focus=true]:border-blue-500/60",
+                      "group-data-[hover=true]:border-slate-300",
+                      "dark:group-data-[hover=true]:border-zinc-600",
+                    ],
                   }}
                 />
                 <Button type="button" onClick={generateSlug}>
@@ -87,12 +103,20 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 label="Short Description"
                 labelPlacement="outside"
                 placeholder="Short Description (optional)"
-                variant="faded"
-                radius="sm"
+                variant="bordered"
+                radius="lg"
                 classNames={{
                   label: "font-medium z-0",
-                  inputWrapper:
-                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                  inputWrapper: [
+                    "border-2",
+                    "border-slate-200/60",
+                    "bg-transparent",
+                    "dark:border-zinc-700/40",
+                    "group-data-[focus=true]:border-blue-500/60",
+                    "dark:group-data-[focus=true]:border-blue-500/60",
+                    "group-data-[hover=true]:border-slate-300",
+                    "dark:group-data-[hover=true]:border-zinc-600",
+                  ],
                 }}
               />
             </FormControl>
@@ -110,12 +134,20 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 placeholder="Description"
                 label="Description"
                 labelPlacement="outside"
-                radius="sm"
-                variant="faded"
+                radius="lg"
+                variant="bordered"
                 classNames={{
                   label: "text-sm font-medium z-0",
-                  inputWrapper:
-                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                  inputWrapper: [
+                    "border-2",
+                    "border-slate-200/60",
+                    "bg-transparent",
+                    "dark:border-zinc-700/40",
+                    "group-data-[focus=true]:border-blue-500/60",
+                    "dark:group-data-[focus=true]:border-blue-500/60",
+                    "group-data-[hover=true]:border-slate-300",
+                    "dark:group-data-[hover=true]:border-zinc-600",
+                  ],
                 }}
                 {...field}
               />
@@ -175,12 +207,20 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   label="Stock"
                   labelPlacement="outside"
                   placeholder="Stock"
-                  variant="faded"
-                  radius="sm"
+                  variant="bordered"
+                  radius="lg"
                   classNames={{
                     label: "font-medium z-0",
-                  inputWrapper:
-                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                    inputWrapper: [
+                      "border-2",
+                      "border-slate-200/60",
+                      "bg-transparent",
+                      "dark:border-zinc-700/40",
+                      "group-data-[focus=true]:border-blue-500/60",
+                      "dark:group-data-[focus=true]:border-blue-500/60",
+                      "group-data-[hover=true]:border-slate-300",
+                      "dark:group-data-[hover=true]:border-zinc-600",
+                    ],
                   }}
                 />
               </FormControl>
@@ -204,13 +244,21 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                     label={item.replace(/([a-z])([A-Z])/g, "$1 $2")}
                     labelPlacement="outside"
                     placeholder={item.replace(/([a-z])([A-Z])/g, "$1 $2")}
-                    variant="faded"
-                    radius="sm"
+                    variant="bordered"
+                    radius="lg"
                     classNames={{
                       label: "font-medium capitalize z-0",
                       input: "placeholder:capitalize",
-                      inputWrapper:
-                        "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                      inputWrapper: [
+                        "border-2",
+                        "border-slate-200/60",
+                        "bg-transparent",
+                        "dark:border-zinc-700/40",
+                        "group-data-[focus=true]:border-blue-500/60",
+                        "dark:group-data-[focus=true]:border-blue-500/60",
+                        "group-data-[hover=true]:border-slate-300",
+                        "dark:group-data-[hover=true]:border-zinc-600",
+                      ],
                     }}
                   />
                 </FormControl>
