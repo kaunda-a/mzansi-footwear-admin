@@ -33,12 +33,12 @@ const ProductOptions = ({ form }: ProductFormProps) => {
                 <FormControl>
                   <Input
                     {...field}
-                    label={item.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                    label={item.replace(/([a-z])([A-Z])/g, "$1 $2") + (item === "variantName" || item === "variantValues" ? " (optional)" : "")}
                     labelPlacement="outside"
                     placeholder={`${item.replace(
                       /([a-z])([A-Z])/g,
                       "$1 $2",
-                    )} (optional)`}
+                    )}${item === "variantName" || item === "variantValues" ? " (optional)" : ""}`}
                     variant="bordered"
                     radius="lg"
                     classNames={{
