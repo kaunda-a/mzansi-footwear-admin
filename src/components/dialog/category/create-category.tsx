@@ -23,7 +23,7 @@ const CreateCategory = () => {
       >
         Create New
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" backdrop="blur">
         <ModalContent className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl">
           {(onClose) => (
             <>
