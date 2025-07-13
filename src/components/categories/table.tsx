@@ -49,11 +49,7 @@ export default function CategoriesTable() {
   );
 
   return (
-    <Table
-      aria-label="Example table with custom cells"
-      classNames={{
-        wrapper: "bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl p-4",
-      }}
+    <Table aria-label="Example table with custom cells" classNames={{ wrapper: "bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl p-4" }}>
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn
