@@ -60,7 +60,7 @@ const AddProductForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 rounded-lg border bg-white shadow-md dark:bg-dark"
+        className="space-y-4 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl p-4"
       >
 
         <div className="flex flex-col md:flex-row">
