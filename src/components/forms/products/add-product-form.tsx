@@ -12,11 +12,12 @@ import ProductOptions from "./components/product-options";
 import { useGlobalContext } from "@/context/store";
 import { useAddProduct } from "@/api-hooks/products/add-product";
 import { useCategoryEndChild } from "@/api-hooks/categories/get-end-child";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const AddProductForm = () => {
   const { colorVariants, setColorVariants } = useGlobalContext();
   const { data: categories } = useCategoryEndChild();
+  const [disable, setDisable] = useState(false);
 
   const form = useForm<z.infer<typeof ZodProductSchema>>({
     resolver: zodResolver(ZodProductSchema),
@@ -64,8 +65,8 @@ const AddProductForm = () => {
       >
 
         <div className="flex flex-col md:flex-row">
-          <ProductDetails form={form} />
-          <ProductOptions form={form} />
+          <ProductDetails form={form} setDisable={setDisable} />
+          <ProductOptions form={form} setDisable={setDisable} />
         </div>
         <div className="flex justify-end border-t p-5">
           <Button
