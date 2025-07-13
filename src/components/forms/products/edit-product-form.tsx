@@ -9,12 +9,13 @@ import { z } from "zod";
 import ProductDetails from "./components/product-details";
 import ProductOptions from "./components/product-options";
 import { useGlobalContext } from "@/context/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useEditProduct } from "@/api-hooks/products/edit-product";
 import { EditProductProps } from "@/lib/types/types";
 
 const EditProductForm = ({ product }: { product: EditProductProps }) => {
   const { colorVariants, setColorVariants } = useGlobalContext();
+  const [disable, setDisable] = useState(false);
 
   const form = useForm<z.infer<typeof ZodProductSchema>>({
     resolver: zodResolver(ZodProductSchema),
@@ -63,8 +64,8 @@ const EditProductForm = ({ product }: { product: EditProductProps }) => {
         className="space-y-4 rounded-lg border bg-white shadow-md dark:bg-dark"
       >
         <div className="flex flex-col md:flex-row">
-          <ProductDetails form={form} />
-          <ProductOptions form={form} />
+          <ProductDetails form={form} setDisable={setDisable} />
+          <ProductOptions form={form} setDisable={setDisable} />
         </div>
         <div className="flex justify-end border-t p-5">
           <Button
