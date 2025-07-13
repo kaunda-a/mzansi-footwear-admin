@@ -131,7 +131,6 @@ const ProductDetails = ({ form }: ProductFormProps) => {
           <FormItem className="mt-3">
             <FormControl>
               <Textarea
-                placeholder="Description"
                 label="Description"
                 labelPlacement="outside"
                 radius="lg"
