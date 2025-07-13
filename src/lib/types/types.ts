@@ -33,6 +33,7 @@ type Res = {
 
 type AdminProfileResProps = Res & {
   name: string;
+  image?: string;
 };
 
 type AdminProps = {
