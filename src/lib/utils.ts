@@ -66,6 +66,7 @@ function error403() {
 }
 
 function error500(data: { [key: string]: any }) {
+  console.error("Server Error (500):", data);
   const json = {
     success: false,
     message: "Something went wrong. SVR",
