@@ -57,6 +57,7 @@ const DeleteCustomer = ({ id }: { id: string }) => {
                   color="danger"
                   onPress={() => delete_mutation.mutate(id)}
                   isLoading={delete_mutation.isPending}
+                  className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   Delete
                 </Button>

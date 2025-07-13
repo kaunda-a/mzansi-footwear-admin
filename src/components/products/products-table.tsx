@@ -181,12 +181,25 @@ export default function ProductsTable() {
                 as={Link}
                 radius="full"
                 href={`/dashboard/products/edit?pid=${product.id}`}
+                className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <Pencil size={20} className="text-zinc-500" />
               </Button>
 
               {/* Delete product */}
-              <DeleteProduct id={product.id} />
+              <DeleteProduct id={product.id} children={(onOpen) => (
+                <Button
+                  onPress={onOpen}
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  radius="full"
+                  color="danger"
+                  className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                  <Trash2 size={20} />
+                </Button>
+              )} />
             </div>
           );
         default:

@@ -43,6 +43,7 @@ const DeleteHeroBanner = ({
         size="sm"
         variant="light"
         radius="full"
+        className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
       >
         <Trash2 className="text-danger" size={20} />
       </Button>
