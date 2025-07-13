@@ -43,7 +43,9 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <Input placeholder="Name" {...field} radius="sm" size="sm" />
+                  <Input placeholder="Name" {...field} radius="sm" size="sm" classNames={{
+                    inputWrapper: "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                  }} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -61,6 +63,9 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
                     {...field}
                     radius="sm"
                     size="sm"
+                    classNames={{
+                      inputWrapper: "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
