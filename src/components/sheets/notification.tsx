@@ -87,7 +87,7 @@ function NotificationCard({ value }: { value: NotificationProps }) {
           <h1 className="text-sm font-semibold">{data.title}</h1>
           <p className="text-xs text-zinc-400">{data.description}</p>
         </div>
-        <Trash2 className="ms-auto flex-shrink-0 text-danger" size={15} />
+        <Trash2 className="ms-auto flex-shrink-0 text-danger hover:text-red-700 transition-colors duration-200" size={15} />
       </div>
       <hr />
     </>
