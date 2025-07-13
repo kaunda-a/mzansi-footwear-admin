@@ -175,6 +175,7 @@ type ProductOrdersResProps = Res & {
 
 type ProductFormProps = {
   form: any; // Simplified to avoid react-hook-form type conflicts
+  setDisable: Dispatch<SetStateAction<boolean>>;
 };
 
 type EditProductProps = {
