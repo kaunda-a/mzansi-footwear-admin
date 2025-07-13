@@ -29,7 +29,7 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
           isIconOnly
           type="button"
           onClick={() => {
-            addColorSection();
+            // addColorSection(); // Removed this call
           }}
           className="bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70"
         >
@@ -44,6 +44,7 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
           </SheetDescription>
         </SheetHeader>
         <div className="mt-5">
+          <Button onClick={addColorSection} className="mb-4">Add New Color</Button>
           {colorVariants.map((variant, i) => (
             <AddColorSection
               form={form}

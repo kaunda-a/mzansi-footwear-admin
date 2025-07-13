@@ -22,18 +22,6 @@ const ProductOptions = ({ form }: ProductFormProps) => {
         <AddColorDialog form={form} setDisable={setDisable} />
       </div>
       <hr />
-      <div>
-        {colorVariants.map((variant, i) => (
-          <AddColorSection
-            form={form}
-            index={i}
-            variant={variant}
-            setDisable={setDisable}
-            key={i}
-          />
-        ))}
-      </div>
-      <hr />
       <div className="mt-3 grid grid-cols-2 gap-3">
         {(["variantName", "variantValues"] as const).map((item, i) => (
           <FormField
