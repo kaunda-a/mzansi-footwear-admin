@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/form";
 import { ProductFormProps } from "@/lib/types/types";
 import { Button, Input } from "@nextui-org/react";
+import { useState } from "react";
 import AddColorDialog from "@/components/dialog/products/add-color-dialog";
 import AddColorSection from "./add-color-section";
 import { useGlobalContext } from "@/context/store";
