@@ -34,6 +34,8 @@ type Res = {
 type AdminProfileResProps = Res & {
   name: string;
   image?: string;
+  email: string;
+  role: "SUPERADMIN" | "ADMIN" | "GUEST";
 };
 
 type AdminProps = {
