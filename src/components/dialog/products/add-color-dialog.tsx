@@ -27,7 +27,6 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
     <Sheet>
       <SheetTrigger asChild>
         <MagicButton
-          isIconOnly
           type="button"
           onClick={() => {
             // addColorSection(); // Removed this call
