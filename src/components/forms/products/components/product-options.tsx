@@ -22,81 +22,22 @@ const ProductOptions = ({ form }: ProductFormProps) => {
         <AddColorDialog form={form} setDisable={setDisable} />
       </div>
       <hr />
-      <div className="mt-3 grid grid-cols-2 gap-3">
-        {(["variantName", "variantValues"] as const).map((item, i) => (
-          <FormField
-            key={i}
-            control={form.control}
-            name={item}
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    {...field}
-                    label={item.replace(/([a-z])([A-Z])/g, "$1 $2") + (item === "variantName" || item === "variantValues" ? " (optional)" : "")}
-                    labelPlacement="outside"
-                    placeholder={`${item.replace(
-                      /([a-z])([A-Z])/g,
-                      "$1 $2",
-                    )}${item === "variantName" || item === "variantValues" ? " (optional)" : ""}`}
-                    variant="bordered"
-                    radius="lg"
-                    classNames={{
-                      label: "font-medium capitalize z-0",
-                      input: "placeholder:capitalize",
-                      inputWrapper: [
-                        "border-2",
-                        "border-slate-200/60",
-                        "bg-transparent",
-                        "dark:border-zinc-700/40",
-                        "group-data-[focus=true]:border-blue-500/60",
-                        "dark:group-data-[focus=true]:border-blue-500/60",
-                        "group-data-[hover=true]:border-slate-300",
-                        "dark:group-data-[hover=true]:border-zinc-600",
-                      ],
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+      <div className="mt-3">
+        {colorVariants.length > 0 && (
+          <h3 className="text-md font-medium mb-2">Added Colors:</h3>
+        )}
+        {colorVariants.map((variant, i) => (
+          <div key={i} className="flex items-center gap-2 mb-2">
+            <span className="font-semibold">Color:</span> {variant.color}
+            {variant.thumbnail && (
+              <img src={variant.thumbnail} alt="thumbnail" className="w-8 h-8 rounded-full object-cover" />
             )}
-          />
+            {variant.others && variant.others.length > 0 && (
+              <span className="text-sm text-gray-500"> (+{variant.others.length} other images)</span>
+            )}
+          </div>
         ))}
       </div>
-      <FormField
-        control={form.control}
-        name="keywords"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input
-                {...field}
-                label="Keywords"
-                labelPlacement="outside"
-                placeholder="Keywords"
-                variant="bordered"
-                radius="lg"
-                classNames={{
-                  label: "font-medium capitalize",
-                  inputWrapper: [
-                    "border-2",
-                    "border-slate-200/60",
-                    "bg-transparent",
-                    "dark:border-zinc-700/40",
-                    "group-data-[focus=true]:border-blue-500/60",
-                    "dark:group-data-[focus=true]:border-blue-500/60",
-                    "group-data-[hover=true]:border-slate-300",
-                    "dark:group-data-[hover=true]:border-zinc-600",
-                    "mt-3",
-                  ],
-                  input: "placeholder:capitalize",
-                }}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
     </div>
   );
 };

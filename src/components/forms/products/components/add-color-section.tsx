@@ -52,16 +52,24 @@ const AddColorSection = ({
       <div className="flex items-center gap-5">
         <Input
           placeholder="Enter color"
-          variant="faded"
-          radius="sm"
+          variant="bordered"
+          radius="lg"
           size="sm"
           className="mb-4 mt-2"
           value={colorVariants[index].color}
           onValueChange={(value) => addColor(value, index)}
           classNames={{
             label: "font-medium z-0",
-            inputWrapper:
-              "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+            inputWrapper: [
+              "border-2",
+              "border-slate-200/60",
+              "bg-transparent",
+              "dark:border-zinc-700/40",
+              "group-data-[focus=true]:border-blue-500/60",
+              "dark:group-data-[focus=true]:border-blue-500/60",
+              "group-data-[hover=true]:border-slate-300",
+              "dark:group-data-[hover=true]:border-zinc-600",
+            ],
           }}
         />
       </div>
@@ -145,12 +153,12 @@ function DisableImagePicker() {
       className="bg-white px-4 py-2"
     >
       <Button
-        isIconOnly
-        type="button"
-        className="bg-[rgba(0,111,238,0.15)] text-[#006FEE]"
-      >
-        <Ban />
-      </Button>
+          isIconOnly
+          type="button"
+          className="bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70"
+        >
+          <Ban />
+        </Button>
     </Tooltip>
   );
 }
