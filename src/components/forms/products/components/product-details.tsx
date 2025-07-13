@@ -38,7 +38,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 classNames={{
                   label: "font-medium z-0",
                   inputWrapper:
-                    "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
                 }}
               />
             </FormControl>
@@ -64,7 +64,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   classNames={{
                     label: "font-medium z-0",
                     inputWrapper:
-                      "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                      "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
                   }}
                 />
                 <Button type="button" onClick={generateSlug}>
@@ -92,7 +92,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 classNames={{
                   label: "font-medium z-0",
                   inputWrapper:
-                    "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
                 }}
               />
             </FormControl>
@@ -115,7 +115,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                 classNames={{
                   label: "text-sm font-medium z-0",
                   inputWrapper:
-                    "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
                 }}
                 {...field}
               />
@@ -143,7 +143,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   classNames={{
                     label: "text-sm font-medium z-0",
                     trigger:
-                      "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50 mt-1 h-unit-10",
+                      "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md mt-1 h-unit-10",
                   }}
                 >
                   {categories && categories.length > 0 ? (
@@ -179,8 +179,8 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                   radius="sm"
                   classNames={{
                     label: "font-medium z-0",
-                    inputWrapper:
-                      "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                  inputWrapper:
+                    "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
                   }}
                 />
               </FormControl>
@@ -210,7 +210,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                       label: "font-medium capitalize z-0",
                       input: "placeholder:capitalize",
                       inputWrapper:
-                        "border border-slate-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800/50",
+                        "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
                     }}
                   />
                 </FormControl>
