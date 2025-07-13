@@ -35,7 +35,7 @@ const Notification = () => {
           <Bell className="text-zinc-500 dark:text-zinc-400" />
         </Badge>
       </SheetTrigger>
-      <SheetContent className="flex flex-col gap-0 p-0 dark:bg-dark">
+      <SheetContent className="flex flex-col gap-0 p-0 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl">
         <SheetHeader className="p-5">
           <SheetTitle className="flex items-center gap-4">
             <Bell /> Notifications
