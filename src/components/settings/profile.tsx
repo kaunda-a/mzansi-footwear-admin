@@ -5,7 +5,7 @@ import { Session } from "next-auth";
 import EditProfile from "../dialog/edit-profile";
 import { useSession } from "next-auth/react";
 
-const Profile = ({ session }: { session: Session | null }) => {
+const Profile = () => {
   const { data, update } = useSession();
 
   return (
@@ -29,23 +29,23 @@ const Profile = ({ session }: { session: Session | null }) => {
               fallback: "w-full h-full",
             }}
             fallback={<Image src="/avatar.jpg" alt="avatar" radius="full" />}
-            src={data?.user.image || session?.user.image || ""}
+            src={data?.user.image || ""}
           />
         </Badge>
         <div className="ms-3 space-y-1.5">
           <h1 className="text-lg font-semibold">
-            {data?.user.name || session?.user.name}
+            {data?.user.name}
           </h1>
           <p className="text-xs text-zinc-400">
             Role:{" "}
             <span className="font-medium text-success">
-              {data?.user.role || session?.user.role}
+              {data?.user.role}
             </span>
           </p>
           <p className="text-xs text-zinc-400">
             Email:{" "}
             <span className="font-medium text-black dark:text-white">
-              {data?.user.email || session?.user.email}
+              {data?.user.email}
             </span>
           </p>
         </div>

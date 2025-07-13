@@ -9,7 +9,7 @@ const Settings = async () => {
 
   return (
     <Nav>
-      <Profile session={session} />
+      <Profile />
       <AdminDetails />
     </Nav>
   );
