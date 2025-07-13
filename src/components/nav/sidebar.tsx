@@ -84,9 +84,9 @@ const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? "open" : "closed"}
-        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-hidden lg:relative border border-slate-300/60 dark:border-teal1/60 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)] transition-all duration-300 bg-white/100 dark:bg-zinc-900/100"
+        className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-y-auto scrollbar-thin lg:relative border border-slate-300/60 dark:border-teal1/60 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)] transition-all duration-300 bg-white/100 dark:bg-zinc-900/100"
       >
-        <div className="mx-4 flex items-center gap-3 py-6 border-b border-slate-200/60 dark:border-teal1/40">
+        <div className="mx-4 flex items-center gap-3 py-6 border-b border-slate-200/60 dark:border-teal1/40 sticky top-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg z-10">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 rounded-xl blur-sm opacity-30"></div>
             <div className="relative bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 p-2.5 rounded-xl shadow-lg shadow-cyan-500/20">

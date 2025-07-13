@@ -4,12 +4,10 @@ import Nav from "@/components/nav/nav";
 const AddProduct = () => {
   return (
     <Nav>
-      <div className="flex w-full flex-col justify-start">
-        <div className="w-full">
-          <h1 className="m-2 text-xl font-semibold">Add Product</h1>
-          <AddProductForm />
-        </div>
+      <div className="flex items-center justify-between">
+        <h1 className="my-5 text-xl text-zinc-400">Add Product</h1>
       </div>
+      <AddProductForm />
     </Nav>
   );
 };

@@ -268,7 +268,7 @@ export default function ProductsTable() {
               </DropdownTrigger>
               <DropdownMenu
                 disallowEmptySelection
-                className="max-h-[250px] overflow-y-scroll scrollbar-hide"
+                className="max-h-[250px] overflow-y-scroll scrollbar-hide bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl"
                 closeOnSelect={false}
                 selectedKeys={visibleColumns}
                 selectionMode="multiple"

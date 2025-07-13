@@ -10,7 +10,7 @@ const Nav = ({ children }: { children: ReactNode }) => {
     <div className="flex">
       <Sidebar />
       <div className="scrollbar-thin max-h-screen w-full overflow-y-scroll">
-        <nav className="sticky top-0 z-10 flex w-full items-center justify-between px-6 py-3 bg-white/90 dark:bg-blackish/90 backdrop-blur-xl border-b border-slate-200/60 dark:border-teal1/50 shadow-lg shadow-black/10 transition-all duration-300">
+        <nav className="sticky top-0 z-10 flex w-full items-center justify-between px-6 py-2 bg-white/90 dark:bg-blackish/90 backdrop-blur-xl border-b border-slate-200/60 dark:border-teal1/50 shadow-lg shadow-black/10 transition-all duration-300 rounded-bl-2xl rounded-br-2xl">
           <div className="flex items-center">
             <NavHeading />
           </div>
