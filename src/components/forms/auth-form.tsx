@@ -17,8 +17,7 @@ import { motion as m } from "framer-motion";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
+import { Button, Input } from "@nextui-org/react";
 
 function AuthForm() {
   const [isPassword, setIsPassword] = useState(true);
