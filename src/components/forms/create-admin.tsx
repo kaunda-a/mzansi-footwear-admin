@@ -50,7 +50,6 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
                 <Input
                   {...standardInputStyles}
                   label="Name"
-                  placeholder="Enter admin name"
                   {...field}
                 />
               </FormControl>
@@ -67,7 +66,6 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
                 <Input
                   {...standardInputStyles}
                   label="Email"
-                  placeholder="Enter admin email"
                   type="email"
                   {...field}
                 />
@@ -85,7 +83,6 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
                 <Input
                   {...standardInputStyles}
                   label="Password"
-                  placeholder="Enter admin password"
                   type="password"
                   autoComplete="new-password"
                   {...field}
@@ -104,7 +101,6 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
                 <Select
                   {...standardSelectStyles}
                   label="Role"
-                  placeholder="Select admin role"
                   aria-label="role"
                   disabledKeys={["empty"]}
                   onChange={field.onChange}

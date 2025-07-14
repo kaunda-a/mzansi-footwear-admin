@@ -73,7 +73,6 @@ const NewBannerForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Title"
-                  placeholder="Enter banner title"
                   {...field}
                 />
               </FormControl>
@@ -90,7 +89,6 @@ const NewBannerForm = ({
                 <Textarea
                   {...standardTextareaStyles}
                   label="Description"
-                  placeholder="Enter banner description"
                   {...field}
                 />
               </FormControl>
@@ -108,7 +106,6 @@ const NewBannerForm = ({
                   <Input
                     {...standardInputStyles}
                     label="Base Price"
-                    placeholder="Enter base price"
                     type="number"
                     startContent={
                       <div className="pointer-events-none flex items-center">
@@ -131,7 +128,6 @@ const NewBannerForm = ({
                   <Input
                     {...standardInputStyles}
                     label="Offer Price"
-                    placeholder="Enter offer price"
                     type="number"
                     startContent={
                       <div className="pointer-events-none flex items-center">
@@ -155,7 +151,6 @@ const NewBannerForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product URL"
-                  placeholder="Enter product URL"
                   {...field}
                 />
               </FormControl>

@@ -68,7 +68,6 @@ const NewDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Title"
-                  placeholder="Enter deal title"
                   {...field}
                 />
               </FormControl>
@@ -85,7 +84,6 @@ const NewDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product ID"
-                  placeholder="Enter product ID"
                   {...field}
                 />
               </FormControl>
@@ -102,7 +100,6 @@ const NewDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product Slug"
-                  placeholder="Enter product slug"
                   {...field}
                 />
               </FormControl>
@@ -119,7 +116,6 @@ const NewDealForm = ({
                 <Textarea
                   {...standardTextareaStyles}
                   label="Description"
-                  placeholder="Enter deal description"
                   {...field}
                 />
               </FormControl>
@@ -136,7 +132,6 @@ const NewDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product Price"
-                  placeholder="Enter product price"
                   type="number"
                   startContent={
                     <div className="pointer-events-none flex items-center">

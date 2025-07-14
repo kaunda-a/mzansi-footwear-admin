@@ -73,7 +73,6 @@ const EditOfferForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Title"
-                  placeholder="Enter marquee offer title"
                   {...field}
                 />
               </FormControl>
@@ -90,7 +89,6 @@ const EditOfferForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product URL"
-                  placeholder="Enter product URL"
                   {...field}
                 />
               </FormControl>

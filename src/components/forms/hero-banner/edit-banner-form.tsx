@@ -83,7 +83,6 @@ const EditBannerForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Title"
-                  placeholder="Enter banner title"
                   {...field}
                 />
               </FormControl>
@@ -100,7 +99,6 @@ const EditBannerForm = ({
                 <Textarea
                   {...standardTextareaStyles}
                   label="Description"
-                  placeholder="Enter banner description"
                   {...field}
                 />
               </FormControl>

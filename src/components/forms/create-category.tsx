@@ -47,7 +47,6 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
                   <Input
                     {...standardInputStyles}
                     label="Category Name"
-                    placeholder="Enter category name"
                     {...field}
                   />
                 </FormControl>
@@ -64,7 +63,6 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
                   <Input
                     {...standardInputStyles}
                     label="Parent ID (Optional)"
-                    placeholder="Enter parent category ID"
                     type="number"
                     {...field}
                   />

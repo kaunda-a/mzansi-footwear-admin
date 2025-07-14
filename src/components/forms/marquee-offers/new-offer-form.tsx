@@ -62,7 +62,6 @@ const NewOfferForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Title"
-                  placeholder="Enter marquee offer title"
                   {...field}
                 />
               </FormControl>
@@ -79,7 +78,6 @@ const NewOfferForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product URL"
-                  placeholder="Enter product URL"
                   {...field}
                 />
               </FormControl>

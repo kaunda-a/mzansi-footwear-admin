@@ -74,7 +74,6 @@ const EditDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Title"
-                  placeholder="Enter deal title"
                   {...field}
                 />
               </FormControl>
@@ -91,7 +90,6 @@ const EditDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product ID"
-                  placeholder="Enter product ID"
                   {...field}
                 />
               </FormControl>
@@ -108,7 +106,6 @@ const EditDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product Slug"
-                  placeholder="Enter product slug"
                   {...field}
                 />
               </FormControl>
@@ -125,7 +122,6 @@ const EditDealForm = ({
                 <Textarea
                   {...standardTextareaStyles}
                   label="Description"
-                  placeholder="Enter deal description"
                   {...field}
                 />
               </FormControl>
@@ -142,7 +138,6 @@ const EditDealForm = ({
                 <Input
                   {...standardInputStyles}
                   label="Product Price"
-                  placeholder="Enter product price"
                   type="number"
                   startContent={
                     <div className="pointer-events-none flex items-center">
