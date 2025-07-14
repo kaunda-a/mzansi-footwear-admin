@@ -6,6 +6,7 @@ export async function getDealsAndOffers() {
   try {
     const headerSequence = headers();
     const cookie = headerSequence.get("cookie");
+    console.log("Cookie in getDealsAndOffers:", cookie);
     const { data } = await axios.get("/api/offers", {
       headers: {
         Cookie: `${cookie}`,
