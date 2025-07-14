@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ZodCategorySchema } from "@/lib/zod-schemas/schema";
 import { useCreateCategory } from "@/api-hooks/categories/create-category";
+import { standardInputStyles, formItemSpacing } from "@/lib/form-styles";
 
 const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
   const form = useForm<z.infer<typeof ZodCategorySchema>>({
@@ -36,16 +37,19 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleCreateAdmin)}>
-        <div className="mb-1 flex gap-1">
+        <div className="space-y-4">
           <FormField
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem className="flex-1">
+              <FormItem className={formItemSpacing}>
                 <FormControl>
-                  <Input placeholder="Name" {...field} radius="sm" size="sm" classNames={{
-                    inputWrapper: "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
-                  }} />
+                  <Input
+                    {...standardInputStyles}
+                    label="Category Name"
+                    placeholder="Enter category name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -55,17 +59,14 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
             control={form.control}
             name="parentId"
             render={({ field }) => (
-              <FormItem className="max-w-[120px]">
+              <FormItem className={formItemSpacing}>
                 <FormControl>
                   <Input
-                    placeholder="Parent ID (optional)"
+                    {...standardInputStyles}
+                    label="Parent ID (Optional)"
+                    placeholder="Enter parent category ID"
                     type="number"
                     {...field}
-                    radius="sm"
-                    size="sm"
-                    classNames={{
-                      inputWrapper: "border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md",
-                    }}
                   />
                 </FormControl>
                 <FormMessage />

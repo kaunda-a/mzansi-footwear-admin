@@ -16,6 +16,7 @@ import ImagePicker from "@/components/offers/image-picker";
 import { BestDeal } from "@prisma/client";
 import { toast } from "sonner";
 import { useAddDeal } from "@/api-hooks/best-deals/add-new-deal";
+import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";
 
 const NewDealForm = ({
   onClose,
@@ -62,19 +63,13 @@ const NewDealForm = ({
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Title"
-                  placeholder="Title"
+                  placeholder="Enter deal title"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -85,19 +80,13 @@ const NewDealForm = ({
           control={form.control}
           name="id"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Product ID"
-                  placeholder="Product ID"
+                  placeholder="Enter product ID"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -108,19 +97,13 @@ const NewDealForm = ({
           control={form.control}
           name="slug"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Product Slug"
-                  placeholder="Product Slug"
+                  placeholder="Enter product slug"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -131,18 +114,12 @@ const NewDealForm = ({
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Textarea
-                  placeholder="Description"
+                  {...standardTextareaStyles}
                   label="Description"
-                  labelPlacement="outside"
-                  radius="sm"
-                  size="sm"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  placeholder="Enter deal description"
                   {...field}
                 />
               </FormControl>
@@ -154,20 +131,19 @@ const NewDealForm = ({
           control={form.control}
           name="price"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Product Price"
-                  placeholder="Product Price"
+                  placeholder="Enter product price"
                   type="number"
+                  startContent={
+                    <div className="pointer-events-none flex items-center">
+                      <span className="text-default-400 text-small">R</span>
+                    </div>
+                  }
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />

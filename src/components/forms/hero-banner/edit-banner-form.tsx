@@ -16,6 +16,7 @@ import { HeroBanner } from "@prisma/client";
 import { Info, Trash2 } from "lucide-react";
 import ImagePicker from "@/components/offers/image-picker";
 import { useUpdateHeroBanner } from "@/api-hooks/hero-banners/edit-banner";
+import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";
 
 const EditBannerForm = ({
   banner,
@@ -77,19 +78,13 @@ const EditBannerForm = ({
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Title"
-                  placeholder="Title"
+                  placeholder="Enter banner title"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -100,18 +95,12 @@ const EditBannerForm = ({
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Textarea
-                  placeholder="Description"
+                  {...standardTextareaStyles}
                   label="Description"
-                  labelPlacement="outside"
-                  radius="sm"
-                  size="sm"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  placeholder="Enter banner description"
                   {...field}
                 />
               </FormControl>

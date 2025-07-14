@@ -12,6 +12,7 @@ import { ZodAdminSchemaWithPassword } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useCreateAdmin } from "@/api-hooks/admins/create-admin";
+import { standardInputStyles, standardSelectStyles, formItemSpacing } from "@/lib/form-styles";
 
 const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
   const form = useForm<z.infer<typeof ZodAdminSchemaWithPassword>>({
@@ -44,9 +45,14 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
-                <Input placeholder="Name" {...field} radius="sm" size="sm" />
+                <Input
+                  {...standardInputStyles}
+                  label="Name"
+                  placeholder="Enter admin name"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -56,9 +62,15 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
-                <Input placeholder="Email" {...field} radius="sm" size="sm" />
+                <Input
+                  {...standardInputStyles}
+                  label="Email"
+                  placeholder="Enter admin email"
+                  type="email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -68,14 +80,15 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  placeholder="Password"
+                  {...standardInputStyles}
+                  label="Password"
+                  placeholder="Enter admin password"
+                  type="password"
+                  autoComplete="new-password"
                   {...field}
-                  autoComplete="no"
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -86,19 +99,16 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="role"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Select
-                  placeholder="Select a role"
+                  {...standardSelectStyles}
+                  label="Role"
+                  placeholder="Select admin role"
                   aria-label="role"
-                  labelPlacement="outside"
-                  size="lg"
                   disabledKeys={["empty"]}
                   onChange={field.onChange}
-                  radius="sm"
-                  classNames={{
-                    value: "text-sm",
-                  }}
+                  selectedKeys={field.value ? [field.value] : []}
                 >
                   {["ADMIN", "GUEST"].map((role) => (
                     <SelectItem

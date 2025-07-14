@@ -16,6 +16,7 @@ import ImagePicker from "@/components/offers/image-picker";
 import { HeroBanner } from "@prisma/client";
 import { toast } from "sonner";
 import { useAddBanner } from "@/api-hooks/hero-banners/add-new-banner";
+import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";
 
 const NewBannerForm = ({
   onClose,
@@ -67,19 +68,13 @@ const NewBannerForm = ({
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Title"
-                  placeholder="Title"
+                  placeholder="Enter banner title"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -90,18 +85,12 @@ const NewBannerForm = ({
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Textarea
-                  placeholder="Description"
+                  {...standardTextareaStyles}
                   label="Description"
-                  labelPlacement="outside"
-                  radius="sm"
-                  size="sm"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  placeholder="Enter banner description"
                   {...field}
                 />
               </FormControl>
@@ -109,71 +98,65 @@ const NewBannerForm = ({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="basePrice"
-          render={({ field }) => (
-            <FormItem className="mb-3">
-              <FormControl>
-                <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
-                  label="Base Price"
-                  placeholder="Base Price"
-                  type="number"
-                  {...field}
-                  radius="sm"
-                  size="sm"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="offerPrice"
-          render={({ field }) => (
-            <FormItem className="mb-3">
-              <FormControl>
-                <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
-                  label="Offer Price"
-                  placeholder="Offer Price"
-                  type="number"
-                  {...field}
-                  radius="sm"
-                  size="sm"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="basePrice"
+            render={({ field }) => (
+              <FormItem className={formItemSpacing}>
+                <FormControl>
+                  <Input
+                    {...standardInputStyles}
+                    label="Base Price"
+                    placeholder="Enter base price"
+                    type="number"
+                    startContent={
+                      <div className="pointer-events-none flex items-center">
+                        <span className="text-default-400 text-small">R</span>
+                      </div>
+                    }
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="offerPrice"
+            render={({ field }) => (
+              <FormItem className={formItemSpacing}>
+                <FormControl>
+                  <Input
+                    {...standardInputStyles}
+                    label="Offer Price"
+                    placeholder="Enter offer price"
+                    type="number"
+                    startContent={
+                      <div className="pointer-events-none flex items-center">
+                        <span className="text-default-400 text-small">R</span>
+                      </div>
+                    }
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="url"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Product URL"
-                  placeholder="Product URL"
+                  placeholder="Enter product URL"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />

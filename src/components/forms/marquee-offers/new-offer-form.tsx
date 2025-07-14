@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { useCreateOffer } from "@/api-hooks/marquee-offers/create-offer";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { MarqueeOffers } from "@prisma/client";
+import { standardInputStyles, formItemSpacing } from "@/lib/form-styles";
 
 const NewOfferForm = ({
   onClose,
@@ -56,19 +57,13 @@ const NewOfferForm = ({
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Title"
-                  placeholder="Title"
+                  placeholder="Enter marquee offer title"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -79,19 +74,13 @@ const NewOfferForm = ({
           control={form.control}
           name="url"
           render={({ field }) => (
-            <FormItem className="mb-3">
+            <FormItem className={formItemSpacing}>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
+                  {...standardInputStyles}
                   label="Product URL"
-                  placeholder="Product URL"
+                  placeholder="Enter product URL"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
