@@ -17,7 +17,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
     }
   }
 
-  const { data: categories } = useCategoryEndChild();
+  const { data: categories, isLoading: categoriesLoading, error: categoriesError } = useCategoryEndChild();
 
   return (
     <div className="flex-1 p-5 pe-3">
@@ -184,7 +184,15 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                     ],
                   }}
                 >
-                  {categories && categories.length > 0 ? (
+                  {categoriesLoading ? (
+                    <SelectItem key="loading" value="loading" isDisabled>
+                      Loading categories...
+                    </SelectItem>
+                  ) : categoriesError ? (
+                    <SelectItem key="error" value="error" isDisabled>
+                      Error loading categories
+                    </SelectItem>
+                  ) : categories && categories.length > 0 ? (
                     categories.map((category) => (
                       <SelectItem key={category.id.toString()} value={category.id.toString()}>
                         {category.name}

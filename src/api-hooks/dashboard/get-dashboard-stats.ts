@@ -37,9 +37,14 @@ type DashboardStatsResponse = {
   };
 };
 
-async function getDashboardStatsClient() {
-  const { data } = await axios.get("/api/dashboard/stats");
-  return data as DashboardStatsResponse;
+async function getDashboardStatsClient(): Promise<DashboardStatsResponse> {
+  try {
+    const { data } = await axios.get("/api/dashboard/stats");
+    return data as DashboardStatsResponse;
+  } catch (error) {
+    console.error("Error fetching dashboard stats:", error);
+    throw error;
+  }
 }
 
 export function useDashboardStats() {
@@ -48,5 +53,7 @@ export function useDashboardStats() {
     queryFn: getDashboardStatsClient,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 }
