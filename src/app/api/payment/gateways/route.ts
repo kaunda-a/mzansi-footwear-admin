@@ -1,5 +1,4 @@
 import { authOptions } from "@/lib/auth";
-import { paymentManager } from "@/lib/payment-gateways/manager";
 import { error401, error500, success200 } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 
@@ -13,13 +12,18 @@ export async function GET() {
       return error401("Unauthorized");
     }
 
-    // Get available payment gateways
-    const gateways = paymentManager.getAvailableGateways();
+    // Return static list of supported gateways for admin reference only
+    const supportedGateways = [
+      { name: "PayFast", status: "configured" },
+      { name: "PayGate", status: "configured" },
+      { name: "Yoco", status: "configured" },
+      { name: "Peach", status: "configured" }
+    ];
 
     return success200({
-      gateways,
-      count: gateways.length,
-      primary: gateways[0]?.name || null
+      gateways: supportedGateways,
+      count: supportedGateways.length,
+      note: "Payment processing handled by frontend application"
     });
   } catch (error) {
     console.error("Get payment gateways error:", error);
