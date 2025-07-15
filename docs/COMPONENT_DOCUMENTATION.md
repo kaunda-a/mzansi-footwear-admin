@@ -490,9 +490,4 @@ When converting class components to function components:
 3. Replace lifecycle methods with appropriate hooks
 4. Add proper TypeScript types
 
-### NextUI Integration
-When using NextUI components:
-1. Import from `@nextui-org/react`
-2. Wrap application in `NextUIProvider`
-3. Use NextUI theme system
-4. Follow NextUI component patterns
+

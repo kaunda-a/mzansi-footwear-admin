@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ZodCategorySchema } from "@/lib/zod-schemas/schema";
 import { useCreateCategory } from "@/api-hooks/categories/create-category";
-import { formItemSpacing } from "@/lib/form-styles";
+
 import type { FormFieldRenderProps } from "@/types/react-components";
 
 type FormData = z.infer<typeof ZodCategorySchema>;
@@ -47,7 +47,7 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
             control={form.control}
             name="category"
             render={({ field }: FormFieldRenderProps<FormData, "category">) => (
-              <FormItem className={formItemSpacing}>
+              <FormItem className="space-y-2">
                 <FormLabel>Category Name</FormLabel>
                 <FormControl>
                   <Input
@@ -63,7 +63,7 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
             control={form.control}
             name="parentId"
             render={({ field }: FormFieldRenderProps<FormData, "parentId">) => (
-              <FormItem className={formItemSpacing}>
+              <FormItem className="space-y-2">
                 <FormLabel>Parent ID (Optional)</FormLabel>
                 <FormControl>
                   <Input

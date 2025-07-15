@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { useCreateOffer } from "@/api-hooks/marquee-offers/create-offer";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import type { MarqueeOffers } from "@/lib/types/types";
-import { formItemSpacing } from "@/lib/form-styles";
+
 import type { FormFieldRenderProps } from "@/types/react-components";
 
 type FormData = z.infer<typeof ZodMarqueeOfferSchema>;
@@ -62,7 +62,7 @@ const NewOfferForm = ({
           control={form.control}
           name="title"
           render={({ field }: FormFieldRenderProps<FormData, "title">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
@@ -78,7 +78,7 @@ const NewOfferForm = ({
           control={form.control}
           name="url"
           render={({ field }: FormFieldRenderProps<FormData, "url">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Product URL</FormLabel>
               <FormControl>
                 <Input

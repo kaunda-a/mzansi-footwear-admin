@@ -20,7 +20,7 @@ import { HeroBanner } from "@prisma/client";
 import { Info, Trash2 } from "lucide-react";
 import ImagePicker from "@/components/offers/image-picker";
 import { useUpdateHeroBanner } from "@/api-hooks/hero-banners/edit-banner";
-import { formItemSpacing } from "@/lib/form-styles";
+
 import type { FormFieldRenderProps } from "@/types/react-components";
 
 type FormData = z.infer<typeof ZodHeroBannerSchema>;
@@ -85,7 +85,7 @@ const EditBannerForm = ({
           control={form.control}
           name="title"
           render={({ field }: FormFieldRenderProps<FormData, "title">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
@@ -101,7 +101,7 @@ const EditBannerForm = ({
           control={form.control}
           name="description"
           render={({ field }: FormFieldRenderProps<FormData, "description">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea

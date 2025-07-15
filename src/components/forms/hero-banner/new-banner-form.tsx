@@ -20,7 +20,7 @@ import ImagePicker from "@/components/offers/image-picker";
 import type { HeroBanner } from "@/lib/types/types";
 import { toast } from "sonner";
 import { useAddBanner } from "@/api-hooks/hero-banners/add-new-banner";
-import { standardInputClasses, standardTextareaClasses, formItemSpacing } from "@/lib/form-styles";
+
 
 const NewBannerForm = ({
   onClose,
@@ -72,11 +72,11 @@ const NewBannerForm = ({
           control={form.control}
           name="title"
           render={({ field }: { field: any }) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  className={standardInputClasses}
+                  className="w-full"
                   {...field}
                 />
               </FormControl>
@@ -88,11 +88,11 @@ const NewBannerForm = ({
           control={form.control}
           name="description"
           render={({ field }: { field: any }) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  className={standardTextareaClasses}
+                  className="w-full min-h-[100px]"
                   {...field}
                 />
               </FormControl>
@@ -105,13 +105,13 @@ const NewBannerForm = ({
             control={form.control}
             name="basePrice"
             render={({ field }: { field: any }) => (
-              <FormItem className={formItemSpacing}>
+              <FormItem className="space-y-2">
                 <FormLabel>Base Price</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">R</span>
                     <Input
-                      className={`${standardInputClasses} pl-8`}
+                      className="w-full pl-8"
                       type="number"
                       {...field}
                     />
@@ -125,13 +125,13 @@ const NewBannerForm = ({
             control={form.control}
             name="offerPrice"
             render={({ field }: { field: any }) => (
-              <FormItem className={formItemSpacing}>
+              <FormItem className="space-y-2">
                 <FormLabel>Offer Price</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">R</span>
                     <Input
-                      className={`${standardInputClasses} pl-8`}
+                      className="w-full pl-8"
                       type="number"
                       {...field}
                     />
@@ -146,11 +146,11 @@ const NewBannerForm = ({
           control={form.control}
           name="url"
           render={({ field }: { field: any }) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Product URL</FormLabel>
               <FormControl>
                 <Input
-                  className={standardInputClasses}
+                  className="w-full"
                   {...field}
                 />
               </FormControl>

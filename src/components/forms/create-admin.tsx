@@ -21,7 +21,7 @@ import { ZodAdminSchemaWithPassword } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useCreateAdmin } from "@/api-hooks/admins/create-admin";
-import { formItemSpacing } from "@/lib/form-styles";
+
 import type { FormFieldRenderProps } from "@/types/react-components";
 
 type FormData = z.infer<typeof ZodAdminSchemaWithPassword>;
@@ -57,7 +57,7 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="name"
           render={({ field }: FormFieldRenderProps<FormData, "name">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
@@ -73,7 +73,7 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="email"
           render={({ field }: FormFieldRenderProps<FormData, "email">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
@@ -90,7 +90,7 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="password"
           render={({ field }: FormFieldRenderProps<FormData, "password">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
@@ -108,7 +108,7 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
           control={form.control}
           name="role"
           render={({ field }: FormFieldRenderProps<FormData, "role">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Role</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>

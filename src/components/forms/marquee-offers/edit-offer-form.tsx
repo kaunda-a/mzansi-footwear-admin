@@ -1,4 +1,5 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ZodMarqueeOfferSchema } from "@/lib/zod-schemas/schema";
@@ -8,13 +9,14 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import type { MarqueeOffers } from "@/lib/types/types";
 import { useUpdateMarqueeOffer } from "@/api-hooks/marquee-offers/edit-deal";
-import { standardInputStyles, formItemSpacing } from "@/lib/form-styles";
+
 
 const EditOfferForm = ({
   offer,
@@ -67,12 +69,12 @@ const EditOfferForm = ({
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
-            <FormItem className={formItemSpacing}>
+          render={({ field }: { field: any }) => (
+            <FormItem className="space-y-2">
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Title"
+                  className="w-full"
                   {...field}
                 />
               </FormControl>
@@ -83,12 +85,12 @@ const EditOfferForm = ({
         <FormField
           control={form.control}
           name="url"
-          render={({ field }) => (
-            <FormItem className={formItemSpacing}>
+          render={({ field }: { field: any }) => (
+            <FormItem className="space-y-2">
+              <FormLabel>Product URL</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Product URL"
+                  className="w-full"
                   {...field}
                 />
               </FormControl>
@@ -98,12 +100,10 @@ const EditOfferForm = ({
         />
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!form.formState.isDirty}
+            disabled={mutation.isPending || !form.formState.isDirty}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

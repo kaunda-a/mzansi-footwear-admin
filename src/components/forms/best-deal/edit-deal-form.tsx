@@ -19,7 +19,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ImagePicker from "@/components/offers/image-picker";
 import { useUpdateDeal } from "@/api-hooks/best-deals/edit-deal";
 import { toast } from "sonner";
-import { formItemSpacing } from "@/lib/form-styles";
+
 import type { FormFieldRenderProps } from "@/types/react-components";
 import type { BestDeal } from "@/lib/types/types";
 
@@ -76,7 +76,7 @@ const EditDealForm = ({
           control={form.control}
           name="title"
           render={({ field }: FormFieldRenderProps<FormData, "title">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
@@ -92,7 +92,7 @@ const EditDealForm = ({
           control={form.control}
           name="id"
           render={({ field }: FormFieldRenderProps<FormData, "id">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Product ID</FormLabel>
               <FormControl>
                 <Input
@@ -108,7 +108,7 @@ const EditDealForm = ({
           control={form.control}
           name="slug"
           render={({ field }: FormFieldRenderProps<FormData, "slug">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Product Slug</FormLabel>
               <FormControl>
                 <Input
@@ -124,7 +124,7 @@ const EditDealForm = ({
           control={form.control}
           name="description"
           render={({ field }: FormFieldRenderProps<FormData, "description">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
@@ -140,7 +140,7 @@ const EditDealForm = ({
           control={form.control}
           name="price"
           render={({ field }: FormFieldRenderProps<FormData, "price">) => (
-            <FormItem className={formItemSpacing}>
+            <FormItem className="space-y-2">
               <FormLabel>Product Price</FormLabel>
               <FormControl>
                 <Input
