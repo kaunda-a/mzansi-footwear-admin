@@ -19,7 +19,7 @@ const ImagePicker = ({ action, variant, variantIndex }: ImagePickerProps) => {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      acceptedFiles.forEach((file) => {
+      acceptedFiles.forEach((file: File) => {
         const reader = new FileReader();
 
         reader.onload = () => {

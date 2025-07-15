@@ -56,7 +56,7 @@ const EditCategoryForm = ({
           <FormField
             control={form.control}
             name="category"
-            render={({ field }) => (
+            render={({ field }: FormFieldRenderProps<FormData, "category">) => (
               <FormItem className="flex-1">
                 <FormControl>
                   <Input placeholder="Name" {...field} radius="sm" size="sm" classNames={{
@@ -70,7 +70,7 @@ const EditCategoryForm = ({
           <FormField
             control={form.control}
             name="parentId"
-            render={({ field }) => (
+            render={({ field }: FormFieldRenderProps<FormData, "parentId">) => (
               <FormItem className="max-w-[120px]">
                 <FormControl>
                   <Input

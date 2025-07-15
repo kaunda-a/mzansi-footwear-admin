@@ -113,8 +113,8 @@ function makeColorVariantForEdit({ colors, images }: MakeColorVariant) {
   if (colors !== null) {
     const colorNames = colors.split(",");
 
-    colorNames.forEach((colorName) => {
-      const colorImages = images.filter((img) =>
+    colorNames.forEach((colorName: string) => {
+      const colorImages = images.filter((img: any) =>
         img.imagePublicId.includes(colorName),
       );
 
@@ -128,7 +128,7 @@ function makeColorVariantForEdit({ colors, images }: MakeColorVariant) {
             ?.imagePublicId,
         },
         others: colorImages
-          .filter((img) => !img.imagePublicId.endsWith("-thumb"))
+          .filter((img: any) => !img.imagePublicId.endsWith("-thumb"))
           .map((value) => ({ id: value.id, url: value.imagePublicId })),
       };
 
@@ -143,7 +143,7 @@ function makeColorVariantForEdit({ colors, images }: MakeColorVariant) {
           ?.imagePublicId,
       },
       others: images
-        .filter((img) => !img.imagePublicId.endsWith("-thumb"))
+        .filter((img: any) => !img.imagePublicId.endsWith("-thumb"))
         .map((value) => ({ id: value.id, url: value.imagePublicId })),
     };
 
@@ -158,8 +158,8 @@ function makeColorVariant({ colors, images }: MakeColorVariant) {
   if (colors !== null) {
     const colorNames = colors.split(",");
 
-    colorNames.forEach((colorName) => {
-      const colorImages = images.filter((img) =>
+    colorNames.forEach((colorName: string) => {
+      const colorImages = images.filter((img: any) =>
         img.imagePublicId.includes(colorName),
       );
 
