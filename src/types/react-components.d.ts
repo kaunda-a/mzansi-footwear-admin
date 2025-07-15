@@ -24,11 +24,7 @@ declare global {
 }
 
 // Specific component type overrides
-declare module '@/components/ui/avatar' {
-  export const Avatar: React.ComponentType<any>;
-  export const AvatarImage: React.ComponentType<any>;
-  export const AvatarFallback: React.ComponentType<any>;
-}
+// Avatar components are properly typed in their source file
 
 declare module '@/components/ui/button' {
   export const Button: React.ComponentType<any>;
