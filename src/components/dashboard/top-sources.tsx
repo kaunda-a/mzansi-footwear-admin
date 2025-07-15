@@ -61,10 +61,15 @@ function SourceList({
         ></div>
         <span className="z-10 flex items-center gap-3">
           {source !== "Direct / None" ? (
-            <Avatar
-              src={`https://s2.googleusercontent.com/s2/favicons?domain=${source}`}
-              className="h-4 w-4 bg-transparent text-tiny"
-            />
+            <Avatar className="h-4 w-4 bg-transparent">
+              <AvatarImage
+                src={`https://s2.googleusercontent.com/s2/favicons?domain=${source}`}
+                alt={`${source} favicon`}
+              />
+              <AvatarFallback className="text-tiny">
+                <Link size={12} />
+              </AvatarFallback>
+            </Avatar>
           ) : (
             <Link size={16} />
           )}
