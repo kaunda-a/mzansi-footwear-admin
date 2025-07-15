@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import ProductOrdersGraph from "./product-orders-graph";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -22,7 +23,7 @@ const NewProductOrders = ({
   const [activeFilter, setActiveFilter] = useState("year");
   return (
     <Card className="col-span-2 shadow-md">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="mb-10 grid grid-cols-1 items-center space-y-2 @sm:grid-cols-2">
           <h1 className="mx-2 mt-2 text-lg font-medium">Product Orders</h1>
           <div className="@sm:justify-self-end">
@@ -56,7 +57,7 @@ const NewProductOrders = ({
           </div>
         </div>
         <ProductOrdersGraph data={graphData} />
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };
@@ -77,13 +78,13 @@ const FilterButton = ({
       setGraphData(data);
       setActiveFilter(filter);
     }}
+    variant={activeFilter === filter ? "default" : "ghost"}
     className={`
-      ${
+      mx-1 ${
         activeFilter === filter
-          ? "bg-indigo-100 text-primary dark:bg-zinc-800 dark:text-white"
-          : "bg-transparent text-black dark:text-white"
+          ? "bg-primary text-white hover:bg-primary/90"
+          : "bg-transparent text-black hover:bg-indigo-100 hover:text-primary dark:text-white dark:hover:bg-zinc-800"
       }
-      hover:bg-indigo-100 hover:text-primary hover:dark:bg-zinc-800
     `}
   >
     {children}

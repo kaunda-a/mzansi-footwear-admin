@@ -1,6 +1,6 @@
 import axios from "@/config/axios.config";
 import { ZodHeroBannerSchema } from "@/lib/zod-schemas/schema";
-import { HeroBanner } from "@prisma/client";
+import type { HeroBanner } from "@/lib/types/types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { z } from "zod";

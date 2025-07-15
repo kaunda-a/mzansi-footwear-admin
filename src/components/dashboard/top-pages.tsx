@@ -1,4 +1,5 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 
 const topPages: any[] = [
@@ -8,7 +9,7 @@ const topPages: any[] = [
 const TopPages = () => {
   return (
     <Card className="mt-5 shadow-md md:mt-0">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top Pages</h1>
           {/* <Button
@@ -34,7 +35,7 @@ const TopPages = () => {
             </div>
           </div>
         )}
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

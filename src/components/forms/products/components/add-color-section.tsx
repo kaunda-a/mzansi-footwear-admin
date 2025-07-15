@@ -2,7 +2,14 @@ import { Ban, X } from "lucide-react";
 import { AddColorSectionProps } from "@/lib/types/types";
 import { useGlobalContext } from "@/context/store";
 import { capitalizeSearchParam } from "@/lib/utils";
-import { Button, Tooltip, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const AddColorSection = ({
   variant,
@@ -43,32 +50,30 @@ const AddColorSection = ({
             </span>
           )}
         </h1>
-        <button type="button" onClick={() => removeColorSection(index)}>
-          <X size={20} />
-        </button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => removeColorSection(index)}
+              >
+                <X size={20} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Remove color section</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       <div className="flex items-center gap-5">
         <Input
           placeholder="Enter color"
-          variant="bordered"
-          radius="lg"
-          size="sm"
           className="mb-4 mt-2"
           value={colorVariants[index].color}
-          onValueChange={(value) => addColor(value, index)}
-          classNames={{
-            label: "font-medium z-0",
-            inputWrapper: [
-              "border-2",
-              "border-slate-200/60",
-              "bg-transparent",
-              "dark:border-zinc-700/40",
-              "group-data-[focus=true]:border-blue-500/60",
-              "dark:group-data-[focus=true]:border-blue-500/60",
-              "group-data-[hover=true]:border-slate-300",
-              "dark:group-data-[hover=true]:border-zinc-600",
-            ],
-          }}
+          onChange={(e) => addColor(e.target.value, index)}
         />
       </div>
     </div>

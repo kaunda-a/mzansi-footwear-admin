@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Button, Card, CardBody } from "@nextui-org/react";
-import { AlertCircle, RefreshCw, Wifi, WifiOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { AlertCircle, RefreshCw, WifiOff } from "lucide-react";
 
 interface ApiErrorBoundaryProps {
   error?: Error | null;
@@ -18,7 +19,7 @@ export default function ApiErrorBoundary({
   onRetry,
   children,
   fallbackMessage = "Failed to load data",
-}: ApiErrorBoundaryProps) {
+}: ApiErrorBoundaryProps): React.ReactNode {
   // Show loading state
   if (isLoading) {
     return children;
@@ -85,7 +86,7 @@ function ApiErrorFallback({ error, onRetry, message }: ApiErrorFallbackProps) {
   return (
     <div className="flex min-h-[200px] items-center justify-center p-4">
       <Card className="w-full max-w-sm">
-        <CardBody className="text-center">
+        <CardContent className="text-center p-6">
           <div className="mb-4 flex justify-center">
             {icon}
           </div>
@@ -111,20 +112,18 @@ function ApiErrorFallback({ error, onRetry, message }: ApiErrorFallbackProps) {
 
           {onRetry && (
             <Button
-              color="primary"
-              variant="solid"
-              startContent={<RefreshCw className="h-4 w-4" />}
               onClick={onRetry}
               size="sm"
+              className="flex items-center gap-2"
             >
+              <RefreshCw className="h-4 w-4" />
               Try Again
             </Button>
           )}
 
           {is401Error && (
             <Button
-              color="warning"
-              variant="solid"
+              variant="destructive"
               onClick={() => window.location.href = "/"}
               size="sm"
               className="mt-2"
@@ -132,7 +131,7 @@ function ApiErrorFallback({ error, onRetry, message }: ApiErrorFallbackProps) {
               Sign In
             </Button>
           )}
-        </CardBody>
+        </CardContent>
       </Card>
     </div>
   );

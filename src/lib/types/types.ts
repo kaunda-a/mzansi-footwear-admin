@@ -1,18 +1,42 @@
+// Import robust Prisma types that work regardless of client generation status
 import {
-  Address as AddressPrisma,
   BestDeal,
   HeroBanner,
-  Image,
-  MarqueeOffers,
+  Product,
+  ProductImage as Image,
+  Category,
+  User,
+  Customer,
   Order,
   OrderItem,
+  Admin,
+  Address,
   Payment,
-  Product,
-} from "@prisma/client";
+  AddressPrisma,
+  MarqueeOffers,
+} from "./prisma-types";
 import { LucideIcon } from "lucide-react";
 import { z } from "zod";
 import { ZodProductSchema } from "../zod-schemas/schema";
 import { Dispatch, SetStateAction } from "react";
+
+// Re-export all Prisma types for consistent imports across the application
+export type {
+  BestDeal,
+  HeroBanner,
+  Product,
+  Image,
+  Category,
+  User,
+  Customer,
+  Order,
+  OrderItem,
+  Admin,
+  Address,
+  Payment,
+  AddressPrisma,
+  MarqueeOffers,
+} from "./prisma-types";
 
 type SummaryCardProps = {
   icon: LucideIcon;
@@ -49,17 +73,7 @@ type AdminsResProps = Res & {
   admins: AdminProps[];
 };
 
-type Customer = {
-  id: string;
-  name: string;
-  email: string;
-  gender?: string;
-  phone?: string;
-  createdAt: string;
-  updatedAt: string;
-  lastLogin: string;
-  image?: string;
-};
+// Customer type is now defined above in the main types section
 
 type CustomersResProps = Res & {
   customers: Customer[];
@@ -83,14 +97,7 @@ type EditAdminResProps = Res & {
   admin: AdminProps | null;
 };
 
-type Address = Omit<
-  Omit<Omit<AddressPrisma, "address_id">, "userId">,
-  "alternate_phone"
-> & {
-  id: number;
-  user_id: string;
-  alt_phone: string;
-};
+// Address type is now defined above in the main types section
 
 type AddressResProps = Res & {
   addresses: Address[];
@@ -198,12 +205,7 @@ type EditProductResProps = Res & {
   product: EditProductProps;
 };
 
-interface Category {
-  id: number;
-  name: string;
-  parentId: number | null;
-  _count?: number;
-}
+// Category type is now imported from prisma-types.ts
 
 type CategoryRes = Res & { categories: Category[] };
 
@@ -275,14 +277,13 @@ export type {
   SummaryCardProps,
   AdminProfileResProps,
   AdminsResProps,
-  Customer,
+  // Customer, Address, Category are now exported from prisma-types.ts
   CustomersResProps,
   CustomerResProps,
   GuestUserResProps,
   GuestUserProps,
   AdminProps,
   EditAdminResProps,
-  Address,
   AddressResProps,
   OrderItemProps,
   OrderProps,
@@ -299,7 +300,6 @@ export type {
   EditProductProps,
   EditProductResProps,
   OrderResProps,
-  Category,
   CategoryRes,
   EditCategoryRes,
   ColorVariant,

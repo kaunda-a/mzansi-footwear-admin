@@ -1,9 +1,11 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -13,6 +15,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Category, EditCategoryRes } from "@/lib/types/types";
 import { useUpdateCategory } from "@/api-hooks/categories/edit-category";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodCategorySchema>;
 
 const EditCategoryForm = ({
   onClose,

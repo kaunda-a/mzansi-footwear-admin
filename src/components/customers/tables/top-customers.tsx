@@ -1,25 +1,39 @@
 import React from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  User,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   Pagination,
-  Selection,
-  SortDescriptor,
-} from "@nextui-org/react";
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronDown, Search } from "lucide-react";
 import { capitalize, formatCurrency } from "@/lib/utils";
 import { useTopCustomers } from "@/api-hooks/dashboard/get-customer-analytics";
+
+// Type definitions for shadcn/ui compatibility
+type Selection = Set<string> | "all";
+type SortDescriptor = {
+  column: string;
+  direction: "ascending" | "descending";
+};
 
 const columns = [
   { name: "ID", uid: "id", sortable: true },
@@ -42,14 +56,14 @@ export default function TopCustomers() {
 
   type User = typeof users[0];
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+  const [selectedKeys] = React.useState<Selection>(
     new Set([]),
   );
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+  const [visibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
+  const [sortDescriptor] = React.useState<SortDescriptor>({
     column: "amount",
     direction: "descending",
   });
@@ -103,13 +117,18 @@ export default function TopCustomers() {
     switch (columnKey) {
       case "name":
         return (
-          <User
-            avatarProps={{ radius: "lg", src: user.image }}
-            name={cellValue}
-            description={user.email}
-          >
-            {user.email}
-          </User>
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={user.image || ""} alt={user.name} />
+              <AvatarFallback>
+                {user.name.split(" ").map((n: string) => n[0]).join("").toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <p className="text-sm font-medium">{cellValue}</p>
+              <p className="text-xs text-muted-foreground">{user.email}</p>
+            </div>
+          </div>
         );
       case "amountSpent":
         return (
@@ -182,27 +201,21 @@ export default function TopCustomers() {
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <Dropdown>
-            <DropdownTrigger className="z-0 hidden sm:flex">
-              <Button endContent={<ChevronDown size={20} />} variant="flat">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="hidden sm:flex items-center gap-2">
                 Columns
+                <ChevronDown size={16} />
               </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-              disallowEmptySelection
-              aria-label="Table Columns"
-              closeOnSelect={false}
-              selectedKeys={visibleColumns}
-              selectionMode="multiple"
-              onSelectionChange={setVisibleColumns}
-            >
-              {columns.map((column) => (
-                <DropdownItem key={column.uid} className="capitalize">
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {columns.map((column: any) => (
+                <DropdownMenuItem key={column.uid} className="capitalize">
                   {capitalize(column.name)}
-                </DropdownItem>
+                </DropdownMenuItem>
               ))}
-            </DropdownMenu>
-          </Dropdown>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
@@ -224,7 +237,6 @@ export default function TopCustomers() {
     );
   }, [
     filterValue,
-    visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
     onClear,
@@ -239,33 +251,39 @@ export default function TopCustomers() {
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="hidden w-[30%] justify-end gap-2 sm:flex">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Next
-          </Button>
+        <div className="text-sm text-muted-foreground">
+          Page {page} of {pages}
         </div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={onPreviousPage}
+                className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+            {Array.from({ length: Math.min(pages, 5) }, (_, i) => {
+              const pageNum = i + 1;
+              return (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    onClick={() => setPage(pageNum)}
+                    isActive={pageNum === page}
+                    className="cursor-pointer"
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+            <PaginationItem>
+              <PaginationNext
+                onClick={onNextPage}
+                className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     );
   }, [
@@ -278,40 +296,45 @@ export default function TopCustomers() {
   ]);
 
   return (
-    <Table
-      aria-label="Customer table"
-      isHeaderSticky
-      classNames={{
-        wrapper: "shadow-md",
-      }}
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
-      onSortChange={setSortDescriptor}
-    >
-      <TableHeader columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody emptyContent={"No Customers found"} items={sortedItems}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+    <div className="space-y-4">
+      {topContent}
+      <div className="rounded-md border shadow-md">
+        <Table>
+          <TableHeader>
+            {headerColumns.map((column: any) => (
+              <TableHead
+                key={column.uid}
+                className={column.uid === "actions" ? "text-center" : ""}
+              >
+                {column.name}
+              </TableHead>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {sortedItems.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={headerColumns.length} className="text-center py-8">
+                  No Customers found
+                </TableCell>
+              </TableRow>
+            ) : (
+              sortedItems.map((item: any) => (
+                <TableRow key={item.id}>
+                  {headerColumns.map((column: any) => (
+                    <TableCell
+                      key={column.uid}
+                      className={column.uid === "actions" ? "text-center" : ""}
+                    >
+                      {renderCell(item, column.uid)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          </TableBody>
+        </Table>
+      </div>
+      {bottomContent}
+    </div>
   );
 }

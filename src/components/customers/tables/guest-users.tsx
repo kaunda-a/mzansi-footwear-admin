@@ -2,22 +2,21 @@
 
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  Chip,
-  ChipProps,
-} from "@nextui-org/react";
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { useCallback } from "react";
 import { useGetGuestUsers } from "@/api-hooks/guest-users/get-guest-users";
 import { GuestUserProps } from "@/lib/types/types";
 import DeleteGuest from "@/components/dialog/customer/delete-guest";
 
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  active: "success",
-  expired: "danger",
+const statusColorMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+  active: "default",
+  expired: "destructive",
 };
 
 const columns = [
@@ -41,14 +40,12 @@ export default function GuestUsers() {
           return <p className="text-sm">{cellValue}</p>;
         case "status":
           return (
-            <Chip
+            <Badge
               className="capitalize"
-              color={statusColorMap[user.status]}
-              size="sm"
-              variant="flat"
+              variant={statusColorMap[user.status]}
             >
               {cellValue}
-            </Chip>
+            </Badge>
           );
         case "actions":
           return <DeleteGuest id={user.user_id} />;
@@ -60,38 +57,48 @@ export default function GuestUsers() {
   );
 
   return (
-    <Table aria-label="Guest users table" classNames={{ wrapper: "shadow-md" }}>
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        emptyContent={
-          <div className="text-center py-8">
-            <div className="text-lg font-semibold text-gray-600 mb-2">
-              No Guest Users Yet
-            </div>
-            <div className="text-sm text-gray-500">
-              Guest users will appear here when customers browse without creating accounts.
-            </div>
-          </div>
-        }
-        items={guestUsers?.guest_users || []}
-      >
-        {(item) => (
-          <TableRow key={item.user_id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <div className="rounded-md border shadow-md">
+      <Table>
+        <TableHeader>
+          {columns.map((column: any) => (
+            <TableHead
+              key={column.uid}
+              className={column.uid === "actions" ? "text-center" : ""}
+            >
+              {column.name}
+            </TableHead>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {(!guestUsers?.guest_users || guestUsers.guest_users.length === 0) ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center py-8">
+                <div className="text-center py-8">
+                  <div className="text-lg font-semibold text-gray-600 mb-2">
+                    No Guest Users Yet
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Guest users will appear here when customers browse without creating accounts.
+                  </div>
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : (
+            guestUsers.guest_users.map((item: any) => (
+              <TableRow key={item.user_id}>
+                {columns.map((column: any) => (
+                  <TableCell
+                    key={column.uid}
+                    className={column.uid === "actions" ? "text-center" : ""}
+                  >
+                    {renderCell(item, column.uid)}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

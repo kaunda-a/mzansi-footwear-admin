@@ -1,9 +1,18 @@
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -12,7 +21,10 @@ import { ZodAdminSchemaWithPassword } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useCreateAdmin } from "@/api-hooks/admins/create-admin";
-import { standardInputStyles, standardSelectStyles, formItemSpacing } from "@/lib/form-styles";
+import { formItemSpacing } from "@/lib/form-styles";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodAdminSchemaWithPassword>;
 
 const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
   const form = useForm<z.infer<typeof ZodAdminSchemaWithPassword>>({
@@ -44,12 +56,12 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "name">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Name"
+                  placeholder="Enter admin name"
                   {...field}
                 />
               </FormControl>
@@ -60,13 +72,13 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "email">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Email"
                   type="email"
+                  placeholder="Enter admin email"
                   {...field}
                 />
               </FormControl>
@@ -77,13 +89,13 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "password">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Password"
                   type="password"
+                  placeholder="Enter admin password"
                   autoComplete="new-password"
                   {...field}
                 />
@@ -95,43 +107,37 @@ const CreateAdminForm = ({ onClose }: { onClose: () => void }) => {
         <FormField
           control={form.control}
           name="role"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "role">) => (
             <FormItem className={formItemSpacing}>
-              <FormControl>
-                <Select
-                  {...standardSelectStyles}
-                  label="Role"
-                  aria-label="role"
-                  disabledKeys={["empty"]}
-                  onChange={field.onChange}
-                  selectedKeys={field.value ? [field.value] : []}
-                >
+              <FormLabel>Role</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select admin role" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
                   {["ADMIN", "GUEST"].map((role) => (
-                    <SelectItem
-                      key={role}
-                      value={role}
-                      className="select-item-style"
-                    >
+                    <SelectItem key={role} value={role}>
                       {role}
                     </SelectItem>
                   ))}
-                </Select>
-              </FormControl>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="danger"
             type="button"
-            variant="light"
-            onPress={onClose}
+            variant="outline"
+            onClick={onClose}
           >
             Close
           </Button>
-          <Button color="primary" type="submit" isLoading={mutation.isPending}>
-            Save
+          <Button type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

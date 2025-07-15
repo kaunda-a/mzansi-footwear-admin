@@ -1,4 +1,7 @@
-import { Button, Image, Input, Textarea } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ZodHeroBannerSchema } from "@/lib/zod-schemas/schema";
@@ -8,6 +11,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
@@ -16,7 +20,10 @@ import { HeroBanner } from "@prisma/client";
 import { Info, Trash2 } from "lucide-react";
 import ImagePicker from "@/components/offers/image-picker";
 import { useUpdateHeroBanner } from "@/api-hooks/hero-banners/edit-banner";
-import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";
+import { formItemSpacing } from "@/lib/form-styles";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodHeroBannerSchema>;
 
 const EditBannerForm = ({
   banner,
@@ -77,12 +84,12 @@ const EditBannerForm = ({
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "title">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Title"
+                  placeholder="Enter banner title"
                   {...field}
                 />
               </FormControl>
@@ -93,12 +100,12 @@ const EditBannerForm = ({
         <FormField
           control={form.control}
           name="description"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "description">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  {...standardTextareaStyles}
-                  label="Description"
+                  placeholder="Enter banner description"
                   {...field}
                 />
               </FormControl>
@@ -109,21 +116,14 @@ const EditBannerForm = ({
         <FormField
           control={form.control}
           name="basePrice"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "basePrice">) => (
             <FormItem className="mb-3">
+              <FormLabel>Base Price</FormLabel>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
-                  label="Base Price"
-                  placeholder="Base Price"
                   type="number"
+                  placeholder="Enter base price"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -133,21 +133,14 @@ const EditBannerForm = ({
         <FormField
           control={form.control}
           name="offerPrice"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "offerPrice">) => (
             <FormItem className="mb-3">
+              <FormLabel>Offer Price</FormLabel>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
-                  label="Offer Price"
-                  placeholder="Offer Price"
                   type="number"
+                  placeholder="Enter offer price"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -157,20 +150,14 @@ const EditBannerForm = ({
         <FormField
           control={form.control}
           name="url"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "url">) => (
             <FormItem className="mb-3">
+              <FormLabel>Product URL</FormLabel>
               <FormControl>
                 <Input
-                  labelPlacement="outside"
-                  classNames={{
-                    label: "font-semibold",
-                    inputWrapper: "min-h-unit-10",
-                  }}
-                  label="Product URL"
-                  placeholder="Product URL"
+                  type="url"
+                  placeholder="Enter product URL"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -184,16 +171,15 @@ const EditBannerForm = ({
           </span>
           {image ? (
             <>
-              <Image src={image} alt="" className="aspect-video" />
+              <Image src={image} alt="Banner preview" width={400} height={225} className="aspect-video w-full object-cover rounded-lg" />
               <Button
-                isIconOnly
+                variant="destructive"
                 size="sm"
-                color="danger"
-                startContent={<Trash2 size={15} />}
-                radius="full"
                 onClick={() => setImage("")}
-                className="absolute -right-2 -top-2 z-10 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
-              />
+                className="absolute -right-2 -top-2 z-10 h-8 w-8 p-0 rounded-full bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <Trash2 size={15} />
+              </Button>
             </>
           ) : (
             <ImagePicker setImage={setImage} />
@@ -206,16 +192,15 @@ const EditBannerForm = ({
           </span>
           {imageSm ? (
             <>
-              <Image src={imageSm} alt="" className="aspect-square" />
+              <Image src={imageSm} alt="Small banner preview" width={300} height={300} className="aspect-square w-full object-cover rounded-lg" />
               <Button
-                isIconOnly
+                variant="destructive"
                 size="sm"
-                color="danger"
-                startContent={<Trash2 size={15} />}
-                radius="full"
                 onClick={() => setImageSm("")}
-                className="absolute -right-2 -top-2 z-10 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
-              />
+                className="absolute -right-2 -top-2 z-10 h-8 w-8 p-0 rounded-full bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <Trash2 size={15} />
+              </Button>
             </>
           ) : (
             <ImagePicker setImage={setImageSm} />
@@ -223,12 +208,10 @@ const EditBannerForm = ({
         </div>
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!image || !imageSm}
+            disabled={mutation.isPending || !image || !imageSm}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

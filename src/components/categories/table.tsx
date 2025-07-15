@@ -3,12 +3,12 @@
 import React from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-} from "@nextui-org/react";
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Category } from "@/lib/types/types";
 import { useCategories } from "@/api-hooks/categories/get-categories";
 import DeleteCategory from "../dialog/category/delete-category";
@@ -49,26 +49,40 @@ export default function CategoriesTable() {
   );
 
   return (
-    <Table aria-label="Example table with custom cells" classNames={{ wrapper: "bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl p-4" }}>
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={categories || []}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
+    <div className="bg-card/50 backdrop-blur-sm border border-border/60 rounded-xl shadow-sm">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {columns.map((column) => (
+              <TableHead
+                key={column.uid}
+                className={column.uid === "actions" ? "text-center" : "text-left"}
+              >
+                {column.name}
+              </TableHead>
+            ))}
           </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {categories && categories.length > 0 ? (
+            categories.map((item) => (
+              <TableRow key={item.id} className="hover:bg-muted/50">
+                {columns.map((column) => (
+                  <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
+                    {renderCell(item, column.uid)}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center py-8 text-muted-foreground">
+                No categories found
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

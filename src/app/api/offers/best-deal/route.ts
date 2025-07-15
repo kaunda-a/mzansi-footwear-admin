@@ -9,7 +9,7 @@ import {
   success200,
 } from "@/lib/utils";
 import { ZodBestDealSchema } from "@/lib/zod-schemas/schema";
-import { BestDeal } from "@prisma/client";
+import type { BestDeal } from "@/lib/types/types";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { z } from "zod";

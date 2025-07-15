@@ -1,9 +1,11 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -12,7 +14,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ZodCategorySchema } from "@/lib/zod-schemas/schema";
 import { useCreateCategory } from "@/api-hooks/categories/create-category";
-import { standardInputStyles, formItemSpacing } from "@/lib/form-styles";
+import { formItemSpacing } from "@/lib/form-styles";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodCategorySchema>;
 
 const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
   const form = useForm<z.infer<typeof ZodCategorySchema>>({
@@ -41,12 +46,12 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
           <FormField
             control={form.control}
             name="category"
-            render={({ field }) => (
+            render={({ field }: FormFieldRenderProps<FormData, "category">) => (
               <FormItem className={formItemSpacing}>
+                <FormLabel>Category Name</FormLabel>
                 <FormControl>
                   <Input
-                    {...standardInputStyles}
-                    label="Category Name"
+                    placeholder="Enter category name"
                     {...field}
                   />
                 </FormControl>
@@ -57,13 +62,13 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
           <FormField
             control={form.control}
             name="parentId"
-            render={({ field }) => (
+            render={({ field }: FormFieldRenderProps<FormData, "parentId">) => (
               <FormItem className={formItemSpacing}>
+                <FormLabel>Parent ID (Optional)</FormLabel>
                 <FormControl>
                   <Input
-                    {...standardInputStyles}
-                    label="Parent ID (Optional)"
                     type="number"
+                    placeholder="Enter parent category ID"
                     {...field}
                   />
                 </FormControl>
@@ -74,15 +79,14 @@ const CreateCategoryForm = ({ onClose }: { onClose: () => void }) => {
         </div>
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="danger"
             type="button"
-            variant="light"
-            onPress={onClose}
+            variant="outline"
+            onClick={onClose}
           >
             Close
           </Button>
-          <Button color="primary" type="submit" isLoading={mutation.isPending}>
-            Create
+          <Button type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? "Creating..." : "Create"}
           </Button>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import axios from "@/config/axios.config";
 import { ZodBestDealSchema } from "@/lib/zod-schemas/schema";
-import { BestDeal } from "@prisma/client";
+import type { BestDeal } from "@/lib/types/types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { z } from "zod";

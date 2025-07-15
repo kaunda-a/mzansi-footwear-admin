@@ -1,19 +1,20 @@
 "use client";
 
 import { formatCurrency } from "@/lib/utils";
-import { Card, CardBody, Image } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 import EditDeal from "../dialog/best-deal/edit-deal";
 import { BestDeal } from "@prisma/client";
 import { useState } from "react";
 import DeleteDeal from "../dialog/best-deal/delete-deal";
 import AddNewDeal from "../dialog/best-deal/add-new-deal";
+import Image from "next/image";
 
 const BestDeals = ({ deal }: { deal: BestDeal | null }) => {
   const [dealData, setDealData] = useState(deal);
 
   return (
     <Card className="my-5 shadow-md @container">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="mb-4 flex items-center justify-between">
           <h1 className="font-medium md:text-lg">Best Deal</h1>
           {dealData && (
@@ -28,7 +29,9 @@ const BestDeals = ({ deal }: { deal: BestDeal | null }) => {
             <Image
               src={dealData.imageUrl}
               alt="Product image"
-              className="aspect-video"
+              width={400}
+              height={225}
+              className="aspect-video object-cover rounded-md"
             />
             <div className="col-span-2 space-y-2">
               <h1 className="text-sm font-medium text-zinc-400">
@@ -71,7 +74,7 @@ const BestDeals = ({ deal }: { deal: BestDeal | null }) => {
             <AddNewDeal setDealData={setDealData} />
           </div>
         )}
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

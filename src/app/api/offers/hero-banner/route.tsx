@@ -12,7 +12,7 @@ import {
   ZodHeroBannerSchema,
   ZodMarqueeOfferSchema,
 } from "@/lib/zod-schemas/schema";
-import { HeroBanner } from "@prisma/client";
+import type { HeroBanner } from "@/lib/types/types";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { uid } from "uid";

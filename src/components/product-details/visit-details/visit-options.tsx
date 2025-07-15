@@ -1,35 +1,33 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
-  Button,
-  Dropdown,
-  DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
-} from "@nextui-org/react";
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { MoreVertical } from "lucide-react";
 
 const VisitOptions = () => {
   return (
-    <Dropdown>
-      <DropdownTrigger>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button
-          variant="light"
-          isIconOnly
+          variant="ghost"
           size="sm"
-          radius="full"
-          className="me-3"
+          className="h-8 w-8 p-0 me-3"
         >
           <MoreVertical size={15} />
         </Button>
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="toady">Today</DropdownItem>
-        <DropdownItem key="week">Last week</DropdownItem>
-        <DropdownItem key="month">Last month</DropdownItem>
-        <DropdownItem key="time">All Time</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>Today</DropdownMenuItem>
+        <DropdownMenuItem>Last week</DropdownMenuItem>
+        <DropdownMenuItem>Last month</DropdownMenuItem>
+        <DropdownMenuItem>All Time</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

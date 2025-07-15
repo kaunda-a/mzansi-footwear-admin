@@ -1,6 +1,6 @@
 import axios from "@/config/axios.config";
 import { ZodMarqueeOfferSchema } from "@/lib/zod-schemas/schema";
-import { MarqueeOffers } from "@prisma/client";
+import type { MarqueeOffers } from "@/lib/types/types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { z } from "zod";

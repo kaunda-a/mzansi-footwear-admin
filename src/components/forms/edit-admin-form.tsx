@@ -1,9 +1,18 @@
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -13,6 +22,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { AdminProps, EditAdminResProps } from "@/lib/types/types";
 import { useUpdateAdmin } from "@/api-hooks/admins/edit-admin";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+// Use the actual schema type
+type FormData = z.infer<typeof ZodAdminSchema>;
 
 const EditAdminForm = ({
   onClose,
@@ -21,8 +34,8 @@ const EditAdminForm = ({
   onClose: () => void;
   admin: AdminProps;
 }) => {
-  const form = useForm<z.infer<typeof ZodAdminSchema>>({
-    resolver: zodResolver(ZodAdminSchema),
+  const form = useForm<FormData>({
+    resolver: zodResolver(ZodAdminSchema) as any,
     defaultValues: {
       name: admin.name,
       email: admin.email,
@@ -44,7 +57,7 @@ const EditAdminForm = ({
 
   const mutation = useUpdateAdmin(onSuccess);
 
-  async function handleUpdateAdmin(data: z.infer<typeof ZodAdminSchema>) {
+  async function handleUpdateAdmin(data: FormData) {
     mutation.mutate({ id: admin.id, values: data });
   }
 
@@ -54,10 +67,11 @@ const EditAdminForm = ({
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "name">) => (
             <FormItem className="mb-3">
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Name" {...field} radius="sm" size="sm" />
+                <Input placeholder="Enter admin name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -66,10 +80,11 @@ const EditAdminForm = ({
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "email">) => (
             <FormItem className="mb-3">
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} radius="sm" size="sm" />
+                <Input type="email" placeholder="Enter admin email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,14 +93,14 @@ const EditAdminForm = ({
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "password">) => (
             <FormItem className="mb-3">
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Password"
+                  type="password"
+                  placeholder="Enter new password (optional)"
                   {...field}
-                  radius="sm"
-                  size="sm"
                 />
               </FormControl>
               <FormMessage />
@@ -95,53 +110,40 @@ const EditAdminForm = ({
         <FormField
           control={form.control}
           name="role"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "role">) => (
             <FormItem>
-              <FormControl>
-                <Select
-                  placeholder="Select a role"
-                  aria-label="role"
-                  labelPlacement="outside"
-                  size="lg"
-                  defaultSelectedKeys={[field.value]}
-                  disabledKeys={["empty"]}
-                  onChange={field.onChange}
-                  radius="sm"
-                  classNames={{
-                    value: "text-sm",
-                  }}
-                >
+              <FormLabel>Role</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select admin role" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
                   {["ADMIN", "GUEST"].map((role) => (
-                    <SelectItem
-                      key={role}
-                      value={role}
-                      className="select-item-style"
-                    >
+                    <SelectItem key={role} value={role}>
                       {role}
                     </SelectItem>
                   ))}
-                </Select>
-              </FormControl>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="danger"
             type="button"
-            variant="light"
-            onPress={onClose}
+            variant="outline"
+            onClick={onClose}
           >
             Close
           </Button>
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!form.formState.isDirty}
+            disabled={mutation.isPending || !form.formState.isDirty}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

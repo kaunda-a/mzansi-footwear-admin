@@ -1,4 +1,6 @@
-import { Avatar, Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronRight, Link } from "lucide-react";
 
 const topSources: any[] = [
@@ -8,7 +10,7 @@ const topSources: any[] = [
 const TopSources = () => {
   return (
     <Card className="shadow-md">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top Sources</h1>
           {/* <Button
@@ -34,7 +36,7 @@ const TopSources = () => {
             </div>
           </div>
         )}
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

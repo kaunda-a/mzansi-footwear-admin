@@ -8,7 +8,7 @@ import { useDashboardStats } from "@/api-hooks/dashboard/get-dashboard-stats";
 
 import { useGetGuestUsers } from "@/api-hooks/guest-users/get-guest-users";
 import { useCustomerRegistrations } from "@/api-hooks/dashboard/get-customer-registrations";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Analytics = () => {
   const { data: statsData, isLoading: statsLoading } = useDashboardStats();

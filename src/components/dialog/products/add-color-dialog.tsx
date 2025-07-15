@@ -1,20 +1,21 @@
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import AddColorSection from "@/components/forms/products/components/add-color-section";
 import { useGlobalContext } from "@/context/store";
 import { ProductFormProps } from "@/lib/types/types";
-import { Button } from "@nextui-org/react";
-import MagicButton from "@/components/ui/button";
+import { useState } from "react";
 
 const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
   const { colorVariants, setColorVariants } = useGlobalContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   function addColorSection() {
     setColorVariants((prevVariant) => [
@@ -24,9 +25,9 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
   }
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <MagicButton
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button
           type="button"
           onClick={() => {
             // addColorSection(); // Removed this call
@@ -34,17 +35,17 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
           className="bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70"
         >
           <Plus />
-        </MagicButton>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Add new color</SheetTitle>
-          <SheetDescription>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Add new color</DialogTitle>
+          <DialogDescription>
             Add a new color variant to your product.
-          </SheetDescription>
-        </SheetHeader>
+          </DialogDescription>
+        </DialogHeader>
         <div className="mt-5">
-          <MagicButton onClick={addColorSection} className="mb-4">Add New Color</MagicButton>
+          <Button onClick={addColorSection} className="mb-4">Add New Color</Button>
           {colorVariants.map((variant, i) => (
             <AddColorSection
               form={form}
@@ -55,8 +56,8 @@ const AddColorDialog = ({ form, setDisable }: ProductFormProps) => {
             />
           ))}
         </div>
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
   );
 };
 

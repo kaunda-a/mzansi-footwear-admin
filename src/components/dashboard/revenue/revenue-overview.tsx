@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import RevenueGraph from "./revenue-graph";
 import { Dispatch, SetStateAction, useState } from "react";
 

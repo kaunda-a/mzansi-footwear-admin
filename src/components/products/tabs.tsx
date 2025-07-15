@@ -1,13 +1,13 @@
 "use client";
 
-import { Tabs as NextUITabs, Tab } from "@nextui-org/react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, Boxes } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Analytics from "./analytics";
 
-const Tabs = ({ children }: { children: React.ReactNode }) => {
+const ProductsTabs = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
   const [selected, setSelected] = useState(tab || "products");
@@ -17,42 +17,32 @@ const Tabs = ({ children }: { children: React.ReactNode }) => {
   }, [tab]);
 
   return (
-    <NextUITabs
-      variant="underlined"
-      aria-label="Products"
-      color="primary"
-      className="max-w-full overflow-x-scroll md:overflow-hidden"
-      selectedKey={selected}
-    >
-      <Tab
-        key="products"
-        as={Link}
-        href="/dashboard/products"
-        title={
-          <div className="flex items-center gap-2">
+    <Tabs value={selected} className="w-full">
+      <TabsList className="grid w-full grid-cols-2 max-w-full overflow-x-auto md:overflow-hidden">
+        <TabsTrigger value="products" asChild>
+          <Link href="/dashboard/products" className="flex items-center gap-2">
             <Boxes size={20} />
             <span>Products</span>
-          </div>
-        }
-      >
-        <h1 className="my-5 text-xl text-zinc-400">All Products</h1>
-        {children}
-      </Tab>
-      <Tab
-        key="stats"
-        href="/dashboard/products?tab=stats"
-        as={Link}
-        title={
-          <div className="flex items-center gap-2">
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="stats" asChild>
+          <Link href="/dashboard/products?tab=stats" className="flex items-center gap-2">
             <BarChart3 size={20} />
             <span>Stats</span>
-          </div>
-        }
-      >
+          </Link>
+        </TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="products" className="mt-6">
+        <h1 className="my-5 text-xl text-zinc-400">All Products</h1>
+        {children}
+      </TabsContent>
+
+      <TabsContent value="stats" className="mt-6">
         <Analytics />
-      </Tab>
-    </NextUITabs>
+      </TabsContent>
+    </Tabs>
   );
 };
 
-export default Tabs;
+export default ProductsTabs;

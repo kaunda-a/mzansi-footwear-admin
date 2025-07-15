@@ -3,7 +3,7 @@
 import { Form } from "@/components/ui/form";
 import { ZodProductSchema } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import ProductDetails from "./components/product-details";

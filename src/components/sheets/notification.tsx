@@ -1,12 +1,13 @@
 import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Badge, Button } from "@nextui-org/react";
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   AlertOctagon,
   Ban,
@@ -16,6 +17,7 @@ import {
   Trash2,
   User,
 } from "lucide-react";
+import { useState } from "react";
 
 type NotificationProps = {
   key: string;
@@ -28,20 +30,30 @@ const data: NotificationProps[] = [
 ];
 
 const Notification = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Sheet>
-      <SheetTrigger>
-        <Badge content={data.length.toString()} size="lg" color="primary">
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <button className="relative">
           <Bell className="text-zinc-500 dark:text-zinc-400" />
-        </Badge>
-      </SheetTrigger>
-      <SheetContent className="flex flex-col gap-0 p-0 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl">
-        <SheetHeader className="p-5">
-          <SheetTitle className="flex items-center gap-4">
+          {data.length > 0 && (
+            <Badge
+              variant="default"
+              className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs bg-primary text-primary-foreground"
+            >
+              {data.length}
+            </Badge>
+          )}
+        </button>
+      </DialogTrigger>
+      <DialogContent className="flex flex-col gap-0 p-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/60 dark:border-zinc-700/60 shadow-xl max-w-md max-h-[80vh]">
+        <DialogHeader className="p-5">
+          <DialogTitle className="flex items-center gap-4">
             <Bell /> Notifications
-          </SheetTitle>
-        </SheetHeader>
-        <div className="scrollbar-thin flex-1 overflow-y-scroll px-5">
+          </DialogTitle>
+        </DialogHeader>
+        <div className="scrollbar-thin flex-1 overflow-y-auto px-5">
           {data.length > 0 ? (
             data.map((item, i) => (
               <NotificationCard value={item} key={i} />
@@ -56,13 +68,17 @@ const Notification = () => {
             </div>
           )}
         </div>
-        <SheetFooter className="border-t p-3">
-          <Button size="sm" variant="light" color="danger">
+        <DialogFooter className="border-t p-3">
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => setIsOpen(false)}
+          >
             Clear all
           </Button>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 

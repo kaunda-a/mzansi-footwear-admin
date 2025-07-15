@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import CustomerGraph from "./customer-graph";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -22,7 +23,7 @@ const NewCustomerRegistrations = ({
   const [activeFilter, setActiveFilter] = useState("year");
   return (
     <Card className="col-span-2 shadow-md">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="mb-10 grid grid-cols-1 items-center space-y-2 @sm:grid-cols-2">
           <h1 className="mx-2 mt-2 text-lg font-medium">
             New Customer Registrations
@@ -58,7 +59,7 @@ const NewCustomerRegistrations = ({
           </div>
         </div>
         <CustomerGraph data={graphData} />
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

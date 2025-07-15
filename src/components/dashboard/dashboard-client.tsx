@@ -16,7 +16,7 @@ import { useDashboardStats } from "@/api-hooks/dashboard/get-dashboard-stats";
 import { useRevenueData } from "@/api-hooks/dashboard/get-revenue-data";
 import { useTopCustomers, useCustomerRegistrations } from "@/api-hooks/dashboard/get-customer-analytics";
 import { CalendarClock, Package, Users, Wallet } from "lucide-react";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import ErrorBoundary from "@/components/error-boundary/error-boundary";
 import ApiErrorBoundary from "@/components/error-boundary/api-error-boundary";
 

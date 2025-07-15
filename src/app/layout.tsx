@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NextUIProvider from "@/providers/nextui-provider";
+import ThemeProvider from "@/providers/theme-provider";
 import { Toaster } from "sonner";
 import AuthProvider from "@/providers/auth-provider";
 import QueryProvider from "@/providers/query-provider";
@@ -38,7 +38,7 @@ export default async function RootLayout({
             <AutoSignOutProvider>
               <QueryProvider>
                 <GlobalContextProvider>
-                  <NextUIProvider>{children}</NextUIProvider>
+                  <ThemeProvider>{children}</ThemeProvider>
                 </GlobalContextProvider>
               </QueryProvider>
             </AutoSignOutProvider>

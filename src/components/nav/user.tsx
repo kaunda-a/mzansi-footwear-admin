@@ -1,17 +1,17 @@
 import { authOptions } from "@/lib/auth";
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
-  Button,
-  User as NextUIUser,
-  Avatar,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
   Card,
-  CardBody,
+  CardContent,
   CardFooter,
   CardHeader,
-  Image,
-} from "@nextui-org/react";
+} from "@/components/ui/card";
 import { Settings, LogOut } from "lucide-react";
 import { Session, getServerSession } from "next-auth";
 import Link from "next/link";
@@ -20,35 +20,27 @@ const User = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <Popover
-      showArrow
-      placement="bottom"
-      classNames={{
-        base: "before:z-10 before:shadow-none",
-      }}
-    >
-      <PopoverTrigger className="rounded-full bg-zinc-100 py-1 ps-1 dark:bg-zinc-800 sm:pe-4 md:py-1 md:ps-1">
-        <NextUIUser
-          as="button"
-          name={session?.user.name}
-          description={session?.user.role}
-          className="gap-1 transition-transform sm:gap-2"
-          classNames={{
-            description:
-              "text-success font-medium text-[0.5rem] md:text-xs hidden sm:block",
-            name: "text-xs lg:text-sm hidden sm:block",
-          }}
-          avatarProps={{
-            name: "",
-            className: "w-8 h-8 md:w-10 md:h-10",
-            showFallback: true,
-            classNames: { fallback: "" },
-            fallback: <Image src="/avatar.jpg" alt="avatar" radius="full" />,
-            src: session?.user.image || "",
-          }}
-        />
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="ghost"
+          className="rounded-full bg-muted/50 hover:bg-muted py-1 ps-1 sm:pe-4 md:py-1 md:ps-1 h-auto gap-1 sm:gap-2"
+        >
+          <Avatar className="w-8 h-8 md:w-10 md:h-10">
+            <AvatarImage src={session?.user.image || "/avatar.jpg"} alt={session?.user.name || "User"} />
+            <AvatarFallback>
+              {session?.user.name?.split(" ").map(n => n[0]).join("").toUpperCase() || "U"}
+            </AvatarFallback>
+          </Avatar>
+          <div className="hidden sm:flex flex-col items-start">
+            <span className="text-xs lg:text-sm font-medium">{session?.user.name}</span>
+            <span className="text-green-600 dark:text-green-400 font-medium text-[0.5rem] md:text-xs">
+              {session?.user.role}
+            </span>
+          </div>
+        </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-1">
+      <PopoverContent className="w-80 p-0" align="end">
         <UserCard session={session} />
       </PopoverContent>
     </Popover>
@@ -59,62 +51,55 @@ export default User;
 
 const UserCard = ({ session }: { session: Session | null }) => {
   return (
-    <Card
-      shadow="none"
-      className="border-non min-w-[250px] max-w-[300px] bg-white dark:bg-zinc-900"
-    >
-      <CardHeader className="justify-between">
-        <div className="flex gap-3">
-          <Avatar
-            isBordered
-            radius="full"
-            showFallback
-            classNames={{
-              fallback: "",
-            }}
-            fallback={<Image src="/avatar.jpg" alt="avatar" radius="full" />}
-            size="md"
-            src={session?.user.image || ""}
-          />
-          <div className="flex flex-col items-start justify-center">
-            <h4 className="text-small font-semibold leading-none">
+    <Card className="border-0 shadow-lg min-w-[250px] max-w-[300px]">
+      <CardHeader className="pb-3">
+        <div className="flex gap-3 items-center">
+          <Avatar className="w-12 h-12 border-2 border-border">
+            <AvatarImage src={session?.user.image || "/avatar.jpg"} alt={session?.user.name || "User"} />
+            <AvatarFallback>
+              {session?.user.name?.split(" ").map(n => n[0]).join("").toUpperCase() || "U"}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col items-start">
+            <h4 className="text-sm font-semibold leading-none">
               {session?.user.name}
             </h4>
-            <h5 className="text-xs font-medium tracking-tight text-success">
+            <h5 className="text-xs font-medium tracking-tight text-green-600 dark:text-green-400">
               {session?.user.role}
             </h5>
           </div>
         </div>
       </CardHeader>
-      <CardBody className="px-3 py-0">
-        <p className="pl-px text-small dark:text-default-500">
+      <CardContent className="px-6 py-0">
+        <p className="text-sm text-muted-foreground">
           Welcome back {session?.user.name}
-          <span aria-label="confetti" role="img">
+          <span aria-label="confetti" role="img" className="ml-1">
             🎉
           </span>
         </p>
-      </CardBody>
-      <CardFooter className="flex-col gap-3">
+      </CardContent>
+      <CardFooter className="flex-col gap-2 pt-3">
         <Button
-          as={Link}
-          href="/dashboard/settings"
-          startContent={<Settings size={15} />}
+          asChild
+          variant="ghost"
           size="sm"
-          variant="flat"
-          className="w-full justify-start"
+          className="w-full justify-start h-9"
         >
-          Settings
+          <Link href="/dashboard/settings">
+            <Settings size={15} className="mr-2" />
+            Settings
+          </Link>
         </Button>
         <Button
-          as={Link}
-          href="/signout"
-          startContent={<LogOut size={15} />}
+          asChild
+          variant="ghost"
           size="sm"
-          variant="flat"
-          color="danger"
-          className="w-full justify-start"
+          className="w-full justify-start h-9 text-destructive hover:text-destructive hover:bg-destructive/10"
         >
-          Sign Out
+          <Link href="/signout">
+            <LogOut size={15} className="mr-2" />
+            Sign Out
+          </Link>
         </Button>
       </CardFooter>
     </Card>

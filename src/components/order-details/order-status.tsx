@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Card, CardBody, Chip } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Box,
   Gift,
@@ -35,7 +36,7 @@ const OrderStatus = ({
 
   return (
     <Card className="mt-5 rounded-sm shadow-sm">
-      <CardBody className="p-0">
+      <CardContent className="p-0">
         <div className="flex items-center justify-between p-3">
           <h1>Order Status</h1>
           <div className="space-x-1">
@@ -66,23 +67,15 @@ const OrderStatus = ({
                 Order Placed{" "}
                 <span className="font-normal text-zinc-400">- {orderDate}</span>{" "}
                 {payment_verified ? (
-                  <Chip
-                    size="sm"
-                    color="success"
-                    className="text-white"
-                    startContent={<ShieldCheck size={15} />}
-                  >
+                  <Badge className="bg-green-600 text-white">
+                    <ShieldCheck size={15} className="mr-1" />
                     Payment Verified
-                  </Chip>
+                  </Badge>
                 ) : (
-                  <Chip
-                    size="sm"
-                    color="danger"
-                    className="text-white"
-                    startContent={<ShieldAlert size={15} />}
-                  >
+                  <Badge className="bg-red-600 text-white">
+                    <ShieldAlert size={15} className="mr-1" />
                     Payment Not Verified
-                  </Chip>
+                  </Badge>
                 )}
               </div>
             </StatusList>
@@ -116,7 +109,7 @@ const OrderStatus = ({
             </StatusList>
           </ul>
         </div>
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

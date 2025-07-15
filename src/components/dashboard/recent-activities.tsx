@@ -1,4 +1,4 @@
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const recentActivities = [
   "Added new Product to Category TWS Earbuds",
@@ -13,12 +13,12 @@ const recentActivities = [
 const RecentActivities = () => {
   return (
     <Card className="mt-5 shadow-md md:mt-0">
-      <CardBody>
+      <CardContent className="p-6">
         <h1 className="text-lg font-medium">Recent Activities</h1>
         <div className="mt-3 space-y-[1px] text-sm">
           <ActivitiesList data={recentActivities} />
         </div>
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

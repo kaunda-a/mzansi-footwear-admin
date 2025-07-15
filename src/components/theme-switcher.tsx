@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
@@ -19,24 +19,21 @@ export function ThemeSwitcher() {
     <div>
       {theme === "dark" ? (
         <Button
-          isIconOnly
-          variant="light"
+          variant="ghost"
           size="sm"
-          radius="full"
           onClick={() => setTheme("light")}
+          className="h-8 w-8 p-0 rounded-full hover:bg-slate-100/80 dark:hover:bg-zinc-800/50"
         >
-          <Sun className="text-zinc-400" />
+          <Sun className="h-4 w-4 text-zinc-400" />
         </Button>
       ) : (
         <Button
-          isIconOnly
-          variant="light"
+          variant="ghost"
           size="sm"
-          radius="full"
           onClick={() => setTheme("dark")}
-          className="hover:!bg-zinc-200"
+          className="h-8 w-8 p-0 rounded-full hover:bg-slate-100/80 dark:hover:bg-zinc-800/50"
         >
-          <Moon className="text-zinc-500" />
+          <Moon className="h-4 w-4 text-zinc-500" />
         </Button>
       )}
     </div>

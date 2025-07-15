@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { MarqueeOffers } from "@prisma/client";
+import type { MarqueeOffers } from "@/lib/types/types";
 import { useUpdateMarqueeOffer } from "@/api-hooks/marquee-offers/edit-deal";
 import { standardInputStyles, formItemSpacing } from "@/lib/form-styles";
 

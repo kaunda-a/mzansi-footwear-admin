@@ -4,7 +4,11 @@ import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 type DataProps = {
   name: string;

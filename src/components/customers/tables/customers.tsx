@@ -3,22 +3,29 @@
 import React from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
   DropdownMenu,
-  DropdownItem,
-  User,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
   Pagination,
-  Selection,
-  SortDescriptor,
-} from "@nextui-org/react";
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { ChevronDown, Eye, Pencil, PlusIcon, Search } from "lucide-react";
 import { capitalize } from "@/lib/utils";
 import { useCustomers } from "@/api-hooks/customers/get-customers";
@@ -50,15 +57,20 @@ const INITIAL_VISIBLE_COLUMNS = [
   "actions",
 ];
 
+type SortDescriptor = {
+  column: string;
+  direction: "ascending" | "descending";
+};
+
 export default function Customers() {
   const { data: customers } = useCustomers();
 
   const [filterValue, setFilterValue] = React.useState("");
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+  const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
+  const [sortDescriptor] = React.useState<SortDescriptor>({
     column: "name",
     direction: "ascending",
   });
@@ -68,10 +80,8 @@ export default function Customers() {
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
-
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
+      visibleColumns.has(column.uid),
     );
   }, [visibleColumns]);
 
@@ -116,43 +126,42 @@ export default function Customers() {
       switch (columnKey) {
         case "name":
           return (
-            <User
-              avatarProps={{
-                radius: "lg",
-                src: customer.image,
-                name: "",
-                showFallback: true,
-              }}
-              name={cellValue}
-            >
-              {customer.email}
-            </User>
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={customer.image || ""} alt={customer.name} />
+                <AvatarFallback>
+                  {customer.name.split(" ").map((n: string) => n[0]).join("").toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <p className="text-sm font-medium">{cellValue}</p>
+                <p className="text-xs text-muted-foreground">{customer.email}</p>
+              </div>
+            </div>
           );
         case "email":
-          return <p className="text-bold text-small">{cellValue}</p>;
+          return <p className="text-sm font-medium">{cellValue}</p>;
         case "phone":
-          return <p className="text-bold text-small">{cellValue}</p>;
+          return <p className="text-sm font-medium">{cellValue}</p>;
         case "actions":
           return (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-1">
               {/* View customer */}
               <Button
-                isIconOnly
+                variant="ghost"
                 size="sm"
-                variant="light"
-                as={Link}
-                radius="full"
-                href={`/dashboard/customers/${customer.id}`}
+                className="h-8 w-8 p-0 rounded-full"
+                onClick={() => window.location.href = `/dashboard/customers/${customer.id}`}
               >
-                <Eye size={20} className="text-zinc-500" />
+                <Eye size={16} className="text-muted-foreground" />
               </Button>
 
               {/* Edit customer */}
               <DefaultSheet
                 title="Edit Customer"
                 trigger={
-                  <Button isIconOnly size="sm" variant="light" radius="full" className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200">
-                    <Pencil size={20} className="text-zinc-500" />
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
+                    <Pencil size={16} className="text-muted-foreground" />
                   </Button>
                 }
                 classNames={{
@@ -228,32 +237,25 @@ export default function Customers() {
             onValueChange={onSearchChange}
           />
           <div className="ms-auto flex items-center gap-3 md:ms-0">
-            <Dropdown>
-              <DropdownTrigger className="z-0 hidden sm:flex">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <Button
-                  endContent={<ChevronDown size={20} />}
+                  variant="outline"
                   size="sm"
-                  variant="flat"
+                  className="hidden sm:flex items-center gap-2"
                 >
                   Columns
+                  <ChevronDown size={16} />
                 </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                className="scrollbar-thin max-h-[250px] overflow-y-scroll"
-                selectionMode="multiple"
-                onSelectionChange={setVisibleColumns}
-              >
-                {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-[250px] overflow-y-auto">
+                {columns.map((column: any) => (
+                  <DropdownMenuItem key={column.uid} className="capitalize">
                     {capitalize(column.name)}
-                  </DropdownItem>
+                  </DropdownMenuItem>
                 ))}
-              </DropdownMenu>
-            </Dropdown>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <DefaultSheet
               title="Add Customer"
               trigger={
@@ -295,7 +297,6 @@ export default function Customers() {
     );
   }, [
     filterValue,
-    visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
     onClear,
@@ -305,83 +306,90 @@ export default function Customers() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="hidden w-[30%] justify-end gap-2 sm:flex">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Next
-          </Button>
+        <div className="text-sm text-muted-foreground">
+          Page {page} of {pages}
         </div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={onPreviousPage}
+                className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+            {Array.from({ length: Math.min(pages, 5) }, (_, i) => {
+              const pageNum = i + 1;
+              return (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    onClick={() => setPage(pageNum)}
+                    isActive={pageNum === page}
+                    className="cursor-pointer"
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+            <PaginationItem>
+              <PaginationNext
+                onClick={onNextPage}
+                className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     );
   }, [page, pages, onNextPage, onPreviousPage]);
 
   return (
-    <Table
-      aria-label="Customer table"
-      isHeaderSticky
-      classNames={{
-        wrapper: "shadow-md",
-      }}
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      onSortChange={setSortDescriptor}
-    >
-      <TableHeader columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        emptyContent={
-          <div className="text-center py-8">
-            <div className="text-lg font-semibold text-gray-600 mb-2">
-              No Customers Yet
-            </div>
-            <div className="text-sm text-gray-500">
-              Customers will appear here once they register and create accounts.
-            </div>
-          </div>
-        }
-        items={sortedItems}
-      >
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+    <div className="space-y-4">
+      {topContent}
+      <div className="rounded-md border shadow-md">
+        <Table>
+          <TableHeader>
+            {headerColumns.map((column: any) => (
+              <TableHead
+                key={column.uid}
+                className={column.uid === "actions" ? "text-center" : ""}
+              >
+                {column.name}
+              </TableHead>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {sortedItems.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={headerColumns.length} className="text-center py-8">
+                  <div className="text-center py-8">
+                    <div className="text-lg font-semibold text-gray-600 mb-2">
+                      No Customers Yet
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      Customers will appear here once they register and create accounts.
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              sortedItems.map((item: any) => (
+                <TableRow key={item.id}>
+                  {headerColumns.map((column: any) => (
+                    <TableCell
+                      key={column.uid}
+                      className={column.uid === "actions" ? "text-center" : ""}
+                    >
+                      {renderCell(item, column.uid)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          </TableBody>
+        </Table>
+      </div>
+      {bottomContent}
+    </div>
   );
 }

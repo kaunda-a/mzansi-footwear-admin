@@ -1,19 +1,21 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  Chip,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   Tooltip,
-  ChipProps,
-  Button,
-  SelectItem,
-  Select,
-} from "@nextui-org/react";
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Eye, ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
@@ -27,10 +29,10 @@ const recentOrderColumns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  delivered: "success",
-  pending: "danger",
-  ongoing: "warning",
+const statusColorMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+  delivered: "default",
+  pending: "destructive",
+  ongoing: "secondary",
 };
 
 const RecentOrders = () => {
@@ -49,29 +51,35 @@ const RecentOrders = () => {
         return <h1>{formatCurrency(order.total)}</h1>;
       case "status":
         return (
-          <Chip
+          <Badge
             className="capitalize"
-            color={statusColorMap[order.status]}
-            size="sm"
-            variant="flat"
+            variant={statusColorMap[order.status]}
           >
             {order.status}
-          </Chip>
+          </Badge>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="View order details">
-              <Button
-                as={Link}
-                href={`/dashboard/orders/${order.id}`}
-                isIconOnly
-                size="sm"
-                variant="light"
-              >
-                <Eye className="h-4 w-4" />
-              </Button>
-            </Tooltip>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
+                  >
+                    <Link href={`/dashboard/orders/${order.id}`}>
+                      <Eye className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View order details</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         );
       default:
@@ -95,41 +103,44 @@ const RecentOrders = () => {
           View All
         </Button>
       </div>
-      <Table
-        aria-label="Recent Orders table"
-        classNames={{
-          wrapper: "px-0 shadow-none",
-        }}
-      >
-        <TableHeader columns={recentOrderColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody
-          emptyContent={
-            <div className="text-center py-4">
-              <div className="text-sm text-gray-500">
-                No recent orders yet
-              </div>
-            </div>
-          }
-          items={recentOrders}
-        >
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      <div className="px-0">
+        <Table>
+          <TableHeader>
+            {recentOrderColumns.map((column: any) => (
+              <TableHead
+                key={column.uid}
+                className={column.uid === "actions" ? "text-center" : ""}
+              >
+                {column.name}
+              </TableHead>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {(!recentOrders || recentOrders.length === 0) ? (
+              <TableRow>
+                <TableCell colSpan={recentOrderColumns.length} className="text-center py-4">
+                  <div className="text-sm text-gray-500">
+                    No recent orders yet
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              recentOrders.map((item: any) => (
+                <TableRow key={item.id}>
+                  {recentOrderColumns.map((column: any) => (
+                    <TableCell
+                      key={column.uid}
+                      className={column.uid === "actions" ? "text-center" : ""}
+                    >
+                      {renderCell(item, column.uid)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

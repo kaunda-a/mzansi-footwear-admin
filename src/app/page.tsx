@@ -2,7 +2,7 @@ import AuthForm from "@/components/forms/auth-form";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Shield, BarChart3, Users, Package, TrendingUp, Globe, Award, Zap } from "lucide-react";
 
@@ -124,7 +124,7 @@ const SignIn = async () => {
       <div className="w-full lg:w-2/5 xl:w-1/3 flex items-center justify-center p-4 lg:p-8">
         <div className="w-full max-w-md">
           <Card className="backdrop-blur-xl bg-white/90 dark:bg-zinc-900/90 border border-slate-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30">
-            <CardBody className="p-8">
+            <CardContent className="p-8">
               {/* Mobile Logo (only visible on small screens) */}
               <div className="lg:hidden text-center mb-8">
                 <div className="flex justify-center mb-4">
@@ -168,7 +168,7 @@ const SignIn = async () => {
                   Secure admin access • Mzansi Footwear © 2024
                 </p>
               </div>
-            </CardBody>
+            </CardContent>
           </Card>
         </div>
       </div>

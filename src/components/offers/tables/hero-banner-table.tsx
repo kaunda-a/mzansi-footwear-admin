@@ -3,19 +3,20 @@
 import React, { Dispatch, SetStateAction } from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  Selection,
-  Dropdown,
-  DropdownTrigger,
-  Button,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import {
   DropdownMenu,
-  DropdownItem,
-  User,
-} from "@nextui-org/react";
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HeroBanner } from "@prisma/client";
 import { ChevronDown } from "lucide-react";
 import { capitalize, formatCurrency } from "@/lib/utils";
@@ -50,15 +51,15 @@ export default function HeroBannerTable({
   data: HeroBanner[] | null;
   setBannerData: Dispatch<SetStateAction<HeroBanner[] | null>>;
 }) {
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+  const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
+    if (visibleColumns.has("all")) return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
+      visibleColumns.has(column.uid),
     );
   }, [visibleColumns]);
 
@@ -68,32 +69,33 @@ export default function HeroBannerTable({
         <div className="flex items-center justify-between">
           <h1 className="font-medium md:text-lg">Hero Banners</h1>
           <div className="flex items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger className="z-0 hidden sm:flex">
-                <Button
-                  endContent={<ChevronDown size={20} />}
-                  variant="flat"
-                  size="sm"
-                >
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="hidden sm:flex">
                   Columns
+                  <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                className="max-h-[250px] overflow-y-scroll scrollbar-hide"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                selectionMode="multiple"
-                onSelectionChange={setVisibleColumns}
-                aria-label="banner-table-column-select"
-              >
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48 max-h-[250px] overflow-y-auto">
                 {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
+                  <DropdownMenuItem
+                    key={column.uid}
+                    className="capitalize"
+                    onClick={() => {
+                      const newVisibleColumns = new Set(visibleColumns);
+                      if (newVisibleColumns.has(column.uid)) {
+                        newVisibleColumns.delete(column.uid);
+                      } else {
+                        newVisibleColumns.add(column.uid);
+                      }
+                      setVisibleColumns(newVisibleColumns);
+                    }}
+                  >
                     {capitalize(column.name)}
-                  </DropdownItem>
+                  </DropdownMenuItem>
                 ))}
-              </DropdownMenu>
-            </Dropdown>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <AddBanner setBannerData={setBannerData} />
           </div>
         </div>
@@ -111,12 +113,10 @@ export default function HeroBannerTable({
       switch (columnKey) {
         case "images":
           return (
-            <User
-              avatarProps={{
-                src: banner.imageUrlSm,
-              }}
-              name=""
-            />
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={banner.imageUrlSm} alt="Banner" />
+              <AvatarFallback>IMG</AvatarFallback>
+            </Avatar>
           );
         case "offerPrice":
           return formatCurrency(banner.offerPrice);
@@ -147,45 +147,48 @@ export default function HeroBannerTable({
   );
 
   return (
-    <Table
-      topContent={topContent}
-      topContentPlacement="outside"
-      aria-label="Marquee offers details"
-      classNames={{
-        wrapper: "px-0 shadow-none",
-      }}
-    >
-      <TableHeader /* columns={columns} */ columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            className={column.uid === "actions" ? "text-right" : "text-left"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        items={data || []}
-        emptyContent={
-          <div className="text-center py-8">
-            <div className="text-lg font-semibold text-gray-600 mb-2">
-              No Hero Banners Yet
-            </div>
-            <div className="text-sm text-gray-500">
-              Create hero banners to showcase featured products and promotions on your storefront.
-            </div>
-          </div>
-        }
-      >
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+    <div className="space-y-4">
+      {topContent}
+      <div className="bg-card/50 backdrop-blur-sm border border-border/60 rounded-xl shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {headerColumns.map((column) => (
+                <TableHead
+                  key={column.uid}
+                  className={column.uid === "actions" ? "text-right" : "text-left"}
+                >
+                  {column.name}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data && data.length > 0 ? (
+              data.map((item) => (
+                <TableRow key={item.id} className="hover:bg-muted/50">
+                  {headerColumns.map((column) => (
+                    <TableCell key={column.uid} className={column.uid === "actions" ? "text-right" : ""}>
+                      {renderCell(item, column.uid)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={headerColumns.length} className="text-center py-8 text-muted-foreground">
+                  <div className="text-lg font-semibold mb-2">
+                    No Hero Banners Yet
+                  </div>
+                  <div className="text-sm">
+                    Create hero banners to showcase featured products and promotions on your storefront.
+                  </div>
+                </TableCell>
+              </TableRow>
             )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 }

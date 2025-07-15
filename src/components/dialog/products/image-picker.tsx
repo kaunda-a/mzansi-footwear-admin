@@ -1,21 +1,21 @@
 import ImagePreview from "@/components/forms/products/components/image-preview";
 import { useGlobalContext } from "@/context/store";
 import { ImagePickerProps } from "@/lib/types/types";
+import { Button } from "@/components/ui/button";
 import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/react";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Dropzone from "react-dropzone";
 
 const ImagePicker = ({ action, variant, variantIndex }: ImagePickerProps) => {
   const { setColorVariants } = useGlobalContext();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -56,24 +56,25 @@ const ImagePicker = ({ action, variant, variantIndex }: ImagePickerProps) => {
   );
 
   return (
-    <>
-      <Button
-        onPress={onOpen}
-        isIconOnly
-        className="bg-[rgba(0,111,238,0.15)] text-[#006FEE]"
-        variant="flat"
-        type="button"
-      >
-        <Plus />
-      </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" backdrop="blur">
-        <ModalContent className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl">
-          {() => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 text-lg font-semibold text-zinc-700 dark:text-zinc-300">
-                Upload Product Images.
-              </ModalHeader>
-              <ModalBody className="mb-5 px-6 py-4">
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button
+          className="bg-[rgba(0,111,238,0.15)] text-[#006FEE] h-8 w-8 p-0"
+          variant="outline"
+          type="button"
+        >
+          <Plus />
+        </Button>
+      </DialogTrigger>
+
+      <DialogContent className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/60 dark:border-zinc-700/60 shadow-xl max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
+            Upload Product Images
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="px-6 py-4">
                 <Dropzone
                   onDrop={onDrop}
                   accept={{
@@ -124,12 +125,9 @@ const ImagePicker = ({ action, variant, variantIndex }: ImagePickerProps) => {
                     ))}
                   </div>
                 )}
-              </ModalBody>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

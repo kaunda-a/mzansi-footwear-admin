@@ -3,12 +3,12 @@
 import React, { Dispatch, SetStateAction } from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-} from "@nextui-org/react";
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { MarqueeOffers } from "@prisma/client";
 import DeleteMarqueeOffer from "@/components/dialog/marquee-offers/delete-offer";
 import EditMarqueeOffer from "@/components/dialog/marquee-offers/edit-offers";
@@ -47,43 +47,45 @@ export default function MarqueeOffersTable({
   );
 
   return (
-    <Table
-      aria-label="Marquee offers details"
-      classNames={{
-        wrapper: "px-0 shadow-none",
-      }}
-    >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            className={column.uid === "actions" ? "text-right" : "text-left"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        items={data || []}
-        emptyContent={
-          <div className="text-center py-8">
-            <div className="text-lg font-semibold text-gray-600 mb-2">
-              No Marquee Offers Yet
-            </div>
-            <div className="text-sm text-gray-500">
-              Create marquee offers to display scrolling promotional messages on your storefront.
-            </div>
-          </div>
-        }
-      >
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <div className="px-0">
+      <Table>
+        <TableHeader>
+          {columns.map((column: any) => (
+            <TableHead
+              key={column.uid}
+              className={column.uid === "actions" ? "text-right" : "text-left"}
+            >
+              {column.name}
+            </TableHead>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {(!data || data.length === 0) ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center py-8">
+                <div className="text-center py-8">
+                  <div className="text-lg font-semibold text-gray-600 mb-2">
+                    No Marquee Offers Yet
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Create marquee offers to display scrolling promotional messages on your storefront.
+                  </div>
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : (
+            data.map((item: any) => (
+              <TableRow key={item.id}>
+                {columns.map((column: any) => (
+                  <TableCell key={column.uid}>
+                    {renderCell(item, column.uid)}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

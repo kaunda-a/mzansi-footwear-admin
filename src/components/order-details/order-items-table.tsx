@@ -3,15 +3,16 @@
 import React from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  User,
-} from "@nextui-org/react";
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatCurrency } from "@/lib/utils";
 import { OrderItemProps } from "@/lib/types/types";
+import Image from "next/image";
 
 const columns = [
   { name: "PRODUCT DETAILS", uid: "product-details" },
@@ -29,16 +30,19 @@ export default function OrderItemsTable({ data }: { data: OrderItemProps[] }) {
       switch (columnKey) {
         case "product-details":
           return (
-            <User
-              avatarProps={{
-                size: "lg",
-                radius: "none",
-                showFallback: true,
-                src: process.env.NEXT_PUBLIC_IMAGE_URL + order.Image,
-              }}
-              description={`Color: ${order.color}`}
-              name={order.title}
-            />
+            <div className="flex items-center gap-3">
+              <Image
+                src={process.env.NEXT_PUBLIC_IMAGE_URL + order.Image}
+                alt={order.title}
+                width={64}
+                height={64}
+                className="rounded object-cover"
+              />
+              <div>
+                <p className="font-medium">{order.title}</p>
+                <p className="text-sm text-gray-500">Color: {order.color}</p>
+              </div>
+            </div>
           );
         case "color":
           return order.color || "Null";
@@ -60,33 +64,33 @@ export default function OrderItemsTable({ data }: { data: OrderItemProps[] }) {
   );
 
   return (
-    <Table
-      aria-label="Product details"
-      classNames={{
-        wrapper: "px-0 shadow-none",
-      }}
-    >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            className={column.uid === "total" ? "text-right" : "text-left"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={data}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell className="last:text-right">
-                {renderCell(item, columnKey)}
-              </TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <div className="px-0">
+      <Table>
+        <TableHeader>
+          {columns.map((column: any) => (
+            <TableHead
+              key={column.uid}
+              className={column.uid === "total" ? "text-right" : "text-left"}
+            >
+              {column.name}
+            </TableHead>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {data.map((item: any) => (
+            <TableRow key={item.id}>
+              {columns.map((column: any) => (
+                <TableCell
+                  key={column.uid}
+                  className={column.uid === "total" ? "text-right" : "text-left"}
+                >
+                  {renderCell(item, column.uid)}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

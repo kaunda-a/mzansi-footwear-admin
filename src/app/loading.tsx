@@ -1,4 +1,4 @@
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 
@@ -9,7 +9,7 @@ const Loading = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.1),transparent_50%)]"></div>
 
       <Card className="relative backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30 rounded-3xl">
-        <CardBody className="p-8 flex flex-col items-center space-y-6">
+        <CardContent className="p-8 flex flex-col items-center space-y-6">
           {/* Animated Logo */}
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
@@ -46,7 +46,7 @@ const Loading = () => {
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
             <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
           </div>
-        </CardBody>
+        </CardContent>
       </Card>
     </div>
   );

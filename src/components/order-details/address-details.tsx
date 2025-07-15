@@ -1,11 +1,11 @@
 import { Address } from "@/lib/types/types";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 
 const AddressDetails = ({ data }: { data: Address }) => {
   return (
     <Card className="mt-5 rounded-sm shadow-sm">
-      <CardBody className="p-0">
+      <CardContent className="p-0">
         <div className="flex items-center gap-3 p-3">
           <MapPin className="text-zinc-400" size={20} />
           <h1>Shipping Address</h1>
@@ -24,7 +24,7 @@ const AddressDetails = ({ data }: { data: Address }) => {
             <li>{data.alt_phone}</li>
           </ul>
         </div>
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

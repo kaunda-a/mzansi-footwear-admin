@@ -1,4 +1,5 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 
 const topStateData: any[] = [
@@ -10,17 +11,16 @@ const topStateData: any[] = [
 const TopStateBySales = () => {
   return (
     <Card className="shadow-md">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top Provinces By Sales</h1>
           {/* <Button
-            variant="flat"
+            variant="outline"
             size="sm"
-            color="primary"
             className="dark:bg-zinc-800 dark:text-white"
-            endContent={<ChevronRight size={15} />}
           >
             View All
+            <ChevronRight size={15} className="ml-1" />
           </Button> */}
         </div>
         {topStateData.length > 0 ? (
@@ -36,7 +36,7 @@ const TopStateBySales = () => {
             </div>
           </div>
         )}
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

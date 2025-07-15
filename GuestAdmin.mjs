@@ -3,7 +3,15 @@ Guest Admin creation script
 Usage: node GuestAdmin.mjs
 */
 
-import { PrismaClient } from "@prisma/client";
+// Robust Prisma client import with fallback
+let PrismaClient;
+try {
+  const prismaModule = await import("@prisma/client");
+  PrismaClient = prismaModule.PrismaClient;
+} catch (error) {
+  console.error("Prisma client not available. Please run 'npx prisma generate' first.");
+  process.exit(1);
+}
 
 const prisma = new PrismaClient();
 

@@ -1,11 +1,15 @@
 "use client";
 
-import { Button, Input, Radio, RadioGroup } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -14,9 +18,12 @@ import { ZodCustomerSchema } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Customer } from "@/lib/types/types";
 import { useUpdateCustomer } from "@/api-hooks/customers/edit-customers";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodCustomerSchema>;
 
 const EditCustomerForm = ({ customer }: { customer: Customer }) => {
-  const form = useForm<z.infer<typeof ZodCustomerSchema>>({
+  const form = useForm({
     resolver: zodResolver(ZodCustomerSchema),
     defaultValues: {
       name: customer.name,
@@ -29,7 +36,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
 
   const mutation = useUpdateCustomer();
 
-  async function handleUpdateCustomer(data: z.infer<typeof ZodCustomerSchema>) {
+  async function handleUpdateCustomer(data: FormData) {
     mutation.mutate({ id: customer.id, values: data });
   }
 
@@ -39,10 +46,10 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
-                <Input placeholder="Name" {...field} radius="sm" size="sm" />
+                <Input placeholder="Name" {...field} className="h-9" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -51,10 +58,10 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
-                <Input placeholder="Email" {...field} radius="sm" size="sm" />
+                <Input placeholder="Email" {...field} className="h-9" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -63,14 +70,14 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input
                   placeholder="Password"
+                  type="password"
                   {...field}
-                  radius="sm"
-                  size="sm"
+                  className="h-9"
                 />
               </FormControl>
               <FormMessage />
@@ -80,10 +87,10 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="phone"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
-                <Input placeholder="Phone" {...field} radius="sm" size="sm" />
+                <Input placeholder="Phone" {...field} className="h-9" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -92,17 +99,23 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="gender"
-          render={({ field }) => (
-            <FormItem>
+          render={({ field }: FormFieldRenderProps) => (
+            <FormItem className="mb-3">
+              <FormLabel>Select gender</FormLabel>
               <FormControl>
                 <RadioGroup
-                  label="Select gender"
-                  orientation="horizontal"
                   value={field.value}
-                  onChange={field.onChange}
+                  onValueChange={field.onChange}
+                  className="flex flex-row space-x-4"
                 >
-                  <Radio value="male">Male</Radio>
-                  <Radio value="female">Female</Radio>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="male" id="male" />
+                    <Label htmlFor="male">Male</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="female" id="female" />
+                    <Label htmlFor="female">Female</Label>
+                  </div>
                 </RadioGroup>
               </FormControl>
               <FormMessage />
@@ -111,12 +124,11 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         />
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!form.formState.isDirty}
+            disabled={mutation.isPending || !form.formState.isDirty}
+            className="bg-primary hover:bg-primary/90"
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

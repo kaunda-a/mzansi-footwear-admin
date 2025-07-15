@@ -1,4 +1,7 @@
-import { Button, Image, Input, Textarea } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ZodBestDealSchema } from "@/lib/zod-schemas/schema";
@@ -8,15 +11,19 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Trash2 } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ImagePicker from "@/components/offers/image-picker";
 import { useUpdateDeal } from "@/api-hooks/best-deals/edit-deal";
-import { BestDeal } from "@prisma/client";
 import { toast } from "sonner";
-import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";
+import { formItemSpacing } from "@/lib/form-styles";
+import type { FormFieldRenderProps } from "@/types/react-components";
+import type { BestDeal } from "@/lib/types/types";
+
+type FormData = z.infer<typeof ZodBestDealSchema>;
 
 const EditDealForm = ({
   deal,
@@ -68,12 +75,12 @@ const EditDealForm = ({
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "title">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Title"
+                  placeholder="Enter deal title"
                   {...field}
                 />
               </FormControl>
@@ -84,12 +91,12 @@ const EditDealForm = ({
         <FormField
           control={form.control}
           name="id"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "id">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Product ID</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Product ID"
+                  placeholder="Enter product ID"
                   {...field}
                 />
               </FormControl>
@@ -100,12 +107,12 @@ const EditDealForm = ({
         <FormField
           control={form.control}
           name="slug"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "slug">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Product Slug</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Product Slug"
+                  placeholder="Enter product slug"
                   {...field}
                 />
               </FormControl>
@@ -116,12 +123,12 @@ const EditDealForm = ({
         <FormField
           control={form.control}
           name="description"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "description">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  {...standardTextareaStyles}
-                  label="Description"
+                  placeholder="Enter deal description"
                   {...field}
                 />
               </FormControl>
@@ -132,18 +139,13 @@ const EditDealForm = ({
         <FormField
           control={form.control}
           name="price"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "price">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Product Price</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Product Price"
                   type="number"
-                  startContent={
-                    <div className="pointer-events-none flex items-center">
-                      <span className="text-default-400 text-small">R</span>
-                    </div>
-                  }
+                  placeholder="Enter product price"
                   {...field}
                 />
               </FormControl>
@@ -154,7 +156,7 @@ const EditDealForm = ({
         <div className="relative w-full">
           {image ? (
             <>
-              <Image src={image} alt="" className="aspect-video" />
+              <Image src={image} alt="Deal preview" width={400} height={225} className="aspect-video w-full object-cover rounded-lg" />
               <Button
                 isIconOnly
                 size="sm"
@@ -171,12 +173,10 @@ const EditDealForm = ({
         </div>
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!image}
+            disabled={mutation.isPending || !image}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

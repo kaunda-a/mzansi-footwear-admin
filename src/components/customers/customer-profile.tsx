@@ -1,4 +1,5 @@
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import DefaultSheet from "../sheets/default-sheet";
 import EditCustomerForm from "../forms/edit-customer";
 import { CustomerProfileProps } from "@/lib/types/types";
@@ -15,16 +16,12 @@ const CustomerProfile = ({
       </h1>
       <div className="grid grid-cols-1 gap-3 @sm:grid-cols-2">
         <div className="flex rounded-xl bg-white p-5 shadow-md dark:bg-dark">
-          <Avatar
-            radius="full"
-            className="flex-shrink-0 text-large md:h-20 md:w-20"
-            showFallback
-            classNames={{
-              fallback: "w-full h-full",
-            }}
-            name=""
-            src={customerData?.image || ""}
-          />
+          <Avatar className="flex-shrink-0 h-16 w-16 md:h-20 md:w-20">
+            <AvatarImage src={customerData?.image || ""} alt={customerData.name} />
+            <AvatarFallback className="text-lg font-semibold">
+              {customerData.name.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
           <div className="ms-3 space-y-1.5">
             <h1 className="text-lg font-semibold">{customerData.name}</h1>
             <p className="text-xs text-zinc-400">

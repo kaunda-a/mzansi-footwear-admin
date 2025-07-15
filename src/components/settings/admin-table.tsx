@@ -3,18 +3,19 @@
 import React from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  User,
-} from "@nextui-org/react";
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetAdmins } from "@/api-hooks/admins/get-admins";
 import { AdminProps } from "@/lib/types/types";
 import EditAdmin from "@/components/dialog/admin/edit-admin";
 import CreateAdmin from "../dialog/admin/create-admin";
 import DeleteAdmin from "../dialog/admin/delete-admin";
+import { User } from "lucide-react";
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -33,17 +34,18 @@ export default function AdminTable() {
       switch (columnKey) {
         case "name":
           return (
-            <User
-              avatarProps={{
-                radius: "full",
-                src: "/",
-                showFallback: true,
-                name: "",
-              }}
-              name={cellValue}
-            >
-              {admin.email}
-            </User>
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src="/" alt={admin.name} />
+                <AvatarFallback>
+                  <User size={16} />
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-medium">{cellValue}</p>
+                <p className="text-sm text-gray-500">{admin.email}</p>
+              </div>
+            </div>
           );
         case "role":
           return <p className="text-bold text-sm capitalize">{cellValue}</p>;
@@ -69,30 +71,31 @@ export default function AdminTable() {
         <h1 className="text-lg font-medium">Admin List</h1>
         <CreateAdmin />
       </div>
-      <Table
-        aria-label="Admin Details Table"
-        classNames={{
-          wrapper: "px-0 shadow-none",
-        }}
-      >
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={admins?.admins}>{(item) => (
-        <TableRow key={item.id}>
-          {(columnKey) => (
-            <TableCell>{renderCell(item, columnKey)}</TableCell>
-          )}
-        </TableRow>
-      )}</TableBody>
-      </Table>
+      <div className="px-0">
+        <Table>
+          <TableHeader>
+            {columns.map((column: any) => (
+              <TableHead
+                key={column.uid}
+                className={column.uid === "actions" ? "text-center" : "text-left"}
+              >
+                {column.name}
+              </TableHead>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {admins?.admins?.map((item: any) => (
+              <TableRow key={item.id}>
+                {columns.map((column: any) => (
+                  <TableCell key={column.uid}>
+                    {renderCell(item, column.uid)}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

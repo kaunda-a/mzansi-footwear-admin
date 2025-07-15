@@ -5,11 +5,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { ProductFormProps } from "@/lib/types/types";
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import AddColorDialog from "@/components/dialog/products/add-color-dialog";
 import AddColorSection from "./add-color-section";
 import { useGlobalContext } from "@/context/store";
+import Image from "next/image";
 
 const ProductOptions = ({ form }: ProductFormProps) => {
   const { colorVariants, setColorVariants } = useGlobalContext();
@@ -30,7 +32,7 @@ const ProductOptions = ({ form }: ProductFormProps) => {
           <div key={i} className="flex items-center gap-2 mb-2">
             <span className="font-semibold">Color:</span> {variant.color}
             {variant.thumbnail && (
-              <img src={variant.thumbnail} alt="thumbnail" className="w-8 h-8 rounded-full object-cover" />
+              <Image src={variant.thumbnail} alt="thumbnail" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
             )}
             {variant.others && variant.others.length > 0 && (
               <span className="text-sm text-gray-500"> (+{variant.others.length} other images)</span>

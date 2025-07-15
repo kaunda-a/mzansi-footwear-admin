@@ -1,4 +1,5 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ZodMarqueeOfferSchema } from "@/lib/zod-schemas/schema";
@@ -8,13 +9,17 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useCreateOffer } from "@/api-hooks/marquee-offers/create-offer";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { MarqueeOffers } from "@prisma/client";
-import { standardInputStyles, formItemSpacing } from "@/lib/form-styles";
+import type { MarqueeOffers } from "@/lib/types/types";
+import { formItemSpacing } from "@/lib/form-styles";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodMarqueeOfferSchema>;
 
 const NewOfferForm = ({
   onClose,
@@ -56,12 +61,12 @@ const NewOfferForm = ({
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "title">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Title"
+                  placeholder="Enter offer title"
                   {...field}
                 />
               </FormControl>
@@ -72,12 +77,13 @@ const NewOfferForm = ({
         <FormField
           control={form.control}
           name="url"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "url">) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Product URL</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Product URL"
+                  type="url"
+                  placeholder="Enter product URL"
                   {...field}
                 />
               </FormControl>
@@ -87,12 +93,10 @@ const NewOfferForm = ({
         />
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!form.formState.isDirty}
+            disabled={mutation.isPending || !form.formState.isDirty}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

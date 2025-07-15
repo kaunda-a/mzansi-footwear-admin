@@ -1,9 +1,11 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -14,6 +16,9 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useUpdateProfile } from "@/api-hooks/edit-profile";
 import { AdminProfileResProps } from "@/lib/types/types";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodProfileSchema>;
 
 const EditProfileForm = ({
   onClose,
@@ -56,7 +61,7 @@ const EditProfileForm = ({
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input placeholder="Name" {...field} radius="sm" size="sm" />
@@ -68,7 +73,7 @@ const EditProfileForm = ({
         <FormField
           control={form.control}
           name="image"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input placeholder="Image URL" {...field} radius="sm" size="sm" />

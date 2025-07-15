@@ -1,13 +1,13 @@
 "use client";
 
-import { Tabs as NextUITabs, Tab } from "@nextui-org/react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, Box } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Analytics from "./analytics";
 
-const Tabs = ({ children }: { children: React.ReactNode }) => {
+const OrdersTabs = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
   const [selected, setSelected] = useState(tab || "orders");
@@ -17,41 +17,29 @@ const Tabs = ({ children }: { children: React.ReactNode }) => {
   }, [tab]);
 
   return (
-    <NextUITabs
-      variant="underlined"
-      aria-label="Orders"
-      color="primary"
-      className="max-w-full overflow-x-scroll md:overflow-hidden"
-      selectedKey={selected}
-    >
-      <Tab
-        key="orders"
-        as={Link}
-        href={`/dashboard/orders`}
-        title={
-          <div className="flex items-center gap-2">
-            <Box size={20} />
+    <Tabs value={selected} className="w-full">
+      <TabsList className="grid w-full grid-cols-2 max-w-md">
+        <TabsTrigger value="orders" asChild>
+          <Link href="/dashboard/orders" className="flex items-center gap-2">
+            <Box size={16} />
             <span>Orders</span>
-          </div>
-        }
-      >
-        {children}
-      </Tab>
-      <Tab
-        key="analytics"
-        href={`/dashboard/orders?tab=analytics`}
-        as={Link}
-        title={
-          <div className="flex items-center gap-2">
-            <BarChart3 size={20} />
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="analytics" asChild>
+          <Link href="/dashboard/orders?tab=analytics" className="flex items-center gap-2">
+            <BarChart3 size={16} />
             <span>Analytics</span>
-          </div>
-        }
-      >
+          </Link>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="orders" className="mt-6">
+        {children}
+      </TabsContent>
+      <TabsContent value="analytics" className="mt-6">
         <Analytics />
-      </Tab>
-    </NextUITabs>
+      </TabsContent>
+    </Tabs>
   );
 };
 
-export default Tabs;
+export default OrdersTabs;

@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
-import { User } from "@nextui-org/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type TopCustomersProps = {
   image: string;
@@ -19,15 +19,18 @@ const TopCustomers = ({ data }: { data: TopCustomersProps[] }) => {
       <div className="mt-4 space-y-5">
         {data.map((sale, i) => (
           <div className="flex items-center justify-between" key={i}>
-            <User
-              name={sale.name}
-              description={`${sale.purchases} Purchases`}
-              avatarProps={{
-                name: "",
-                showFallback: true,
-                src: sale.image,
-              }}
-            />
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={sale.image || ""} alt={sale.name} />
+                <AvatarFallback>
+                  {sale.name.split(" ").map((n: string) => n[0]).join("").toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <p className="text-sm font-medium">{sale.name}</p>
+                <p className="text-xs text-muted-foreground">{sale.purchases} Purchases</p>
+              </div>
+            </div>
             <div className="flex flex-col text-right">
               <h1 className="text-sm font-medium">
                 + {formatCurrency(sale.amountSpent)}

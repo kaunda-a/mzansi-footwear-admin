@@ -13,7 +13,7 @@ import {
 import { Info, Trash2 } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ImagePicker from "@/components/offers/image-picker";
-import { HeroBanner } from "@prisma/client";
+import type { HeroBanner } from "@/lib/types/types";
 import { toast } from "sonner";
 import { useAddBanner } from "@/api-hooks/hero-banners/add-new-banner";
 import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";

@@ -10,7 +10,9 @@ const axiosInstance = axios.create({
 // Add request interceptor for debugging
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log('Making request to:', config.baseURL + config.url);
+    const baseURL = config.baseURL || '';
+    const url = config.url || '';
+    console.log('Making request to:', baseURL + url);
     return config;
   },
   (error) => {

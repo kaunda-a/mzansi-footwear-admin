@@ -1,5 +1,6 @@
 import { formatCurrency } from "@/lib/utils";
-import { User } from "@nextui-org/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 type TopSalesProps = {
   image: string;
@@ -19,15 +20,18 @@ const TopSales = ({ data }: { data: TopSalesProps[] }) => {
       <div className="mt-4 space-y-5">
         {data.map((sale, i) => (
           <div className="flex items-center justify-between" key={i}>
-            <User
-              name={sale.name}
-              description={`${sale.items} items`}
-              avatarProps={{
-                name: "",
-                showFallback: true,
-                src: sale.image,
-              }}
-            />
+            <div className="flex items-center gap-3">
+              <Avatar>
+                <AvatarImage src={sale.image} alt={sale.name} />
+                <AvatarFallback>
+                  <User size={16} />
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-medium">{sale.name}</p>
+                <p className="text-sm text-gray-500">{sale.items} items</p>
+              </div>
+            </div>
             <div className="flex flex-col text-right">
               <h1 className="text-sm font-medium">
                 + {formatCurrency(sale.amountSpent)}

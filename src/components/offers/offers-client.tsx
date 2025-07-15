@@ -4,7 +4,9 @@ import BestDeals from "@/components/offers/best-deals";
 import HeroBanners from "@/components/offers/hero-banners";
 import MarqueeOffers from "@/components/offers/marquee-offers";
 import { useOffersData } from "@/api-hooks/offers/get-offers-data";
-import { Skeleton, Card, CardBody, Button } from "@nextui-org/react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { RefreshCw, AlertCircle } from "lucide-react";
 
 const OffersClient = () => {
@@ -17,7 +19,7 @@ const OffersClient = () => {
         
         {/* Best Deal Skeleton */}
         <Card className="shadow-md">
-          <CardBody>
+          <CardContent className="p-6">
             <div className="mb-4 flex items-center justify-between">
               <Skeleton className="h-6 w-24" />
               <div className="flex gap-2">
@@ -35,12 +37,12 @@ const OffersClient = () => {
                 <Skeleton className="h-4 w-1/3" />
               </div>
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
 
         {/* Marquee Offers Skeleton */}
         <Card className="shadow-md">
-          <CardBody>
+          <CardContent className="p-6">
             <div className="mb-4 flex items-center justify-between">
               <Skeleton className="h-6 w-32" />
               <Skeleton className="h-8 w-20" />
@@ -59,12 +61,12 @@ const OffersClient = () => {
                 </div>
               ))}
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
 
         {/* Hero Banners Skeleton */}
         <Card className="shadow-md">
-          <CardBody>
+          <CardContent className="p-6">
             <div className="mb-4 flex items-center justify-between">
               <Skeleton className="h-6 w-28" />
               <Skeleton className="h-8 w-20" />
@@ -87,7 +89,7 @@ const OffersClient = () => {
                 </div>
               ))}
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </div>
     );
@@ -98,7 +100,7 @@ const OffersClient = () => {
       <div className="space-y-6">
         <h1 className="text-zinc-400 md:text-xl">Best Deals & Offers</h1>
         <Card className="shadow-md">
-          <CardBody>
+          <CardContent className="p-6">
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
               <div className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-2">
@@ -108,15 +110,15 @@ const OffersClient = () => {
                 There was an error loading the offers data. This might be due to a network issue or server problem.
               </div>
               <Button
-                color="primary"
-                variant="bordered"
-                startContent={<RefreshCw className="h-4 w-4" />}
+                variant="outline"
                 onClick={() => refetch()}
+                className="flex items-center gap-2"
               >
+                <RefreshCw className="h-4 w-4" />
                 Try Again
               </Button>
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </div>
     );

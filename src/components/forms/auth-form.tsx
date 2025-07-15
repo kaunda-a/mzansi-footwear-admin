@@ -17,7 +17,11 @@ import { motion as m } from "framer-motion";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import type { FormFieldRenderProps } from "@/types/react-components";
+
+type FormData = z.infer<typeof ZodAuthSchema>;
 
 function AuthForm() {
   const [isPassword, setIsPassword] = useState(true);
@@ -66,18 +70,14 @@ function AuthForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "email">) => (
             <FormItem className="mb-4">
               <FormControl>
                 <Input
                   placeholder="Administrator Email"
+                  type="email"
                   {...field}
-                  size="lg"
-                  variant="bordered"
-                  classNames={{
-                    input: "text-base",
-                    inputWrapper: "border-slate-200 dark:border-zinc-700 hover:border-slate-300 dark:hover:border-zinc-600 focus-within:border-emerald-500 dark:focus-within:border-emerald-400"
-                  }}
+                  className="h-12 text-base border-2 border-border hover:border-border/80 focus-visible:border-primary"
                 />
               </FormControl>
               <FormMessage />
@@ -87,34 +87,29 @@ function AuthForm() {
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "password">) => (
             <FormItem>
               <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Administrator Password"
-                  size="lg"
-                  variant="bordered"
-                  autoComplete="current-password"
-                  classNames={{
-                    input: "text-base",
-                    inputWrapper: "border-slate-200 dark:border-zinc-700 hover:border-slate-300 dark:hover:border-zinc-600 focus-within:border-emerald-500 dark:focus-within:border-emerald-400"
-                  }}
-                  endContent={
-                    isPassword ? (
-                      <Eye
-                        className="h-5 w-5 cursor-pointer text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 transition-colors"
-                        onClick={() => setIsPassword(false)}
-                      />
+                <div className="relative">
+                  <Input
+                    {...field}
+                    placeholder="Administrator Password"
+                    type={isPassword ? "password" : "text"}
+                    autoComplete="current-password"
+                    className="h-12 text-base border-2 border-border hover:border-border/80 focus-visible:border-primary pr-10"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    onClick={() => setIsPassword(!isPassword)}
+                  >
+                    {isPassword ? (
+                      <Eye className="h-5 w-5" />
                     ) : (
-                      <EyeOff
-                        className="h-5 w-5 cursor-pointer text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 transition-colors"
-                        onClick={() => setIsPassword(true)}
-                      />
-                    )
-                  }
-                  type={isPassword ? "password" : "text"}
-                />
+                      <EyeOff className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -136,28 +131,25 @@ function AuthForm() {
         )}
         <div className="mt-6 flex flex-col gap-3">
           <Button
-            isLoading={signInLoading}
-            color="primary"
-            isDisabled={signInLoading}
+            disabled={signInLoading}
             size="lg"
-            className="w-full font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full h-12 font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white shadow-lg hover:shadow-xl transition-all duration-200"
             type="submit"
           >
             {signInLoading ? "Signing in..." : "Sign in to Dashboard"}
           </Button>
           <Button
-            color="primary"
-            isDisabled={signInLoading}
+            disabled={signInLoading}
+            variant="outline"
             size="lg"
-            className="w-full font-medium"
+            className="w-full h-12 font-medium"
+            type="button"
             onClick={() =>
               handleSignIn({
                 email: "guest1212@gmail.com",
                 password: "guest1212",
               })
             }
-            variant="bordered"
-            type="button"
           >
             Continue as Guest
           </Button>

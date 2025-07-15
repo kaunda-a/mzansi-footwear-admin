@@ -7,7 +7,7 @@ import { Package, Wallet } from "lucide-react";
 import { useDashboardStats } from "@/api-hooks/dashboard/get-dashboard-stats";
 import { useRevenueData } from "@/api-hooks/dashboard/get-revenue-data";
 import { useTopCustomers } from "@/api-hooks/dashboard/get-customer-analytics";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const RevenueClient = () => {
   const { data: statsData, isLoading: statsLoading } = useDashboardStats();

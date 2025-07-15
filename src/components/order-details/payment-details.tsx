@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 import { CreditCard } from "lucide-react";
 
 type PaymentDetailsProps = {
@@ -19,7 +19,7 @@ type PaymentDetailsProps = {
 const PaymentDetails = ({ data }: { data: PaymentDetailsProps }) => {
   return (
     <Card className="mt-5 rounded-sm shadow-sm">
-      <CardBody className="p-0">
+      <CardContent className="p-0">
         <div className="flex items-center gap-3 p-3">
           <CreditCard className="text-zinc-400" size={20} />
           <h1>Payment Details</h1>
@@ -77,7 +77,7 @@ const PaymentDetails = ({ data }: { data: PaymentDetailsProps }) => {
             </li>
           </ul>
         </div>
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

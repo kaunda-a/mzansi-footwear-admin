@@ -1,20 +1,20 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Download } from "lucide-react";
 
 const InvoiceCard = ({ oid }: { oid: string }) => {
   return (
     <Card className="rounded-sm shadow-sm">
-      <CardBody className="flex-row items-center justify-between">
+      <CardContent className="flex flex-row items-center justify-between p-6">
         <h1 className="font-semibold">Order #{oid}</h1>
         <Button
-          startContent={<Download size={15} />}
           size="sm"
-          color="success"
-          className="text-white"
+          className="bg-green-600 hover:bg-green-700 text-white"
         >
+          <Download size={15} className="mr-2" />
           Invoice
         </Button>
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

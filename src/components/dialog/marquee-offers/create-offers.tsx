@@ -1,49 +1,53 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  Button,
-  useDisclosure,
-} from "@nextui-org/react";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import NewOfferForm from "@/components/forms/marquee-offers/new-offer-form";
 import { MarqueeOffers } from "@prisma/client";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export default function CreateOffers({
   setOffersData,
 }: {
   setOffersData: Dispatch<SetStateAction<MarqueeOffers[] | null>>;
 }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <>
-      <Button
-        onPress={onOpen}
-        startContent={<Plus size={15} />}
-        size="sm"
-        color="primary"
-      >
-        Add Offer
-      </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" backdrop="blur">
-        <ModalContent className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl">
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 text-lg font-semibold text-zinc-700 dark:text-zinc-300">
-                Add new offer
-              </ModalHeader>
-              <ModalBody className="mb-5 px-6 py-4 scrollbar-thin max-h-[400px] overflow-y-scroll">
-                <NewOfferForm onClose={onClose} setOffersData={setOffersData} />
-              </ModalBody>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="default"
+          size="sm"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+        >
+          <Plus size={15} className="mr-2" />
+          Add Offer
+        </Button>
+      </DialogTrigger>
+
+      <DialogContent className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/60 dark:border-zinc-700/60 shadow-xl max-w-2xl max-h-[80vh]">
+        <DialogHeader>
+          <DialogTitle className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
+            Add New Offer
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="px-6 py-4 max-h-[400px] overflow-y-auto scrollbar-thin">
+          <NewOfferForm onClose={handleClose} setOffersData={setOffersData} />
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

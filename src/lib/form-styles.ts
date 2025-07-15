@@ -1,117 +1,33 @@
-// Standardized form styling configuration for consistent UI across the app
+// Standardized form styling configuration using Tailwind CSS design system with RGB colors
 
-export const standardInputStyles = {
-  size: "lg" as const,
-  variant: "bordered" as const,
-  radius: "lg" as const,
-  labelPlacement: "outside" as const,
-  classNames: {
-    label: "text-sm font-medium text-slate-700 dark:text-zinc-300 z-0",
-    input: "text-base placeholder:text-slate-400 dark:placeholder:text-zinc-500",
-    inputWrapper: [
-      "border-2",
-      "border-slate-200/60",
-      "bg-white/50",
-      "dark:bg-zinc-900/50",
-      "dark:border-zinc-700/40",
-      "group-data-[focus=true]:border-emerald-500/60",
-      "dark:group-data-[focus=true]:border-emerald-400/60",
-      "group-data-[hover=true]:border-slate-300",
-      "dark:group-data-[hover=true]:border-zinc-600",
-      "shadow-sm",
-      "hover:shadow-md",
-      "transition-all",
-      "duration-200",
-      "min-h-[3.5rem]", // Ensures proper height
-    ],
-  },
-};
+export const standardInputClasses = "flex h-12 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
 
-export const standardTextareaStyles = {
-  size: "lg" as const,
-  variant: "bordered" as const,
-  radius: "lg" as const,
-  labelPlacement: "outside" as const,
-  minRows: 4,
-  classNames: {
-    label: "text-sm font-medium text-slate-700 dark:text-zinc-300 z-0",
-    input: "text-base placeholder:text-slate-400 dark:placeholder:text-zinc-500",
-    inputWrapper: [
-      "border-2",
-      "border-slate-200/60",
-      "bg-white/50",
-      "dark:bg-zinc-900/50",
-      "dark:border-zinc-700/40",
-      "group-data-[focus=true]:border-emerald-500/60",
-      "dark:group-data-[focus=true]:border-emerald-400/60",
-      "group-data-[hover=true]:border-slate-300",
-      "dark:group-data-[hover=true]:border-zinc-600",
-      "shadow-sm",
-      "hover:shadow-md",
-      "transition-all",
-      "duration-200",
-      "min-h-[6rem]", // Larger minimum height for textareas
-    ],
-  },
-};
+export const standardTextareaClasses = "flex min-h-[120px] w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none transition-colors";
 
-export const standardSelectStyles = {
-  size: "lg" as const,
-  variant: "bordered" as const,
-  radius: "lg" as const,
-  labelPlacement: "outside" as const,
-  classNames: {
-    label: "text-sm font-medium text-slate-700 dark:text-zinc-300 z-0",
-    trigger: [
-      "border-2",
-      "border-slate-200/60",
-      "bg-white/50",
-      "dark:bg-zinc-900/50",
-      "dark:border-zinc-700/40",
-      "data-[focus=true]:border-emerald-500/60",
-      "dark:data-[focus=true]:border-emerald-400/60",
-      "data-[hover=true]:border-slate-300",
-      "dark:data-[hover=true]:border-zinc-600",
-      "shadow-sm",
-      "hover:shadow-md",
-      "transition-all",
-      "duration-200",
-      "min-h-[3.5rem]",
-    ],
-    value: "text-base text-slate-700 dark:text-zinc-300",
-  },
-};
+export const standardLabelClasses = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground mb-2 block";
 
-// Compact styles for smaller forms or dialogs where space is limited
-export const compactInputStyles = {
-  ...standardInputStyles,
-  size: "md" as const,
-  classNames: {
-    ...standardInputStyles.classNames,
-    inputWrapper: [
-      ...standardInputStyles.classNames.inputWrapper.filter(
-        (cls) => cls !== "min-h-[3.5rem]"
-      ),
-      "min-h-[3rem]",
-    ],
-  },
-};
+export const standardSelectClasses = "flex h-12 w-full items-center justify-between rounded-lg border-2 border-input bg-background px-4 py-3 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 transition-colors";
 
-export const compactTextareaStyles = {
-  ...standardTextareaStyles,
-  size: "md" as const,
-  minRows: 3,
-  classNames: {
-    ...standardTextareaStyles.classNames,
-    inputWrapper: [
-      ...standardTextareaStyles.classNames.inputWrapper.filter(
-        (cls) => cls !== "min-h-[6rem]"
-      ),
-      "min-h-[4.5rem]",
-    ],
-  },
-};
+export const standardButtonClasses = "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-12 px-6 py-3";
+
+export const primaryButtonClasses = "bg-primary text-primary-foreground hover:bg-primary/90";
+
+export const secondaryButtonClasses = "bg-secondary text-secondary-foreground hover:bg-secondary/80";
+
+export const destructiveButtonClasses = "bg-destructive text-destructive-foreground hover:bg-destructive/90";
+
+export const outlineButtonClasses = "border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground";
 
 // Form item spacing
-export const formItemSpacing = "mb-4";
-export const compactFormItemSpacing = "mb-3";
+export const formItemSpacing = "space-y-2 mb-6";
+export const compactFormItemSpacing = "space-y-1 mb-4";
+
+// Form container classes
+export const formContainerClasses = "space-y-6";
+export const formSectionClasses = "space-y-4";
+
+// Error message classes
+export const errorMessageClasses = "text-sm font-medium text-destructive mt-1";
+
+// Helper text classes
+export const helperTextClasses = "text-sm text-muted-foreground mt-1";

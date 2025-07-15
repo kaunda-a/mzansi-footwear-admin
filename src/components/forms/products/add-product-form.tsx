@@ -3,7 +3,7 @@
 import { Form } from "@/components/ui/form";
 import { ZodProductSchema } from "@/lib/zod-schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -70,13 +70,11 @@ const AddProductForm = () => {
         </div>
         <div className="flex justify-end border-t p-5">
           <Button
-            isLoading={add_product_mutation.isPending}
             type="submit"
-            color="primary"
             onClick={setColors}
-            isDisabled={!form.formState.isDirty}
+            disabled={add_product_mutation.isPending || !form.formState.isDirty}
           >
-            Add Product
+            {add_product_mutation.isPending ? "Adding Product..." : "Add Product"}
           </Button>
         </div>
       </form>

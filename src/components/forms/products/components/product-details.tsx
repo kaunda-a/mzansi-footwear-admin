@@ -3,10 +3,25 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { ProductFormProps } from "@/lib/types/types";
-import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
+import type { FormFieldRenderProps } from "@/types/react-components";
+import { z } from "zod";
+import { ZodProductSchema } from "@/lib/zod-schemas/schema";
+
+type FormData = z.infer<typeof ZodProductSchema>;
 
 const ProductDetails = ({ form }: ProductFormProps) => {
   function generateSlug() {
@@ -24,29 +39,13 @@ const ProductDetails = ({ form }: ProductFormProps) => {
       <FormField
         control={form.control}
         name="title"
-        render={({ field }) => (
+        render={({ field }: FormFieldRenderProps<FormData, "title">) => (
           <FormItem>
+            <FormLabel>Title</FormLabel>
             <FormControl>
               <Input
+                placeholder="Enter product title"
                 {...field}
-                isRequired
-                label="Title"
-                labelPlacement="outside"
-                variant="bordered"
-                radius="lg"
-                classNames={{
-                  label: "font-medium z-0",
-                  inputWrapper: [
-                    "border-2",
-                    "border-slate-200/60",
-                    "bg-transparent",
-                    "dark:border-zinc-700/40",
-                    "group-data-[focus=true]:border-blue-500/60",
-                    "dark:group-data-[focus=true]:border-blue-500/60",
-                    "group-data-[hover=true]:border-slate-300",
-                    "dark:group-data-[hover=true]:border-zinc-600",
-                  ],
-                }}
               />
             </FormControl>
             <FormMessage />
@@ -56,36 +55,20 @@ const ProductDetails = ({ form }: ProductFormProps) => {
       <FormField
         control={form.control}
         name="slug"
-        render={({ field }) => (
+        render={({ field }: FormFieldRenderProps<FormData, "slug">) => (
           <FormItem className="mt-3">
-            <FormControl style={{ margin: "0" }}>
-              <div className="flex items-end gap-2">
+            <FormLabel>Slug</FormLabel>
+            <div className="flex items-center gap-2">
+              <FormControl>
                 <Input
+                  placeholder="product-slug"
                   {...field}
-                  isRequired
-                  label="Slug"
-                  labelPlacement="outside"
-                  variant="bordered"
-                  radius="lg"
-                  classNames={{
-                    label: "font-medium z-0",
-                    inputWrapper: [
-                      "border-2",
-                      "border-slate-200/60",
-                      "bg-transparent",
-                      "dark:border-zinc-700/40",
-                      "group-data-[focus=true]:border-blue-500/60",
-                      "dark:group-data-[focus=true]:border-blue-500/60",
-                      "group-data-[hover=true]:border-slate-300",
-                      "dark:group-data-[hover=true]:border-zinc-600",
-                    ],
-                  }}
                 />
-                <Button type="button" onClick={generateSlug}>
-                  Generate
-                </Button>
-              </div>
-            </FormControl>
+              </FormControl>
+              <Button type="button" onClick={generateSlug} variant="outline">
+                Generate
+              </Button>
+            </div>
             <FormMessage />
           </FormItem>
         )}
@@ -93,28 +76,13 @@ const ProductDetails = ({ form }: ProductFormProps) => {
       <FormField
         control={form.control}
         name="shortDescription"
-        render={({ field }) => (
+        render={({ field }: FormFieldRenderProps<FormData, "shortDescription">) => (
           <FormItem className="mt-9">
+            <FormLabel>Short Description</FormLabel>
             <FormControl>
               <Input
+                placeholder="Brief product description"
                 {...field}
-                label="Short Description"
-                labelPlacement="outside"
-                variant="bordered"
-                radius="lg"
-                classNames={{
-                  label: "font-medium z-0",
-                  inputWrapper: [
-                    "border-2",
-                    "border-slate-200/60",
-                    "bg-transparent",
-                    "dark:border-zinc-700/40",
-                    "group-data-[focus=true]:border-blue-500/60",
-                    "dark:group-data-[focus=true]:border-blue-500/60",
-                    "group-data-[hover=true]:border-slate-300",
-                    "dark:group-data-[hover=true]:border-zinc-600",
-                  ],
-                }}
               />
             </FormControl>
             <FormMessage />
@@ -124,27 +92,12 @@ const ProductDetails = ({ form }: ProductFormProps) => {
       <FormField
         control={form.control}
         name="description"
-        render={({ field }) => (
+        render={({ field }: FormFieldRenderProps<FormData, "description">) => (
           <FormItem className="mt-3">
+            <FormLabel>Description</FormLabel>
             <FormControl>
               <Textarea
-                label="Description"
-                labelPlacement="outside"
-                radius="lg"
-                variant="bordered"
-                classNames={{
-                  label: "text-sm font-medium z-0",
-                  inputWrapper: [
-                    "border-2",
-                    "border-slate-200/60",
-                    "bg-transparent",
-                    "dark:border-zinc-700/40",
-                    "group-data-[focus=true]:border-blue-500/60",
-                    "dark:group-data-[focus=true]:border-blue-500/60",
-                    "group-data-[hover=true]:border-slate-300",
-                    "dark:group-data-[hover=true]:border-zinc-600",
-                  ],
-                }}
+                placeholder="Detailed product description"
                 {...field}
               />
             </FormControl>
@@ -156,40 +109,22 @@ const ProductDetails = ({ form }: ProductFormProps) => {
         <FormField
           control={form.control}
           name="categoryId"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "categoryId">) => (
             <FormItem>
-              <FormControl>
-                <Select
-                  placeholder="Select a category"
-                  label="Category Id"
-                  labelPlacement="outside"
-                  onChange={field.onChange}
-                  selectedKeys={field.value ? [field.value] : []}
-                  radius="lg"
-                  isRequired
-                  variant="bordered"
-                  classNames={{
-                    label: "text-sm font-medium z-0",
-                    trigger: [
-                      "border-2",
-                      "border-slate-200/60",
-                      "bg-transparent",
-                      "dark:border-zinc-700/40",
-                      "group-data-[focus=true]:border-blue-500/60",
-                      "dark:group-data-[focus=true]:border-blue-500/60",
-                      "group-data-[hover=true]:border-slate-300",
-                      "dark:group-data-[hover=true]:border-zinc-600",
-                      "mt-1",
-                      "h-unit-10",
-                    ],
-                  }}
-                >
+              <FormLabel>Category</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
                   {categoriesLoading ? (
-                    <SelectItem key="loading" value="loading" isDisabled>
+                    <SelectItem value="loading" disabled>
                       Loading categories...
                     </SelectItem>
                   ) : categoriesError ? (
-                    <SelectItem key="error" value="error" isDisabled>
+                    <SelectItem value="error" disabled>
                       Error loading categories
                     </SelectItem>
                   ) : categories && categories.length > 0 ? (
@@ -199,12 +134,12 @@ const ProductDetails = ({ form }: ProductFormProps) => {
                       </SelectItem>
                     ))
                   ) : (
-                    <SelectItem key="empty" value="empty" isDisabled>
+                    <SelectItem value="empty" disabled>
                       No categories available
                     </SelectItem>
                   )}
-                </Select>
-              </FormControl>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -212,29 +147,14 @@ const ProductDetails = ({ form }: ProductFormProps) => {
         <FormField
           control={form.control}
           name="stock"
-          render={({ field }) => (
+          render={({ field }: FormFieldRenderProps<FormData, "stock">) => (
             <FormItem className="mt-1">
+              <FormLabel>Stock</FormLabel>
               <FormControl>
                 <Input
+                  type="number"
+                  placeholder="0"
                   {...field}
-                  isRequired
-                  label="Stock"
-                  labelPlacement="outside"
-                  variant="bordered"
-                  radius="lg"
-                  classNames={{
-                    label: "font-medium z-0",
-                    inputWrapper: [
-                      "border-2",
-                      "border-slate-200/60",
-                      "bg-transparent",
-                      "dark:border-zinc-700/40",
-                      "group-data-[focus=true]:border-blue-500/60",
-                      "dark:group-data-[focus=true]:border-blue-500/60",
-                      "group-data-[hover=true]:border-slate-300",
-                      "dark:group-data-[hover=true]:border-zinc-600",
-                    ],
-                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -248,31 +168,21 @@ const ProductDetails = ({ form }: ProductFormProps) => {
             key={i}
             control={form.control}
             name={item}
-            render={({ field }) => (
+            render={({ field }: FormFieldRenderProps<FormData, "basePrice" | "offerPrice">) => (
               <FormItem className="mt-1">
+                <FormLabel className="capitalize">
+                  {item.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                </FormLabel>
                 <FormControl>
-                  <Input
-                    {...field}
-                    isRequired
-                    label={item.replace(/([a-z])([A-Z])/g, "$1 $2")}
-                    labelPlacement="outside"
-                    variant="bordered"
-                    radius="lg"
-                    classNames={{
-                      label: "font-medium capitalize z-0",
-                      input: "placeholder:capitalize",
-                      inputWrapper: [
-                        "border-2",
-                        "border-slate-200/60",
-                        "bg-transparent",
-                        "dark:border-zinc-700/40",
-                        "group-data-[focus=true]:border-blue-500/60",
-                        "dark:group-data-[focus=true]:border-blue-500/60",
-                        "group-data-[hover=true]:border-slate-300",
-                        "dark:group-data-[hover=true]:border-zinc-600",
-                      ],
-                    }}
-                  />
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">R</span>
+                    <Input
+                      type="number"
+                      placeholder="0.00"
+                      className="pl-8"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

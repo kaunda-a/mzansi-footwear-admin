@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 
 export async function getDealsAndOffers() {
   try {
-    const headerSequence = headers();
+    const headerSequence = await headers();
     const cookie = headerSequence.get("cookie");
     console.log("Cookie in getDealsAndOffers:", cookie);
     const { data } = await axios.get("/api/offers", {

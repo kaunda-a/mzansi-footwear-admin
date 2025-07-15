@@ -4,36 +4,48 @@ import { useCustomerOrders } from "@/api-hooks/customers/get-order";
 import { useUpdateOrderStatus } from "@/api-hooks/orders/update-status";
 import { CustomerOrderProps } from "@/lib/types/types";
 import { capitalize, formatCurrency } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
-  Button,
-  Chip,
-  ChipProps,
-  Dropdown,
-  DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
-  Pagination,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Select,
+  SelectContent,
   SelectItem,
-  Selection,
-  Spinner,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
-  TableColumn,
+  TableHead,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Loader2 } from "lucide-react";
 import { ChevronDown, Eye } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { motion as m } from "framer-motion";
 import CustomerProfile from "../customer-profile";
 
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  delivered: "success",
-  pending: "danger",
-  ongoing: "warning",
+const statusColorMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+  delivered: "default",
+  pending: "destructive",
+  ongoing: "secondary",
 };
 
 const columns = [
@@ -62,17 +74,15 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
 
   const mutation = useUpdateOrderStatus();
 
-  const [visibleColumns, setVisibleColumns] = useState<Selection>(
+  const [visibleColumns] = useState<Set<string>>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(1);
 
   const headerColumns = useMemo(() => {
-    if (visibleColumns === "all") return columns;
-
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
+      visibleColumns.has(column.uid),
     );
   }, [visibleColumns]);
 
@@ -103,45 +113,32 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
           );
         case "status":
           return (
-            <Chip
+            <Badge
               className="capitalize"
-              color={statusColorMap[order.status]}
-              size="sm"
-              variant="flat"
+              variant={statusColorMap[order.status]}
             >
               {cellValue}
-            </Chip>
+            </Badge>
           );
         case "update_status":
           return (
             <Select
-              placeholder="Update status"
-              className="max-w-xs"
-              isLoading={mutation.isPending}
-              defaultSelectedKeys={[order.status]}
-              onChange={(e) =>
-                mutation.mutate({ id: order.oid, status: e.target.value })
+              defaultValue={order.status}
+              onValueChange={(value: string) =>
+                mutation.mutate({ id: order.oid, status: value })
               }
-              isDisabled={mutation.isPending}
-              classNames={{
-                trigger: "h-fit min-h-fit p-2",
-                value: "text-xs",
-              }}
-              aria-label="Update status"
-              size="sm"
+              disabled={mutation.isPending}
             >
-              {["pending", "ongoing", "delivered"].map((value) => (
-                <SelectItem
-                  key={value}
-                  value={value}
-                  className="capitalize"
-                  classNames={{
-                    title: "text-xs",
-                  }}
-                >
-                  {value}
-                </SelectItem>
-              ))}
+              <SelectTrigger className="max-w-xs h-8 text-xs">
+                <SelectValue placeholder="Update status" />
+              </SelectTrigger>
+              <SelectContent>
+                {["pending", "ongoing", "delivered"].map((value) => (
+                  <SelectItem key={value} value={value} className="capitalize text-xs">
+                    {value}
+                  </SelectItem>
+                ))}
+              </SelectContent>
             </Select>
           );
         case "actions":
@@ -200,33 +197,39 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
   const bottomContent = useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="hidden w-[30%] justify-end gap-2 sm:flex">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Next
-          </Button>
+        <div className="text-sm text-muted-foreground">
+          Page {page} of {pages}
         </div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={onPreviousPage}
+                className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+            {Array.from({ length: Math.min(pages, 5) }, (_, i) => {
+              const pageNum = i + 1;
+              return (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    onClick={() => setPage(pageNum)}
+                    isActive={pageNum === page}
+                    className="cursor-pointer"
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+            <PaginationItem>
+              <PaginationNext
+                onClick={onNextPage}
+                className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     );
   }, [page, pages, onNextPage, onPreviousPage]);
@@ -235,31 +238,25 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
     return (
       <div className="mt-5 flex flex-col gap-4">
         <div className="ms-auto flex items-center gap-3">
-          <Dropdown>
-            <DropdownTrigger className="z-0 hidden sm:flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button
-                endContent={<ChevronDown size={20} />}
+                variant="outline"
                 size="sm"
-                variant="flat"
+                className="hidden sm:flex items-center gap-2"
               >
                 Columns
+                <ChevronDown size={16} />
               </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-              disallowEmptySelection
-              aria-label="Table Columns"
-              closeOnSelect={false}
-              selectedKeys={visibleColumns}
-              selectionMode="multiple"
-              onSelectionChange={setVisibleColumns}
-            >
-              {columns.map((column) => (
-                <DropdownItem key={column.uid} className="capitalize">
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {columns.map((column: any) => (
+                <DropdownMenuItem key={column.uid} className="capitalize">
                   {capitalize(column.name)}
-                </DropdownItem>
+                </DropdownMenuItem>
               ))}
-            </DropdownMenu>
-          </Dropdown>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
@@ -279,7 +276,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
         </div>
       </div>
     );
-  }, [visibleColumns, onRowsPerPageChange, orders?.orders?.length]);
+  }, [onRowsPerPageChange, orders?.orders?.length]);
 
   return (
     <>
@@ -299,37 +296,46 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
         />
       )}
       <h1 className="mt-7 text-xl font-medium text-zinc-400">Orders placed</h1>
-      <Table
-        aria-label="Guest users table"
-        classNames={{ wrapper: "shadow-md" }}
-        bottomContent={bottomContent}
-        bottomContentPlacement="outside"
-        topContent={topContent}
-        topContentPlacement="outside"
-      >
-        <TableHeader columns={headerColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody
-          emptyContent={"No orders placed"}
-          items={orders?.orders || []}
-        >
-          {(item) => (
-            <TableRow key={item.oid}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
+      <div className="space-y-4">
+        {topContent}
+        <div className="rounded-md border shadow-md">
+          <Table>
+            <TableHeader>
+              {headerColumns.map((column: any) => (
+                <TableHead
+                  key={column.uid}
+                  className={column.uid === "actions" ? "text-center" : ""}
+                >
+                  {column.name}
+                </TableHead>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {(!orders?.orders || orders.orders.length === 0) ? (
+                <TableRow>
+                  <TableCell colSpan={headerColumns.length} className="text-center py-8">
+                    No orders placed
+                  </TableCell>
+                </TableRow>
+              ) : (
+                orders.orders.map((item: any) => (
+                  <TableRow key={item.oid}>
+                    {headerColumns.map((column: any) => (
+                      <TableCell
+                        key={column.uid}
+                        className={column.uid === "actions" ? "text-center" : ""}
+                      >
+                        {renderCell(item, column.uid)}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
               )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            </TableBody>
+          </Table>
+        </div>
+        {bottomContent}
+      </div>
       {mutation.isPending && (
         <m.div
           initial={{ opacity: 0 }}
@@ -338,7 +344,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
           className="fixed left-0 top-0 z-50 flex min-h-screen w-full items-center justify-center bg-black/30"
         >
           <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-white dark:bg-dark">
-            <Spinner />
+            <Loader2 className="h-6 w-6 animate-spin" />
           </div>
         </m.div>
       )}

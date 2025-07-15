@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/components/ui/card";
 import MarqueeOffersTable from "./tables/marquee-offers-table";
 import type { MarqueeOffers } from "@prisma/client";
 import CreateOffers from "../dialog/marquee-offers/create-offers";
@@ -11,13 +11,13 @@ const MarqueeOffers = ({ offers }: { offers: MarqueeOffers[] }) => {
 
   return (
     <Card className="my-5 shadow-md @container">
-      <CardBody>
+      <CardContent className="p-6">
         <div className="mb-4 flex items-center justify-between">
           <h1 className="font-medium md:text-lg">Marquee Offers</h1>
           <CreateOffers setOffersData={setOffersData} />
         </div>
         <MarqueeOffersTable data={offersData} setOffersData={setOffersData} />
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

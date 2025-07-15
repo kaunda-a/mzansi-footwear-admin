@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 import { toast } from "sonner";
-import { LogOut } from "lucide-react";
+import { LogOut, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const SignOutButton = () => {
@@ -26,15 +26,22 @@ const SignOutButton = () => {
   return (
     <Button
       onClick={handleSignOut}
-      color="danger"
-      variant="solid"
+      variant="destructive"
       size="lg"
       className="w-full font-semibold"
-      startContent={<LogOut size={18} />}
-      isLoading={isLoading}
-      isDisabled={isLoading}
+      disabled={isLoading}
     >
-      {isLoading ? "Signing out..." : "Sign Out"}
+      {isLoading ? (
+        <>
+          <Loader2 size={18} className="mr-2 animate-spin" />
+          Signing out...
+        </>
+      ) : (
+        <>
+          <LogOut size={18} className="mr-2" />
+          Sign Out
+        </>
+      )}
     </Button>
   );
 };

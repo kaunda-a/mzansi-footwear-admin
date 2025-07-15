@@ -2,20 +2,18 @@
 
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  User,
-  Button,
-  Tooltip,
-  Chip,
-} from "@nextui-org/react";
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatCurrency, textTruncate } from "@/lib/utils";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { ChevronRight, Eye } from "lucide-react";
-import { toast } from "sonner";
 import Link from "next/link";
 import DeleteProduct from "@/components/dialog/products/delete-product";
 import { useProducts } from "@/api-hooks/products/get-products";
@@ -40,19 +38,23 @@ export default function TopSellingProducts() {
     switch (columnKey) {
       case "title":
         return (
-          <User
-            avatarProps={{
-              radius: "full",
-              src: product.Image?.[0]?.url || "/placeholder-product.jpg",
-              classNames: { img: "bg-zinc-200 dark:bg-zinc-500" },
-            }}
-            classNames={{
-              name: "whitespace-pre",
-            }}
-            name={textTruncate(product.title, 17)}
-          >
-            {product.title}
-          </User>
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10">
+              <AvatarImage
+                src={product.Image?.[0]?.url || "/placeholder-product.jpg"}
+                alt={product.title}
+                className="bg-muted"
+              />
+              <AvatarFallback className="bg-muted">
+                {product.title.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <p className="text-sm font-medium whitespace-pre">
+                {textTruncate(product.title, 17)}
+              </p>
+            </div>
+          </div>
         );
       case "category":
         return (
@@ -64,32 +66,28 @@ export default function TopSellingProducts() {
         return <h1>{formatCurrency(product.basePrice)}</h1>;
       case "stock":
         return (
-          <Chip
+          <Badge
             className="capitalize"
-            color={product.stock === 0 ? "danger" : "success"}
-            size="sm"
-            variant="flat"
+            variant={product.stock === 0 ? "danger" : "success"}
           >
             {product.stock === 0
               ? "out of stock"
               : `in stock (${product.stock})`}
-          </Chip>
+          </Badge>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="View Details">
-              <Button
-                isIconOnly
-                size="sm"
-                variant="light"
-                as={Link}
-                radius="full"
-                href={`/dashboard/products/${product.id}`}
-              >
-                <Eye className="text-zinc-500" />
-              </Button>
-            </Tooltip>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="h-8 w-8 p-0 rounded-full"
+            >
+              <Link href={`/dashboard/products/${product.id}`}>
+                <Eye size={16} className="text-muted-foreground" />
+              </Link>
+            </Button>
             <DeleteProduct id={product.pid} />
           </div>
         );
@@ -114,41 +112,41 @@ export default function TopSellingProducts() {
           View All
         </Button>
       </div>
-      <Table
-        aria-label="Top Selling Products"
-        classNames={{
-          wrapper: "px-0 shadow-none",
-        }}
-      >
-        <TableHeader columns={topSellingProductsColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody
-          emptyContent={
-            <div className="text-center py-4">
-              <div className="text-sm text-gray-500">
-                No products available yet
-              </div>
-            </div>
-          }
-          items={topSellingProducts}
-        >
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
+      <div className="bg-card/50 backdrop-blur-sm border border-border/60 rounded-xl shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {topSellingProductsColumns.map((column) => (
+                <TableHead
+                  key={column.uid}
+                  className={column.uid === "actions" ? "text-center" : "text-left"}
+                >
+                  {column.name}
+                </TableHead>
+              ))}
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {topSellingProducts && topSellingProducts.length > 0 ? (
+              topSellingProducts.map((item) => (
+                <TableRow key={item.id} className="hover:bg-muted/50">
+                  {topSellingProductsColumns.map((column) => (
+                    <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
+                      {renderCell(item, column.uid)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={topSellingProductsColumns.length} className="text-center py-8 text-muted-foreground">
+                  No products available yet
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

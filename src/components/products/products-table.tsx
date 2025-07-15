@@ -3,28 +3,35 @@
 import React from "react";
 import {
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
-  TableRow,
   TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
   DropdownMenu,
-  DropdownItem,
-  Chip,
-  User,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import {
   Pagination,
-  Selection,
-  SortDescriptor,
-} from "@nextui-org/react";
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { ChevronDown, Eye, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { capitalize, formatCurrency, textTruncate } from "@/lib/utils";
 import { useProducts } from "@/api-hooks/products/get-products";
 import { ProductProps } from "@/lib/types/types";
 import Link from "next/link";
+import Image from "next/image";
 import DeleteProduct from "../dialog/products/delete-product";
 
 const columns = [
@@ -57,9 +64,14 @@ const INITIAL_VISIBLE_COLUMNS = [
   "actions",
 ];
 
+type SortDescriptor = {
+  column: string;
+  direction: "ascending" | "descending";
+};
+
 export default function ProductsTable() {
   const [filterValue, setFilterValue] = React.useState("");
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+  const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -74,10 +86,10 @@ export default function ProductsTable() {
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
+    if (visibleColumns.has("all")) return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
+      visibleColumns.has(column.uid),
     );
   }, [visibleColumns]);
 
@@ -121,19 +133,20 @@ export default function ProductsTable() {
       switch (columnKey) {
         case "title":
           return (
-            <User
-              avatarProps={{
-                radius: "full",
-                src: process.env.NEXT_PUBLIC_IMAGE_URL + product.image,
-                classNames: { img: "bg-zinc-200 dark:bg-zinc-500" },
-              }}
-              classNames={{
-                name: "whitespace-pre",
-              }}
-              name={textTruncate(product.title, 17)}
-            >
-              {product.title}
-            </User>
+            <div className="flex items-center gap-3">
+              <Image
+                src={process.env.NEXT_PUBLIC_IMAGE_URL + product.image}
+                alt={product.title}
+                width={40}
+                height={40}
+                className="rounded-full bg-zinc-200 dark:bg-zinc-500 object-cover"
+              />
+              <div>
+                <p className="font-medium whitespace-pre">
+                  {textTruncate(product.title, 17)}
+                </p>
+              </div>
+            </div>
           );
         case "offerPrice":
           return formatCurrency(product.offerPrice);
@@ -141,64 +154,58 @@ export default function ProductsTable() {
           return formatCurrency(product.basePrice);
         case "stock":
           return (
-            <Chip
+            <Badge
               className="capitalize"
-              color={product.stock === 0 ? "danger" : "success"}
-              size="sm"
-              variant="flat"
+              variant={product.stock === 0 ? "danger" : "success"}
             >
               {product.stock === 0
                 ? "out of stock"
                 : `in stock (${product.stock})`}
-            </Chip>
+            </Badge>
           );
         case "earnings":
           return (
-            <h1 className="font-medium text-success">
+            <h1 className="font-medium text-green-600 dark:text-green-400">
               {formatCurrency(product.earnings)}
             </h1>
           );
         case "actions":
           return (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-1">
               {/* View product */}
               <Button
-                isIconOnly
+                variant="ghost"
                 size="sm"
-                variant="light"
-                as={Link}
-                radius="full"
-                href={`/dashboard/products/${product.id}`}
+                asChild
+                className="h-8 w-8 p-0 rounded-full"
               >
-                <Eye size={20} className="text-zinc-500" />
+                <Link href={`/dashboard/products/${product.id}`}>
+                  <Eye size={16} className="text-muted-foreground" />
+                </Link>
               </Button>
 
               {/* Edit product */}
               <Button
-                isIconOnly
+                variant="ghost"
                 size="sm"
-                variant="light"
-                as={Link}
-                radius="full"
-                href={`/dashboard/products/edit?pid=${product.id}`}
-                className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+                asChild
+                className="h-8 w-8 p-0 rounded-full"
               >
-                <Pencil size={20} className="text-zinc-500" />
+                <Link href={`/dashboard/products/edit?pid=${product.id}`}>
+                  <Pencil size={16} className="text-muted-foreground" />
+                </Link>
               </Button>
 
               {/* Delete product */}
               <DeleteProduct id={product.id}>
                 {(onOpen) => (
                   <Button
-                    onPress={onOpen}
-                    isIconOnly
+                    onClick={onOpen}
+                    variant="ghost"
                     size="sm"
-                    variant="light"
-                    radius="full"
-                    color="danger"
-                    className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+                    className="h-8 w-8 p-0 rounded-full text-red-600 hover:text-red-700 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
                   >
-                    <Trash2 size={20} />
+                    <Trash2 size={16} />
                   </Button>
                 )}
               </DeleteProduct>
@@ -249,58 +256,61 @@ export default function ProductsTable() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between gap-3">
-          <Input
-            isClearable
-            size="sm"
-            className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
-            startContent={<Search />}
-            value={filterValue}
-            onClear={() => onClear()}
-            onValueChange={onSearchChange}
-          />
+          <div className="relative w-full sm:max-w-[44%]">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Search by name..."
+              value={filterValue}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onSearchChange(e.target.value)}
+              className="pl-10"
+            />
+          </div>
           <div className="flex gap-3">
-            <Dropdown>
-              <DropdownTrigger className="z-0 hidden sm:flex">
-                <Button endContent={<ChevronDown size={20} />} variant="flat">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="hidden sm:flex">
                   Columns
+                  <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                className="max-h-[250px] overflow-y-scroll scrollbar-hide bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                selectionMode="multiple"
-                aria-label="product-table-column-select"
-                onSelectionChange={setVisibleColumns}
-              >
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
                 {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
+                  <DropdownMenuItem
+                    key={column.uid}
+                    className="capitalize"
+                    onClick={() => {
+                      const newVisibleColumns = new Set(visibleColumns);
+                      if (newVisibleColumns.has(column.uid)) {
+                        newVisibleColumns.delete(column.uid);
+                      } else {
+                        newVisibleColumns.add(column.uid);
+                      }
+                      setVisibleColumns(newVisibleColumns);
+                    }}
+                  >
                     {capitalize(column.name)}
-                  </DropdownItem>
+                  </DropdownMenuItem>
                 ))}
-              </DropdownMenu>
-            </Dropdown>
-            <Button
-              as={Link}
-              href="/dashboard/products/add "
-              color="primary"
-              endContent={<Plus size={20} />}
-            >
-              Add New
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button asChild>
+              <Link href="/dashboard/products/add">
+                <Plus className="mr-2 h-4 w-4" />
+                Add New
+              </Link>
             </Button>
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-small text-default-400">
+          <span className="text-sm text-muted-foreground">
             Total {data?.products.length} products
           </span>
-          <label className="flex items-center text-small text-default-400">
+          <label className="flex items-center text-sm text-muted-foreground gap-2">
             Rows per page:
             <select
-              className="bg-transparent text-small text-default-400 outline-none"
+              className="bg-background border border-input rounded px-2 py-1 text-sm outline-none focus:ring-2 focus:ring-ring"
               onChange={onRowsPerPageChange}
+              defaultValue="5"
             >
               <option value="5">5</option>
               <option value="10">10</option>
@@ -316,75 +326,106 @@ export default function ProductsTable() {
     onSearchChange,
     onRowsPerPageChange,
     data?.products.length,
-    onClear,
   ]);
 
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="hidden w-[30%] justify-end gap-2 sm:flex">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Next
-          </Button>
-        </div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onPreviousPage();
+                }}
+                className={pages === 1 ? "pointer-events-none opacity-50" : ""}
+              />
+            </PaginationItem>
+            {Array.from({ length: pages }, (_, i) => i + 1).map((pageNum) => (
+              <PaginationItem key={pageNum}>
+                <PaginationLink
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setPage(pageNum);
+                  }}
+                  isActive={pageNum === page}
+                >
+                  {pageNum}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNextPage();
+                }}
+                className={pages === 1 ? "pointer-events-none opacity-50" : ""}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     );
   }, [page, pages, onNextPage, onPreviousPage]);
 
   return (
-    <Table
-      aria-label="Products table"
-      isHeaderSticky
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      onSortChange={setSortDescriptor}
-      classNames={{ wrapper: "bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl rounded-2xl p-4" }}
-    >
-      <TableHeader columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody emptyContent={"No Products found"} items={sortedItems || []}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+    <div className="space-y-4">
+      {topContent}
+      <div className="bg-card/50 backdrop-blur-sm border border-border/60 rounded-xl shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {headerColumns.map((column) => (
+                <TableHead
+                  key={column.uid}
+                  className={`${column.uid === "actions" ? "text-center" : "text-left"} ${
+                    column.sortable ? "cursor-pointer hover:bg-muted/50" : ""
+                  }`}
+                  onClick={() => {
+                    if (column.sortable) {
+                      setSortDescriptor({
+                        column: column.uid,
+                        direction:
+                          sortDescriptor.column === column.uid &&
+                          sortDescriptor.direction === "ascending"
+                            ? "descending"
+                            : "ascending",
+                      });
+                    }
+                  }}
+                >
+                  {column.name}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {sortedItems && sortedItems.length > 0 ? (
+              sortedItems.map((item) => (
+                <TableRow key={item.id} className="hover:bg-muted/50">
+                  {headerColumns.map((column) => (
+                    <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
+                      {renderCell(item, column.uid)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={headerColumns.length} className="text-center py-8 text-muted-foreground">
+                  No Products found
+                </TableCell>
+              </TableRow>
             )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          </TableBody>
+        </Table>
+      </div>
+      {bottomContent}
+    </div>
   );
 }

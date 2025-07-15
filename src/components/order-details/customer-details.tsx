@@ -1,4 +1,6 @@
-import { Button, Card, CardBody, User } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Mail, Phone, User2 } from "lucide-react";
 import Link from "next/link";
 
@@ -13,7 +15,7 @@ type CustomerDetailsProps = {
 const CustomerDetails = ({ data }: { data: CustomerDetailsProps }) => {
   return (
     <Card className="rounded-sm shadow-sm">
-      <CardBody className="p-0">
+      <CardContent className="p-0">
         <div className="flex items-center justify-between p-3">
           <h1>Customer details</h1>
           <Button
@@ -28,19 +30,21 @@ const CustomerDetails = ({ data }: { data: CustomerDetailsProps }) => {
         </div>
         <hr />
         <div className="p-3">
-          <User
-            avatarProps={{
-              size: "lg",
-              showFallback: true,
-              fallback: <User2 />,
-              radius: "sm",
-              src: data.image
-                ? process.env.NEXT_PUBLIC_IMAGE_URL + data.image
-                : "",
-            }}
-            description="Customer"
-            name={data.name}
-          />
+          <div className="flex items-center gap-3">
+            <Avatar className="h-12 w-12">
+              <AvatarImage
+                src={data.image ? process.env.NEXT_PUBLIC_IMAGE_URL + data.image : ""}
+                alt={data.name}
+              />
+              <AvatarFallback>
+                <User2 />
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="font-medium">{data.name}</p>
+              <p className="text-sm text-gray-500">Customer</p>
+            </div>
+          </div>
           <ul className="my-2 space-y-3">
             <li className="flex items-center gap-2">
               <Mail className="text-zinc-400" size={15} />
@@ -52,7 +56,7 @@ const CustomerDetails = ({ data }: { data: CustomerDetailsProps }) => {
             </li>
           </ul>
         </div>
-      </CardBody>
+      </CardContent>
     </Card>
   );
 };

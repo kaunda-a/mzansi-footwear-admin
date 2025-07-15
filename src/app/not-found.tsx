@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, ArrowLeft, Search } from "lucide-react";
@@ -13,7 +14,7 @@ export default function NotFound() {
 
       <div className="relative z-10 w-full max-w-lg">
         <Card className="backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30">
-          <CardBody className="p-8 text-center space-y-8">
+          <CardContent className="p-8 text-center space-y-8">
             {/* Logo */}
             <div className="flex justify-center">
               <div className="relative">
@@ -62,22 +63,22 @@ export default function NotFound() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
-                as={Link}
-                href="/dashboard"
-                color="primary"
+                asChild
                 size="lg"
-                className="flex-1 font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white"
-                startContent={<Home size={18} />}
+                className="flex-1 font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white flex items-center gap-2"
               >
-                Go to Dashboard
+                <Link href="/dashboard">
+                  <Home size={18} />
+                  Go to Dashboard
+                </Link>
               </Button>
               <Button
                 onClick={() => window.history.back()}
-                variant="bordered"
+                variant="outline"
                 size="lg"
-                className="flex-1 font-medium"
-                startContent={<ArrowLeft size={18} />}
+                className="flex-1 font-medium flex items-center gap-2"
               >
+                <ArrowLeft size={18} />
                 Go Back
               </Button>
             </div>
@@ -88,7 +89,7 @@ export default function NotFound() {
                 Mzansi Footwear Admin Dashboard
               </p>
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </div>
     </div>

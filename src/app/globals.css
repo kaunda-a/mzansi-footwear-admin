@@ -6,65 +6,84 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Linear/Raycast inspired light theme */
+    --background: 255 255 255;
+    --foreground: 17 24 39;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 255 255 255;
+    --card-foreground: 17 24 39;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 255 255 255;
+    --popover-foreground: 17 24 39;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 99 102 241;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 248 250 252;
+    --secondary-foreground: 51 65 85;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 248 250 252;
+    --muted-foreground: 100 116 139;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 241 245 249;
+    --accent-foreground: 51 65 85;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 226 232 240;
+    --input: 241 245 249;
+    --ring: 99 102 241;
 
     --radius: 0.5rem;
+
+    --sidebar-background: 250 250 250;
+    --sidebar-foreground: 71 85 105;
+    --sidebar-primary: 30 41 59;
+    --sidebar-primary-foreground: 250 250 250;
+    --sidebar-accent: 244 244 245;
+    --sidebar-accent-foreground: 30 41 59;
+    --sidebar-border: 226 232 240;
+    --sidebar-ring: 59 130 246;
   }
 
   .dark {
-    --background: 180 15% 8%;
-    --foreground: 210 40% 98%;
+    /* Linear/Raycast inspired dark theme */
+    --background: 9 9 11;
+    --foreground: 250 250 250;
 
-    --card: 180 15% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 24 24 27;
+    --card-foreground: 250 250 250;
 
-    --popover: 180 15% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 24 24 27;
+    --popover-foreground: 250 250 250;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 180 15% 8%;
+    --primary: 129 140 248;
+    --primary-foreground: 9 9 11;
 
-    --secondary: 180 10% 12%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 39 39 42;
+    --secondary-foreground: 212 212 216;
 
-    --muted: 180 10% 12%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 39 39 42;
+    --muted-foreground: 161 161 170;
 
-    --accent: 180 10% 12%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 39 39 42;
+    --accent-foreground: 212 212 216;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 248 113 113;
+    --destructive-foreground: 9 9 11;
 
-    --border: 180 10% 15%;
-    --input: 180 10% 15%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 63 63 70;
+    --input: 39 39 42;
+    --ring: 129 140 248;
+    --sidebar-background: 30 41 59;
+    --sidebar-foreground: 244 244 245;
+    --sidebar-primary: 59 130 246;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 51 65 85;
+    --sidebar-accent-foreground: 244 244 245;
+    --sidebar-border: 51 65 85;
+    --sidebar-ring: 59 130 246;
   }
 }
 
@@ -119,4 +138,15 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

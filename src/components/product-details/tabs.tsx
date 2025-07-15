@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Tabs as NextUITabs, Tab } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, Box, Pencil, Trash2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,7 +10,7 @@ import Analytics from "./analytics";
 import { Image, Product } from "@prisma/client";
 import DeleteProduct from "../dialog/products/delete-product";
 
-const Tabs = ({
+const ProductDetailsTabs = ({
   children,
   pid,
   product,
@@ -27,46 +28,46 @@ const Tabs = ({
   }, [tab]);
 
   return (
-    <NextUITabs
-      variant="underlined"
-      aria-label="Product details"
-      color="primary"
-      className="max-w-full overflow-x-scroll md:overflow-hidden"
-      selectedKey={selected}
-    >
-      <Tab
-        key="product"
-        as={Link}
-        href={`/dashboard/products/${pid}`}
-        title={
-          <div className="flex items-center gap-2">
+    <Tabs value={selected} className="w-full">
+      <TabsList className="grid w-full grid-cols-2 max-w-full overflow-x-auto md:overflow-hidden">
+        <TabsTrigger value="product" asChild>
+          <Link href={`/dashboard/products/${pid}`} className="flex items-center gap-2">
             <Box size={20} />
             <span>Product</span>
-          </div>
-        }
-      >
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="analytics" asChild>
+          <Link href={`/dashboard/products/${pid}?tab=analytics`} className="flex items-center gap-2">
+            <BarChart3 size={20} />
+            <span>Analytics</span>
+          </Link>
+        </TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="product" className="mt-6">
         <div className="mb-5 flex items-center justify-between">
           <h1 className="my-5 text-xl text-zinc-400">Product Details</h1>
           <div className="flex items-center gap-3">
             <Button
               size="sm"
-              startContent={<Pencil size={15} />}
-              color="primary"
-              as={Link}
-              href={`/dashboard/products/edit?pid=${pid}`}
-              className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+              variant="outline"
+              asChild
+              className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 text-primary hover:text-primary/80"
             >
-              Edit Product
+              <Link href={`/dashboard/products/edit?pid=${pid}`}>
+                <Pencil size={15} className="mr-2" />
+                Edit Product
+              </Link>
             </Button>
             <DeleteProduct id={pid}>
               {(onOpen) => (
                 <Button
                   size="sm"
-                  color="danger"
-                  startContent={<Trash2 size={15} />}
+                  variant="outline"
                   onClick={onOpen}
-                  className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+                  className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 text-red-600 hover:text-red-700"
                 >
+                  <Trash2 size={15} className="mr-2" />
                   Delete Product
                 </Button>
               )}
@@ -74,22 +75,13 @@ const Tabs = ({
           </div>
         </div>
         {children}
-      </Tab>
-      <Tab
-        key="analytics"
-        href={`/dashboard/products/${pid}?tab=analytics`}
-        as={Link}
-        title={
-          <div className="flex items-center gap-2">
-            <BarChart3 size={20} />
-            <span>Analytics</span>
-          </div>
-        }
-      >
+      </TabsContent>
+
+      <TabsContent value="analytics" className="mt-6">
         <Analytics product={product} />
-      </Tab>
-    </NextUITabs>
+      </TabsContent>
+    </Tabs>
   );
 };
 
-export default Tabs;
+export default ProductDetailsTabs;
