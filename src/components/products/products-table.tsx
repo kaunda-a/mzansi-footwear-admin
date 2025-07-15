@@ -336,7 +336,7 @@ export default function ProductsTable() {
             <PaginationItem>
               <PaginationPrevious
                 href="#"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                   e.preventDefault();
                   onPreviousPage();
                 }}
@@ -347,7 +347,7 @@ export default function ProductsTable() {
               <PaginationItem key={pageNum}>
                 <PaginationLink
                   href="#"
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                     e.preventDefault();
                     setPage(pageNum);
                   }}
@@ -360,7 +360,7 @@ export default function ProductsTable() {
             <PaginationItem>
               <PaginationNext
                 href="#"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                   e.preventDefault();
                   onNextPage();
                 }}

@@ -73,7 +73,7 @@ const AddColorSection = ({
           placeholder="Enter color"
           className="mb-4 mt-2"
           value={colorVariants[index].color}
-          onChange={(e) => addColor(e.target.value, index)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => addColor(e.target.value, index)}
         />
       </div>
     </div>
