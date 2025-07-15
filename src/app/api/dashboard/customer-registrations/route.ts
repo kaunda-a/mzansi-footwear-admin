@@ -55,7 +55,7 @@ export async function GET(request: Request) {
     ` as Array<{ period: string; count: number }>;
 
     // Transform the data to the expected format
-    const transformedData = registrations.map((item) => ({
+    const transformedData = registrations.map((item: any) => ({
       name: item.period,
       uv: item.count,
     }));
@@ -68,7 +68,7 @@ export async function GET(request: Request) {
       period,
       totalRegistrations: filledData.reduce((sum, item) => sum + item.uv, 0),
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Customer registrations API error:", error);
     return error500({});
   }
@@ -81,7 +81,7 @@ function fillMissingPeriods(
   endDate: Date
 ): Array<{ name: string; uv: number }> {
   const result: Array<{ name: string; uv: number }> = [];
-  const dataMap = new Map(data.map(item => [item.name, item.uv]));
+  const dataMap = new Map(data.map((item: any) => [item.name, item.uv]));
 
   if (period === "weekly") {
     // Fill last 7 days

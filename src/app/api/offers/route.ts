@@ -22,7 +22,7 @@ export async function GET() {
       offers: marqueeOffers,
       banners: heroBanner,
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

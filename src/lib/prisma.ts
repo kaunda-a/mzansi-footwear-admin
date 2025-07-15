@@ -12,7 +12,7 @@ try {
   // Try to import PrismaClient
   const prismaModule = require("@prisma/client");
   PrismaClient = prismaModule.PrismaClient;
-} catch (error) {
+} catch (error: any) {
   console.warn("Prisma client not available, using mock client");
 
   // Fallback mock client for development/build purposes

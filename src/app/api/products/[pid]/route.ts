@@ -49,7 +49,7 @@ export async function GET(
     }
 
     return success200({ product });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -147,7 +147,7 @@ export async function PUT(
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return error500({});
   }
@@ -204,7 +204,7 @@ export async function DELETE(
     await Promise.all(deletePromises);
 
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

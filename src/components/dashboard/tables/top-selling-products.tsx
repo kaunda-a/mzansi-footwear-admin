@@ -116,7 +116,7 @@ export default function TopSellingProducts() {
         <Table>
           <TableHeader>
             <TableRow>
-              {topSellingProductsColumns.map((column) => (
+              {topSellingProductsColumns.map((column: any) => (
                 <TableHead
                   key={column.uid}
                   className={column.uid === "actions" ? "text-center" : "text-left"}
@@ -128,9 +128,9 @@ export default function TopSellingProducts() {
           </TableHeader>
           <TableBody>
             {topSellingProducts && topSellingProducts.length > 0 ? (
-              topSellingProducts.map((item) => (
+              topSellingProducts.map((item: any) => (
                 <TableRow key={item.id} className="hover:bg-muted/50">
-                  {topSellingProductsColumns.map((column) => (
+                  {topSellingProductsColumns.map((column: any) => (
                     <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
                       {renderCell(item, column.uid)}
                     </TableCell>

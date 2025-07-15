@@ -41,7 +41,7 @@ async function getDashboardStatsClient(): Promise<DashboardStatsResponse> {
   try {
     const { data } = await axios.get("/api/dashboard/stats");
     return data as DashboardStatsResponse;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching dashboard stats:", error);
     throw error;
   }

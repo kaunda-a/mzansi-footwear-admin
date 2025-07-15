@@ -53,7 +53,7 @@ export default function CategoriesTable() {
       <Table>
         <TableHeader>
           <TableRow>
-            {columns.map((column) => (
+            {columns.map((column: any) => (
               <TableHead
                 key={column.uid}
                 className={column.uid === "actions" ? "text-center" : "text-left"}
@@ -65,9 +65,9 @@ export default function CategoriesTable() {
         </TableHeader>
         <TableBody>
           {categories && categories.length > 0 ? (
-            categories.map((item) => (
+            categories.map((item: any) => (
               <TableRow key={item.id} className="hover:bg-muted/50">
-                {columns.map((column) => (
+                {columns.map((column: any) => (
                   <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
                     {renderCell(item, column.uid)}
                   </TableCell>

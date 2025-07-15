@@ -29,7 +29,7 @@ export async function GET() {
       },
     });
 
-    const formattedOrders = orders.map((order) => ({
+    const formattedOrders = orders.map((order: any) => ({
       id: order.id,
       payment_verified: order.payment_verified,
       status: order.status === "placed" ? "pending" : order.status,
@@ -41,7 +41,7 @@ export async function GET() {
     }));
 
     return success200({ orders: formattedOrders });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -85,7 +85,7 @@ export async function PATCH(req: NextRequest) {
     });
 
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

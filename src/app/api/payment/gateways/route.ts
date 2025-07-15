@@ -25,7 +25,7 @@ export async function GET() {
       count: supportedGateways.length,
       note: "Payment processing handled by frontend application"
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Get payment gateways error:", error);
     return error500({});
   }

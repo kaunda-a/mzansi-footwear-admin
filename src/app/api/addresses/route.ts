@@ -37,7 +37,7 @@ export async function GET() {
         is_deleted: address.is_deleted,
       })),
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -65,7 +65,7 @@ export async function DELETE(req: NextRequest) {
       },
     });
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

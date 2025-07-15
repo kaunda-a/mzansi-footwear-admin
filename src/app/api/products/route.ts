@@ -18,7 +18,7 @@ import { uploadImage } from "@/config/cloudinary.config";
 
 function extractColorAsString(colors: ColorVariant[]) {
   if (colors[0].color.toLowerCase() === "default") return null;
-  const colorsArray = colors.map((item) => item.color);
+  const colorsArray = colors.map((item: any) => item.color);
   const colorsString = colorsArray.join(",");
   return colorsString;
 }
@@ -66,7 +66,7 @@ export async function GET() {
         createdAt: formateDate(product.createdAt),
       })),
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({ product: null });
   }
 }

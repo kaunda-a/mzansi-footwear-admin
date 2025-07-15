@@ -20,7 +20,7 @@ export async function GET() {
     });
     if (!categories) return error500({ categories: null });
     return success200({ categories });
-  } catch (error) {
+  } catch (error: any) {
     return error500({ categories: null });
   }
 }

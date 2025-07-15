@@ -51,7 +51,7 @@ export async function GET(
         updatedAt: formateDate(customerOrders.updatedAt),
         lastLogin: formateDate(customerOrders.lastLogin),
       },
-      orders: customerOrders.Order.map((order) => ({
+      orders: customerOrders.Order.map((order: any) => ({
         oid: order.id,
         amount: order.total,
         date: formateDate(order.orderDate),
@@ -60,7 +60,7 @@ export async function GET(
         addressId: order.addressId,
       })),
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

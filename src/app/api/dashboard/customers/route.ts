@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
 
       // Calculate spending and format data
       const customersWithSpending = topCustomers
-        .map((customer) => {
+        .map((customer: any) => {
           const totalSpent = customer.Order.reduce(
             (sum, order) => sum + order.total,
             0,
@@ -186,7 +186,7 @@ export async function GET(req: NextRequest) {
     }
 
     return error500({});
-  } catch (error) {
+  } catch (error: any) {
     console.error("Customer analytics error:", error);
     return error500({});
   }

@@ -392,7 +392,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
             {sortedItems && sortedItems.length > 0 ? (
               sortedItems.map((item: any) => (
                 <TableRow key={item.id} className="hover:bg-muted/50">
-                  {headerColumns.map((column) => (
+                  {headerColumns.map((column: any) => (
                     <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
                       {renderCell(item, column.uid)}
                     </TableCell>

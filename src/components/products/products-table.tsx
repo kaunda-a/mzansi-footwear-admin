@@ -274,7 +274,7 @@ export default function ProductsTable() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48">
-                {columns.map((column) => (
+                {columns.map((column: any) => (
                   <DropdownMenuItem
                     key={column.uid}
                     className="capitalize"
@@ -380,7 +380,7 @@ export default function ProductsTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              {headerColumns.map((column) => (
+              {headerColumns.map((column: any) => (
                 <TableHead
                   key={column.uid}
                   className={`${column.uid === "actions" ? "text-center" : "text-left"} ${
@@ -406,9 +406,9 @@ export default function ProductsTable() {
           </TableHeader>
           <TableBody>
             {sortedItems && sortedItems.length > 0 ? (
-              sortedItems.map((item) => (
+              sortedItems.map((item: any) => (
                 <TableRow key={item.id} className="hover:bg-muted/50">
-                  {headerColumns.map((column) => (
+                  {headerColumns.map((column: any) => (
                     <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
                       {renderCell(item, column.uid)}
                     </TableCell>

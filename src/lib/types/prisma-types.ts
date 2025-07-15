@@ -12,7 +12,7 @@ let PrismaTypes: any = {};
 try {
   // Try to import Prisma types
   PrismaTypes = require('@prisma/client');
-} catch (error) {
+} catch (error: any) {
   // Prisma client not available, we'll use fallback types
   console.warn('Prisma client not available, using fallback types');
 }

@@ -17,7 +17,7 @@ const SignOutButton = () => {
         callbackUrl: "/",
       });
       toast.success("Signed out successfully.");
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Something went wrong");
       setIsLoading(false);
     }

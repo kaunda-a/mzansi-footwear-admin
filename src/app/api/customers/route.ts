@@ -29,7 +29,7 @@ export async function GET() {
       return success200({ customers: [] });
 
     return success200({
-      customers: customers.map((customer) => ({
+      customers: customers.map((customer: any) => ({
         id: customer.id,
         name: customer.name,
         email: customer.email,
@@ -41,7 +41,7 @@ export async function GET() {
         image: customer.image,
       })),
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -93,7 +93,7 @@ export async function PATCH(req: NextRequest) {
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({ admin: null });
   }
 }
@@ -183,7 +183,7 @@ export async function DELETE(req: NextRequest) {
       },
     });
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

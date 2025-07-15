@@ -77,7 +77,7 @@ export default function HeroBannerTable({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 max-h-[250px] overflow-y-auto">
-                {columns.map((column) => (
+                {columns.map((column: any) => (
                   <DropdownMenuItem
                     key={column.uid}
                     className="capitalize"
@@ -153,7 +153,7 @@ export default function HeroBannerTable({
         <Table>
           <TableHeader>
             <TableRow>
-              {headerColumns.map((column) => (
+              {headerColumns.map((column: any) => (
                 <TableHead
                   key={column.uid}
                   className={column.uid === "actions" ? "text-right" : "text-left"}
@@ -165,9 +165,9 @@ export default function HeroBannerTable({
           </TableHeader>
           <TableBody>
             {data && data.length > 0 ? (
-              data.map((item) => (
+              data.map((item: any) => (
                 <TableRow key={item.id} className="hover:bg-muted/50">
-                  {headerColumns.map((column) => (
+                  {headerColumns.map((column: any) => (
                     <TableCell key={column.uid} className={column.uid === "actions" ? "text-right" : ""}>
                       {renderCell(item, column.uid)}
                     </TableCell>

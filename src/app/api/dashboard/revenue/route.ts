@@ -135,7 +135,7 @@ export async function GET(req: NextRequest) {
       totalRevenue: orders.reduce((sum, order) => sum + order.total, 0),
       orderCount: orders.length,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Revenue data error:", error);
     return error500({});
   }

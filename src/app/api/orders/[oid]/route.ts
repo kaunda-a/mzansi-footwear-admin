@@ -81,7 +81,7 @@ export async function GET(
         })),
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

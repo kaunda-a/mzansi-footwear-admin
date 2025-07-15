@@ -9,7 +9,7 @@ async function getCategoryEndChild(): Promise<Category[]> {
       return data.categories as Category[];
     }
     return [];
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching categories:", error);
     throw error;
   }

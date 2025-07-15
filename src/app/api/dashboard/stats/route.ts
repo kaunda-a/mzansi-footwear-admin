@@ -186,7 +186,7 @@ export async function GET() {
         },
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Dashboard stats error:", error);
     return error500({});
   }

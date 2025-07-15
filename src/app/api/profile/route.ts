@@ -34,7 +34,7 @@ export async function PATCH(req: Request) {
       message: "Profile updated successfully",
       data: admin,
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({
       error,
       message: "Error in updating profile!",

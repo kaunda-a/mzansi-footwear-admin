@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -114,7 +114,7 @@ export async function PUT(req: NextRequest) {
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -142,7 +142,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

@@ -14,7 +14,7 @@ export async function getDealsAndOffers() {
     });
 
     return data as DealsAndOffersRes;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in getDealsAndOffers:", error);
     throw error; // Re-throw the error so it can still be caught by the page's try-catch
   }

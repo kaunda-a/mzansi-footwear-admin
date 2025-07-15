@@ -31,7 +31,7 @@ export async function GET(
     });
 
     return success200({ orders });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

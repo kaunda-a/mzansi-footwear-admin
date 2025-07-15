@@ -67,7 +67,7 @@ export async function GET(
         email: order.User?.email,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Payment status check error:", error);
     return error500({});
   }

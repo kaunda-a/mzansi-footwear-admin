@@ -222,7 +222,7 @@ export default function AddressTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="max-h-[300px] overflow-y-auto">
-              {columns.map((column) => (
+              {columns.map((column: any) => (
                 <DropdownMenuItem key={column.uid} className="capitalize">
                   {capitalize(column.name)}
                 </DropdownMenuItem>

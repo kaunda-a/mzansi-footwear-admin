@@ -38,7 +38,7 @@ export async function GET() {
         _count: category._count.Product,
       })),
     });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     if (result.error) {
       return error400("Invalid data format.", {});
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({ product: null });
   }
 }
@@ -102,7 +102,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return error500({});
   }
@@ -144,7 +144,7 @@ export async function PUT(req: NextRequest) {
 
       return success200({ id: data.id, ...data.values });
     }
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

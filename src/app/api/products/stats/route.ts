@@ -16,7 +16,7 @@ export async function GET() {
       where: { stock: { equals: 0 } },
     });
     return success200({ productsCount, OutOfStockProductsCount });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }

@@ -16,7 +16,7 @@ function formatGuestUsers(
 ) {
   const today = new Date();
 
-  return originalArray.map((item) => {
+  return originalArray.map((item: any) => {
     const expirationDate = new Date(item.expirationDate);
     const isExpired = expirationDate < today;
 
@@ -42,7 +42,7 @@ export async function GET() {
       return success200({ guest_users: [] });
 
     return success200({ guest_users: formatGuestUsers(guestUsers) });
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
@@ -70,7 +70,7 @@ export async function DELETE(req: NextRequest) {
       },
     });
     return success200({});
-  } catch (error) {
+  } catch (error: any) {
     return error500({});
   }
 }
