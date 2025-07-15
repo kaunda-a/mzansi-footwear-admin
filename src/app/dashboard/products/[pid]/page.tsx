@@ -9,16 +9,17 @@ const ProductPage = async ({
   params,
   searchParams,
 }: {
-  params: { pid: string };
+  params: Promise<{ pid: string }>;
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { product } = await getProductServer(params.pid).catch((_) =>
+  const resolvedParams = await params;
+  const { product } = await getProductServer(resolvedParams.pid).catch((_) =>
     notFound(),
   );
 
   return (
     <Nav>
-      <Tabs pid={params.pid} product={product}>
+      <Tabs pid={resolvedParams.pid} product={product}>
         <ProductTemplate
           product={{
             basePrice: product.basePrice,

@@ -5,11 +5,12 @@ import Hydrate from "@/lib/query-utils/hydrate-client";
 import { QueryClient } from "@tanstack/react-query";
 import { getCustomerOrdersServer } from "@/lib/api/customers/get-customer-orders";
 
-const Customer = async ({ params }: { params: { userId: string } }) => {
+const Customer = async ({ params }: { params: Promise<{ userId: string }> }) => {
+  const resolvedParams = await params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["orders", "customerId"],
-    queryFn: () => getCustomerOrdersServer(params.userId),
+    queryFn: () => getCustomerOrdersServer(resolvedParams.userId),
   });
   const dehydratedState = dehydrate(queryClient);
 
@@ -17,7 +18,7 @@ const Customer = async ({ params }: { params: { userId: string } }) => {
     <Nav>
       <div className="@container">
         <Hydrate state={dehydratedState}>
-          <CustomerOrder customerId={params.userId} />
+          <CustomerOrder customerId={resolvedParams.userId} />
         </Hydrate>
       </div>
     </Nav>

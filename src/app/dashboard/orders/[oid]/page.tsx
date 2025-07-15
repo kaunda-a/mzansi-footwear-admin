@@ -9,8 +9,9 @@ import { getOrderServer } from "@/lib/api/orders/get-order";
 import { formateDate } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
-const OrderDetails = async ({ params }: { params: { oid: string } }) => {
-  const { order } = await getOrderServer(params.oid).catch((_) => notFound());
+const OrderDetails = async ({ params }: { params: Promise<{ oid: string }> }) => {
+  const resolvedParams = await params;
+  const { order } = await getOrderServer(resolvedParams.oid).catch((_) => notFound());
   if (!order) notFound();
 
   return (
@@ -18,7 +19,7 @@ const OrderDetails = async ({ params }: { params: { oid: string } }) => {
       <div className="@container">
         <div className="grid grid-cols-1 gap-2 @xl:grid-cols-3">
           <div className="col-span-2">
-            <InvoiceCard oid={params.oid} />
+            <InvoiceCard oid={resolvedParams.oid} />
             <ProductDetails data={order} />
             <OrderStatus
               oid={order.id}
