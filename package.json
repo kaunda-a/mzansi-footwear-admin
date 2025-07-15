@@ -75,6 +75,7 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
     "@tanstack/query-core": "^5.83.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
