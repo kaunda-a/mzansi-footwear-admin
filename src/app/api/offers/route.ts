@@ -12,7 +12,7 @@ export async function GET() {
     }
 
     const [bestDeal, marqueeOffers, heroBanner] = await Promise.all([
-      db.bestDeal.findMany().then((result) => result[0]),
+      db.bestDeal.findMany().then((result: any ) => result[0]),
       db.marqueeOffers.findMany(),
       db.heroBanner.findMany(),
     ]);

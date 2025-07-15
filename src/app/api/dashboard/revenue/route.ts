@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
       const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       const dailyRevenue = new Array(7).fill(0);
 
-      orders.forEach((order) => {
+      orders.forEach((order: any ) => {
         const dayIndex = order.orderDate.getDay();
         dailyRevenue[dayIndex] += order.total;
       });
@@ -86,7 +86,7 @@ export async function GET(req: NextRequest) {
       // Group by weeks in the current month
       const weeklyRevenue: { [key: string]: number } = {};
       
-      orders.forEach((order) => {
+      orders.forEach((order: any) => {
         const weekNumber = Math.ceil(order.orderDate.getDate() / 7);
         const weekKey = `Week ${weekNumber}`;
         weeklyRevenue[weekKey] = (weeklyRevenue[weekKey] || 0) + order.total;
@@ -118,7 +118,7 @@ export async function GET(req: NextRequest) {
       ];
       const monthlyRevenue = new Array(12).fill(0);
 
-      orders.forEach((order) => {
+      orders.forEach((order: any) => {
         const monthIndex = order.orderDate.getMonth();
         monthlyRevenue[monthIndex] += order.total;
       });
@@ -132,7 +132,7 @@ export async function GET(req: NextRequest) {
     return success200({
       revenueData,
       period,
-      totalRevenue: orders.reduce((sum, order) => sum + order.total, 0),
+      totalRevenue: orders.reduce((sum: any, order: any) => sum + order.total, 0),
       orderCount: orders.length,
     });
   } catch (error: any) {

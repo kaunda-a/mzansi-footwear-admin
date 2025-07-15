@@ -33,7 +33,7 @@ export async function GET() {
     });
 
     return success200({
-      categories: categories.map((category) => ({
+      categories: categories.map((category: any) => ({
         ...category,
         _count: category._count.Product,
       })),

@@ -21,7 +21,7 @@ export async function GET() {
     const addresses = await db.address.findMany();
 
     return success200({
-      addresses: addresses.map((address) => ({
+      addresses: addresses.map((address: any ) => ({
         id: address.address_id,
         user_id: address.userId,
         name: address.name,

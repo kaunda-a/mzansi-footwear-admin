@@ -90,19 +90,19 @@ export async function GET() {
 
     const recentRevenue = recentOrders
       .filter(
-        (order) =>
+        (order: any) =>
           order.orderDate >= fifteenDaysAgo && order.payment_verified,
       )
-      .reduce((sum, order) => sum + order.total, 0);
+      .reduce((sum: any, order: any) => sum + order.total, 0);
 
     const previousRevenue = recentOrders
       .filter(
-        (order) =>
+        (order: any) =>
           order.orderDate >= thirtyDaysAgo &&
           order.orderDate < fifteenDaysAgo &&
           order.payment_verified,
       )
-      .reduce((sum, order) => sum + order.total, 0);
+      .reduce((sum: any, order: any) => sum + order.total, 0);
 
     const revenuePercentageChange =
       previousRevenue > 0
@@ -134,14 +134,14 @@ export async function GET() {
 
     // Calculate sales growth percentage
     const recentSalesCount = recentOrders.filter(
-      (order) =>
+      (order: any) =>
         order.orderDate >= fifteenDaysAgo &&
         order.payment_verified &&
         ["delivered", "ongoing"].includes(order.status),
     ).length;
 
     const previousSalesCount = recentOrders.filter(
-      (order) =>
+      (order: any) =>
         order.orderDate >= thirtyDaysAgo &&
         order.orderDate < fifteenDaysAgo &&
         order.payment_verified &&

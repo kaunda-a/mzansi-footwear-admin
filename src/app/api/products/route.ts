@@ -43,7 +43,7 @@ export async function GET() {
     });
 
     return success200({
-      products: products.map((product) => ({
+      products: products.map((product: any) => ({
         id: product.id,
         slug: product.slug,
         title: product.title,
@@ -56,7 +56,7 @@ export async function GET() {
         stock: product.stock,
         purchases: product.purchases,
         color: product.color,
-        image: product.Image.find((image) =>
+        image: product.Image.find((image: any) =>
           image.imagePublicId.endsWith("-thumb"),
         )?.imagePublicId,
         earnings: product.earnings,
