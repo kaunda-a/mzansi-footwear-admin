@@ -52,11 +52,11 @@ export async function GET(req: NextRequest) {
       const customersWithSpending = topCustomers
         .map((customer: any) => {
           const totalSpent = customer.Order.reduce(
-            (sum, order) => sum + order.total,
+            (sum: any, order: any) => sum + order.total,
             0,
           );
           const lastOrder = customer.Order.sort(
-            (a, b) => b.orderDate.getTime() - a.orderDate.getTime(),
+            (a: any, b: any) => b.orderDate.getTime() - a.orderDate.getTime(),
           )[0];
 
           return {
@@ -71,8 +71,8 @@ export async function GET(req: NextRequest) {
               : "Never",
           };
         })
-        .filter((customer) => customer.amountSpent > 0) // Only customers who have made purchases
-        .sort((a, b) => b.amountSpent - a.amountSpent) // Sort by spending
+        .filter((customer: any) => customer.amountSpent > 0) // Only customers who have made purchases
+        .sort((a: any, b: any) => b.amountSpent - a.amountSpent) // Sort by spending
         .slice(0, 10); // Top 10 customers
 
       return success200({
@@ -121,7 +121,7 @@ export async function GET(req: NextRequest) {
         const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const dailyRegistrations = new Array(7).fill(0);
 
-        registrations.forEach((reg) => {
+        registrations.forEach((reg: any) => {
           const dayIndex = reg.createdAt.getDay();
           dailyRegistrations[dayIndex]++;
         });
@@ -134,7 +134,7 @@ export async function GET(req: NextRequest) {
       } else if (period === "monthly") {
         const weeklyRegistrations: { [key: string]: number } = {};
 
-        registrations.forEach((reg) => {
+        registrations.forEach((reg: any) => {
           const weekNumber = Math.ceil(reg.createdAt.getDate() / 7);
           const weekKey = `Week ${weekNumber}`;
           weeklyRegistrations[weekKey] = (weeklyRegistrations[weekKey] || 0) + 1;
@@ -166,7 +166,7 @@ export async function GET(req: NextRequest) {
         ];
         const monthlyRegistrations = new Array(12).fill(0);
 
-        registrations.forEach((reg) => {
+        registrations.forEach((reg: any) => {
           const monthIndex = reg.createdAt.getMonth();
           monthlyRegistrations[monthIndex]++;
         });
