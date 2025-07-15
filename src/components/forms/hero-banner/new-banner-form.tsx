@@ -1,4 +1,7 @@
-import { Button, Image, Input, Textarea } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ZodHeroBannerSchema } from "@/lib/zod-schemas/schema";
@@ -8,6 +11,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Info, Trash2 } from "lucide-react";
@@ -16,7 +20,7 @@ import ImagePicker from "@/components/offers/image-picker";
 import type { HeroBanner } from "@/lib/types/types";
 import { toast } from "sonner";
 import { useAddBanner } from "@/api-hooks/hero-banners/add-new-banner";
-import { standardInputStyles, standardTextareaStyles, formItemSpacing } from "@/lib/form-styles";
+import { standardInputClasses, standardTextareaClasses, formItemSpacing } from "@/lib/form-styles";
 
 const NewBannerForm = ({
   onClose,
@@ -67,12 +71,12 @@ const NewBannerForm = ({
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
+          render={({ field }: { field: any }) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Title"
+                  className={standardInputClasses}
                   {...field}
                 />
               </FormControl>
@@ -83,12 +87,12 @@ const NewBannerForm = ({
         <FormField
           control={form.control}
           name="description"
-          render={({ field }) => (
+          render={({ field }: { field: any }) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  {...standardTextareaStyles}
-                  label="Description"
+                  className={standardTextareaClasses}
                   {...field}
                 />
               </FormControl>
@@ -100,20 +104,18 @@ const NewBannerForm = ({
           <FormField
             control={form.control}
             name="basePrice"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem className={formItemSpacing}>
+                <FormLabel>Base Price</FormLabel>
                 <FormControl>
-                  <Input
-                    {...standardInputStyles}
-                    label="Base Price"
-                    type="number"
-                    startContent={
-                      <div className="pointer-events-none flex items-center">
-                        <span className="text-default-400 text-small">R</span>
-                      </div>
-                    }
-                    {...field}
-                  />
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">R</span>
+                    <Input
+                      className={`${standardInputClasses} pl-8`}
+                      type="number"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -122,20 +124,18 @@ const NewBannerForm = ({
           <FormField
             control={form.control}
             name="offerPrice"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem className={formItemSpacing}>
+                <FormLabel>Offer Price</FormLabel>
                 <FormControl>
-                  <Input
-                    {...standardInputStyles}
-                    label="Offer Price"
-                    type="number"
-                    startContent={
-                      <div className="pointer-events-none flex items-center">
-                        <span className="text-default-400 text-small">R</span>
-                      </div>
-                    }
-                    {...field}
-                  />
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">R</span>
+                    <Input
+                      className={`${standardInputClasses} pl-8`}
+                      type="number"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,12 +145,12 @@ const NewBannerForm = ({
         <FormField
           control={form.control}
           name="url"
-          render={({ field }) => (
+          render={({ field }: { field: any }) => (
             <FormItem className={formItemSpacing}>
+              <FormLabel>Product URL</FormLabel>
               <FormControl>
                 <Input
-                  {...standardInputStyles}
-                  label="Product URL"
+                  className={standardInputClasses}
                   {...field}
                 />
               </FormControl>
@@ -167,14 +167,13 @@ const NewBannerForm = ({
             <>
               <Image src={image} alt="" className="aspect-video" />
               <Button
-                isIconOnly
+                variant="destructive"
                 size="sm"
-                color="danger"
-                startContent={<Trash2 size={15} />}
-                radius="full"
                 onClick={() => setImage("")}
-                className="absolute -right-2 -top-2 z-10 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
-              />
+                className="absolute -right-2 -top-2 z-10 h-8 w-8 p-0 rounded-full bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <Trash2 size={15} />
+              </Button>
             </>
           ) : (
             <ImagePicker setImage={setImage} />
@@ -189,14 +188,13 @@ const NewBannerForm = ({
             <>
               <Image src={imageSm} alt="" className="aspect-square" />
               <Button
-                isIconOnly
+                variant="destructive"
                 size="sm"
-                color="danger"
-                startContent={<Trash2 size={15} />}
-                radius="full"
                 onClick={() => setImageSm("")}
-                className="absolute -right-2 -top-2 z-10 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
-              />
+                className="absolute -right-2 -top-2 z-10 h-8 w-8 p-0 rounded-full bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <Trash2 size={15} />
+              </Button>
             </>
           ) : (
             <ImagePicker setImage={setImageSm} />
@@ -204,12 +202,10 @@ const NewBannerForm = ({
         </div>
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!image || !imageSm}
+            disabled={mutation.isPending || !image || !imageSm}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>
