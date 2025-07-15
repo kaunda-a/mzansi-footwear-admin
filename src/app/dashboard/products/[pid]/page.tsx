@@ -10,9 +10,10 @@ const ProductPage = async ({
   searchParams,
 }: {
   params: Promise<{ pid: string }>;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const { product } = await getProductServer(resolvedParams.pid).catch((_) =>
     notFound(),
   );
@@ -42,7 +43,7 @@ const ProductPage = async ({
               images: product.Image,
             }),
           }}
-          searchParams={searchParams}
+          searchParams={resolvedSearchParams}
         />
       </Tabs>
     </Nav>

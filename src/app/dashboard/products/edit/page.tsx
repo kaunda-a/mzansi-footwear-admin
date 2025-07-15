@@ -7,10 +7,11 @@ import { makeColorVariantForEdit } from "@/lib/utils";
 const EditProduct = async ({
   searchParams,
 }: {
-  searchParams: { pid?: string };
+  searchParams: Promise<{ pid?: string }>;
 }) => {
-  if (!searchParams.pid) return;
-  const data = await getProductServer(searchParams.pid);
+  const resolvedSearchParams = await searchParams;
+  if (!resolvedSearchParams.pid) return;
+  const data = await getProductServer(resolvedSearchParams.pid);
   const formattedData: EditProductResProps = {
     ...data,
     product: {
@@ -38,9 +39,9 @@ const EditProduct = async ({
       <div className="flex w-full flex-col justify-start">
         <div className="w-full">
           <h1 className="m-2 text-xl font-semibold">
-            {searchParams.pid ? "Edit Product" : "Missing Product ID!"}
+            {resolvedSearchParams.pid ? "Edit Product" : "Missing Product ID!"}
           </h1>
-          {searchParams.pid && (
+          {resolvedSearchParams.pid && (
             <EditProductForm product={formattedData.product} />
           )}
         </div>
