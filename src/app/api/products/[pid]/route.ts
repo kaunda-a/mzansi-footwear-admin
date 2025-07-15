@@ -20,7 +20,7 @@ async function deleteImage(publicId: string) {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { pid: string } },
+  { params }: { params: Promise<{ pid: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -29,7 +29,8 @@ export async function GET(
       return error401("Unauthorized");
     }
 
-    const pid = params.pid;
+    const resolvedParams = await params;
+    const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
       return error400("Invalid product ID", {});
     }
@@ -55,7 +56,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { pid: string } },
+  { params }: { params: Promise<{ pid: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -68,7 +69,8 @@ export async function PUT(
       return error403();
     }
 
-    const pid = params.pid;
+    const resolvedParams = await params;
+    const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
       return error400("Invalid product ID", {});
     }
@@ -153,7 +155,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { pid: string } },
+  { params }: { params: Promise<{ pid: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -166,7 +168,8 @@ export async function DELETE(
       return error403();
     }
 
-    const pid = params.pid;
+    const resolvedParams = await params;
+    const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
       return error400("Invalid product ID", {});
     }

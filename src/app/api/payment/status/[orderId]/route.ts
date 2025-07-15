@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { orderId: string } }
+  { params }: { params: Promise<{ orderId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -15,7 +15,8 @@ export async function GET(
       return error401("Unauthorized");
     }
 
-    const { orderId } = params;
+    const resolvedParams = await params;
+    const { orderId } = resolvedParams;
 
     // Get order with payment details
     const order = await db.order.findUnique({

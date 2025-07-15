@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { pid: string } },
+  { params }: { params: Promise<{ pid: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -15,7 +15,8 @@ export async function GET(
       return error401("Unauthorized");
     }
 
-    const pid = params.pid;
+    const resolvedParams = await params;
+    const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
       return error400("Invalid product ID", {});
     }

@@ -12,7 +12,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { customerId: string } },
+  { params }: { params: Promise<{ customerId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -21,7 +21,8 @@ export async function GET(
       return error401("Unauthorized");
     }
 
-    const customerId = params.customerId;
+    const resolvedParams = await params;
+    const customerId = resolvedParams.customerId;
 
     if (!customerId) {
       return error400("Invalid data format.", {});

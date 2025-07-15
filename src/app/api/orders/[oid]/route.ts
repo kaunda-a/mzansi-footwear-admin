@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { oid: string } },
+  { params }: { params: Promise<{ oid: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -16,8 +16,8 @@ export async function GET(
     }
 
     const isGuest = session.user.role === "GUEST";
-
-    const orderId = params.oid;
+    const resolvedParams = await params;
+    const orderId = resolvedParams.oid;
 
     if (!orderId) {
       return error400("Invalid data format.", {});
@@ -66,7 +66,7 @@ export async function GET(
         Payment: isGuest
           ? { ...order.Payment, rzr_order_id: null, rzr_payment_id: null }
           : order.Payment,
-        OrderItem: order.OrderItem.map((item) => ({
+        OrderItem: order.OrderItem.map((item: any) => ({
           id: item.id,
           productId: item.productId,
           quantity: item.quantity,
@@ -75,7 +75,7 @@ export async function GET(
           basePrice: item.basePrice,
           offerPrice: item.offerPrice,
           title: item.Product.title,
-          Image: item.Product.Image.find((image) =>
+          Image: item.Product.Image.find((image: any) =>
             image.imagePublicId.endsWith("-thumb"),
           )?.imagePublicId,
         })),
