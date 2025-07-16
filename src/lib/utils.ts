@@ -51,9 +51,8 @@ export function capitalizeSearchParam(text: string) {
 }
 
 interface Image {
-  id?: number;
-  url?: string;
-  imagePublicId: string;
+  id: number;
+  url: string;
   productId?: string;
   createdAt?: Date;
   updatedAt?: Date;
