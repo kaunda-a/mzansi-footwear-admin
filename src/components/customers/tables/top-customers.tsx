@@ -263,6 +263,7 @@ export default function TopCustomers() {
               <PaginationPrevious
                 onClick={onPreviousPage}
                 className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
               />
             </PaginationItem>
             {Array.from({ length: Math.min(pages, 5) }, (_, i) => {
