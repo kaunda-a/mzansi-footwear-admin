@@ -133,7 +133,7 @@ export async function DELETE(req: NextRequest) {
 
     const id = req.nextUrl.searchParams.get("id");
 
-    if (!id) return error400("Deal Id missing or invalid", {});
+    if (!id) return error400("Deal Id missing or invalid");
 
     await db.bestDeal.delete({
       where: {
