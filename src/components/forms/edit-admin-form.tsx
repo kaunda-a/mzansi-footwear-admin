@@ -35,11 +35,11 @@ const EditAdminForm = ({
   admin: AdminProps;
 }) => {
   const form = useForm<FormData>({
-    resolver: zodResolver(ZodAdminSchema) as any,
+    resolver: zodResolver(ZodAdminSchema),
     defaultValues: {
       name: admin.name,
       email: admin.email,
-      password: "",
+      password: undefined,
       role: admin.role === "SUPERADMIN" ? "GUEST" : admin.role,
     },
   });

@@ -140,7 +140,6 @@ function AuthForm() {
           <Button
             disabled={signInLoading}
             variant="outline"
-            size="lg"
             className="w-full h-12 font-medium"
             type="button"
             onClick={() =>

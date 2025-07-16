@@ -28,7 +28,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
     defaultValues: {
       name: customer.name,
       email: customer.email,
-      password: "",
+      password: undefined,
       gender: customer.gender,
       phone: customer.phone,
     },
@@ -36,9 +36,9 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
 
   const mutation = useUpdateCustomer();
 
-  async function handleUpdateCustomer(data: FormData) {
+  const handleUpdateCustomer = (data: any) => {
     mutation.mutate({ id: customer.id, values: data });
-  }
+  };
 
   return (
     <Form {...form}>
@@ -46,7 +46,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }: FormFieldRenderProps) => (
+          render={({ field }: { field: any }) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input placeholder="Name" {...field} className="h-9" />
@@ -58,7 +58,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }: FormFieldRenderProps) => (
+          render={({ field }: { field: any }) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input placeholder="Email" {...field} className="h-9" />
@@ -70,7 +70,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="password"
-          render={({ field }: FormFieldRenderProps) => (
+          render={({ field }: { field: any }) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input
@@ -87,7 +87,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="phone"
-          render={({ field }: FormFieldRenderProps) => (
+          render={({ field }: { field: any }) => (
             <FormItem className="mb-3">
               <FormControl>
                 <Input placeholder="Phone" {...field} className="h-9" />
@@ -99,7 +99,7 @@ const EditCustomerForm = ({ customer }: { customer: Customer }) => {
         <FormField
           control={form.control}
           name="gender"
-          render={({ field }: FormFieldRenderProps) => (
+          render={({ field }: { field: any }) => (
             <FormItem className="mb-3">
               <FormLabel>Select gender</FormLabel>
               <FormControl>
