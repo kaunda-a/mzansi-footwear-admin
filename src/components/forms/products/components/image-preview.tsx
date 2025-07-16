@@ -43,7 +43,7 @@ const ImagePreview = ({
       />
       <button
         type="button"
-        className="absolute -right-3 top-0 z-50 rounded-full bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 p-1"
+        className="absolute -right-3 top-0 z-50 rounded-full bg-white/10 dark:bg-zinc-800/30 border border-zinc-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 p-1"
         onClick={() => {
           action === "thumbnail"
             ? handleDeleteThumbnail(variantIndex)

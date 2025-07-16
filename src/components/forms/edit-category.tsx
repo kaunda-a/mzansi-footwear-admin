@@ -62,7 +62,7 @@ const EditCategoryForm = ({
                   <Input
                     placeholder="Name"
                     {...field}
-                    className="border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md rounded-sm h-9"
+                    className="border border-zinc-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md rounded-sm h-9"
                   />
                 </FormControl>
                 <FormMessage />
@@ -79,7 +79,7 @@ const EditCategoryForm = ({
                     placeholder="Parent ID (optional)"
                     type="number"
                     {...field}
-                    className="border border-slate-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md rounded-sm h-9"
+                    className="border border-zinc-200/60 bg-white/50 dark:border-teal1/60 dark:bg-zinc-900/50 backdrop-blur-md rounded-sm h-9"
                   />
                 </FormControl>
                 <FormMessage />

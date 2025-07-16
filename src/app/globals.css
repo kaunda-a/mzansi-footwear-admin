@@ -89,7 +89,7 @@
 
 @layer base {
   * {
-    @apply border-slate-200 dark:border-zinc-700;
+    @apply border-zinc-200 dark:border-zinc-700;
   }
   body {
     @apply text-foreground;
@@ -144,7 +144,7 @@
 
 @layer base {
   * {
-    @apply border-slate-200 dark:border-zinc-700;
+    @apply border-zinc-200 dark:border-zinc-700;
   }
   body {
     @apply bg-background text-foreground;

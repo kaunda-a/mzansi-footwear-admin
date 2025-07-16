@@ -12,7 +12,7 @@ type TopSalesProps = {
 
 const TopSales = ({ data }: { data: TopSalesProps[] }) => {
   return (
-    <div className="col-span-2 mt-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl p-3 ps-4 md:mt-0">
+    <div className="col-span-2 mt-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200/60 dark:border-teal1/60 shadow-xl p-3 ps-4 md:mt-0">
       <h1 className="mt-2 text-lg font-medium">Top Sales</h1>
       <p className="text-xs dark:text-zinc-400">
         Top Sales by Purchase Volume.

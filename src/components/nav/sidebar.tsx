@@ -86,7 +86,7 @@ const Sidebar = () => {
         animate={open ? "open" : "closed"}
         className="fixed z-[49] w-[16rem] max-w-[16rem] overflow-y-auto scrollbar-thin lg:relative border border-slate-300/60 dark:border-teal1/60 rounded-3xl m-3 h-[calc(100vh-1.5rem)] lg:m-4 lg:h-[calc(100vh-2rem)] transition-all duration-300 bg-white/100 dark:bg-zinc-900/100"
       >
-        <div className="mx-4 flex items-center gap-3 py-6 border-b border-slate-200/60 dark:border-teal1/40 sticky top-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg z-10">
+        <div className="mx-4 flex items-center gap-3 py-6 border-b border-zinc-200/60 dark:border-teal1/40 sticky top-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg z-10">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 rounded-xl blur-sm opacity-30"></div>
             <div className="relative bg-gradient-to-br from-emerald-400 via-cyan-400 to-blue-500 p-2.5 rounded-xl shadow-lg shadow-cyan-500/20">
@@ -251,7 +251,7 @@ const Sidebar = () => {
             open ? "right-4" : "right-5"
           } z-50 hidden h-fit w-fit cursor-pointer md:block`}
         >
-          <div className="p-2 rounded-xl bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70">
+          <div className="p-2 rounded-xl bg-white/80 dark:bg-zinc-800/60 backdrop-blur-sm border border-zinc-200/60 dark:border-zinc-700/40 shadow-lg hover:shadow-xl transition-all duration-200 hover:bg-white dark:hover:bg-zinc-700/70">
             <ChevronLeft size={18} className="text-slate-600 dark:text-zinc-300 hover:text-slate-800 dark:hover:text-white" />
           </div>
         </motion.div>
@@ -260,7 +260,7 @@ const Sidebar = () => {
         className="absolute top-4 z-20 m-4 cursor-pointer lg:hidden"
         onClick={() => setOpen(true)}
       >
-        <div className="p-2 rounded-xl bg-white/90 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-700/40 shadow-lg">
+        <div className="p-2 rounded-xl bg-white/90 dark:bg-zinc-900/80 border border-zinc-200/60 dark:border-zinc-700/40 shadow-lg">
           <Menu size={20} className="text-slate-600 dark:text-zinc-300" />
         </div>
       </div>

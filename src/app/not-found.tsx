@@ -13,7 +13,7 @@ export default function NotFound() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
 
       <div className="relative z-10 w-full max-w-lg">
-        <Card className="backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30">
+        <Card className="backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30">
           <CardContent className="p-8 text-center space-y-8">
             {/* Logo */}
             <div className="flex justify-center">
@@ -82,7 +82,7 @@ export default function NotFound() {
             </div>
 
             {/* Footer */}
-            <div className="pt-4 border-t border-slate-200/60 dark:border-zinc-700/40">
+            <div className="pt-4 border-t border-zinc-200/60 dark:border-zinc-700/40">
               <p className="text-xs text-slate-400 dark:text-zinc-500">
                 Mzansi Footwear Admin Dashboard
               </p>

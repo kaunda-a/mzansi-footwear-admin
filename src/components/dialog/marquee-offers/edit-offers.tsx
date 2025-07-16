@@ -41,7 +41,7 @@ export default function EditMarqueeOffer({
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 rounded-full text-zinc-500 hover:text-zinc-700 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
+                className="h-8 w-8 p-0 rounded-full text-zinc-500 hover:text-zinc-700 bg-white/10 dark:bg-zinc-800/30 border border-zinc-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <Pencil size={16} />
               </Button>
@@ -53,7 +53,7 @@ export default function EditMarqueeOffer({
         </Tooltip>
       </TooltipProvider>
 
-      <DialogContent className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/60 dark:border-zinc-700/60 shadow-xl max-w-2xl max-h-[80vh]">
+      <DialogContent className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-zinc-200/60 dark:border-zinc-700/60 shadow-xl max-w-2xl max-h-[80vh]">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
             Edit Offer

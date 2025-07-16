@@ -228,7 +228,7 @@ export default function Customers() {
               className="pl-10 bg-default-200 dark:bg-default-100 h-9"
               placeholder="Search by name..."
               value={filterValue}
-              onChange={(e) => onSearchChange(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onSearchChange(e.target.value)}
             />
             {filterValue && (
               <button

@@ -44,7 +44,7 @@ const UpdateOrderStatus = ({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/60 dark:border-zinc-700/60 shadow-xl">
+      <DialogContent className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-zinc-200/60 dark:border-zinc-700/60 shadow-xl">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
             Update Status

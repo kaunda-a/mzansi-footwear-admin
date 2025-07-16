@@ -52,7 +52,7 @@ const ProductDetailsTabs = ({
               size="sm"
               variant="outline"
               asChild
-              className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 text-primary hover:text-primary/80"
+              className="bg-white/10 dark:bg-zinc-800/30 border border-zinc-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 text-primary hover:text-primary/80"
             >
               <Link href={`/dashboard/products/edit?pid=${pid}`}>
                 <Pencil size={15} className="mr-2" />
@@ -65,7 +65,7 @@ const ProductDetailsTabs = ({
                   size="sm"
                   variant="outline"
                   onClick={onOpen}
-                  className="bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 text-red-600 hover:text-red-700"
+                  className="bg-white/10 dark:bg-zinc-800/30 border border-zinc-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 text-red-600 hover:text-red-700"
                 >
                   <Trash2 size={15} className="mr-2" />
                   Delete Product

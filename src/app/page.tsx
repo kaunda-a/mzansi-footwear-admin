@@ -123,7 +123,7 @@ const SignIn = async () => {
       {/* Right Side - Login Form */}
       <div className="w-full lg:w-2/5 xl:w-1/3 flex items-center justify-center p-4 lg:p-8">
         <div className="w-full max-w-md">
-          <Card className="backdrop-blur-xl bg-white/90 dark:bg-zinc-900/90 border border-slate-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30">
+          <Card className="backdrop-blur-xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-200/60 dark:border-zinc-700/40 shadow-2xl shadow-black/10 dark:shadow-black/30">
             <CardContent className="p-8">
               {/* Mobile Logo (only visible on small screens) */}
               <div className="lg:hidden text-center mb-8">
@@ -163,7 +163,7 @@ const SignIn = async () => {
               <AuthForm />
 
               {/* Footer */}
-              <div className="mt-8 pt-6 border-t border-slate-200/60 dark:border-zinc-700/40">
+              <div className="mt-8 pt-6 border-t border-zinc-200/60 dark:border-zinc-700/40">
                 <p className="text-xs text-center text-slate-500 dark:text-zinc-500">
                   Secure admin access • Mzansi Footwear © 2024
                 </p>

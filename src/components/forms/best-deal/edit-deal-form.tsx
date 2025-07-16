@@ -161,7 +161,7 @@ const EditDealForm = ({
                 size="sm"
                 variant="destructive"
                 onClick={() => setImage("")}
-                className="absolute -right-2 -top-2 z-10 bg-white/10 dark:bg-zinc-800/30 border border-slate-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 rounded-full h-8 w-8 p-0"
+                className="absolute -right-2 -top-2 z-10 bg-white/10 dark:bg-zinc-800/30 border border-zinc-200/60 dark:border-zinc-700/40 shadow-sm hover:shadow-md transition-all duration-200 rounded-full h-8 w-8 p-0"
               >
                 <Trash2 size={15} />
               </Button>

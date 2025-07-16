@@ -28,7 +28,7 @@ export default function AddNewDeal({
           <Plus size={20} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200/60 dark:border-teal1/60 shadow-xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200/60 dark:border-teal1/60 shadow-xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
             Add New Deal

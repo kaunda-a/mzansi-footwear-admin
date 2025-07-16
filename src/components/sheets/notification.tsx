@@ -49,7 +49,7 @@ const Notification = () => {
           )}
         </button>
       </DialogTrigger>
-      <DialogContent className="flex flex-col gap-0 p-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/60 dark:border-zinc-700/60 shadow-xl max-w-md max-h-[80vh]">
+      <DialogContent className="flex flex-col gap-0 p-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-zinc-200/60 dark:border-zinc-700/60 shadow-xl max-w-md max-h-[80vh]">
         <DialogHeader className="p-5">
           <DialogTitle className="flex items-center gap-4">
             <Bell /> Notifications
