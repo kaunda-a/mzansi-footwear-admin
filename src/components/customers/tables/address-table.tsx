@@ -274,6 +274,7 @@ export default function AddressTable() {
                   onClick={() => setPage(pageNum)}
                   isActive={pageNum === page}
                   className="cursor-pointer"
+                  size="default"
                 >
                   {pageNum}
                 </PaginationLink>
