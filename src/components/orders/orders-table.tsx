@@ -350,6 +350,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
                   onNextPage();
                 }}
                 className={pages === 1 ? "pointer-events-none opacity-50" : ""}
+                size="default"
               />
             </PaginationItem>
           </PaginationContent>
