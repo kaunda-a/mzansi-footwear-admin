@@ -209,36 +209,49 @@ export default function AddressTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="max-h-[300px] overflow-y-auto">
-              {columns.map((column: any) => (
-                <DropdownMenuItem key={column.uid} className="capitalize">
-                  {capitalize(column.name)}
-                </DropdownMenuItem>
-              ))}
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuItem key={column.id} className="capitalize">
+                      <input
+                        type="checkbox"
+                        checked={column.getIsVisible()}
+                        onChange={column.getToggleVisibilityHandler()}
+                        className="mr-2"
+                      />
+                      {column.id}
+                    </DropdownMenuItem>
+                  );
+                })}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {addressData?.addresses.length} addresses
+            Total {table.getFilteredRowModel().rows.length} addresses
           </span>
           <label className="flex items-center text-small text-default-400">
             Rows per page:
             <select
               className="bg-transparent text-small text-default-400 outline-none"
-              onChange={onRowsPerPageChange}
+              onChange={(event) => {
+                table.setPageSize(Number(event.target.value));
+              }}
+              defaultValue={table.getState().pagination.pageSize}
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              {[5, 10, 15].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
             </select>
           </label>
         </div>
       </div>
     );
-  }, [
-    onRowsPerPageChange,
-    addressData?.addresses.length,
-  ]);
+  }, [table]);
 
   <div className="flex items-center justify-end space-x-2 py-4">
         <Button
