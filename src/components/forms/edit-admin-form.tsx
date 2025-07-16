@@ -58,7 +58,15 @@ const EditAdminForm = ({
   const mutation = useUpdateAdmin(onSuccess);
 
   async function handleUpdateAdmin(data: FormData) {
-    mutation.mutate({ id: admin.id, values: data });
+    mutation.mutate({
+      id: admin.id,
+      values: {
+        name: data.name || admin.name,
+        email: data.email || admin.email,
+        password: data.password,
+        role: data.role || admin.role,
+      },
+    });
   }
 
   return (
