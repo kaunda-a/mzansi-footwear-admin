@@ -46,7 +46,7 @@ const CustomerProfile = ({
           <DefaultSheet
             title="Edit Customer"
             trigger={
-              <Button variant="flat" size="sm" className="ms-auto">
+              <Button variant="outline" size="sm" className="ms-auto">
                 Edit
               </Button>
             }

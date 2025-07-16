@@ -260,11 +260,10 @@ export default function Customers() {
               title="Add Customer"
               trigger={
                 <Button
-                  color="primary"
                   size="sm"
-                  endContent={<PlusIcon size={20} />}
                 >
                   Add New
+                  <PlusIcon size={20} />
                 </Button>
               }
               classNames={{

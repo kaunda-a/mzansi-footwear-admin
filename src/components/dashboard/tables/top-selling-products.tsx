@@ -101,15 +101,15 @@ export default function TopSellingProducts() {
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-medium">Top Selling Products</h1>
         <Button
-          variant="flat"
+          variant="outline"
           size="sm"
-          as={Link}
-          href="/dashboard/products"
-          color="primary"
+          asChild
           className="dark:bg-zinc-800 dark:text-white"
-          endContent={<ChevronRight size={15} />}
         >
-          View All
+          <Link href="/dashboard/products">
+            View All
+            <ChevronRight size={15} />
+          </Link>
         </Button>
       </div>
       <div className="bg-card/50 backdrop-blur-sm border border-border/60 rounded-xl shadow-sm">

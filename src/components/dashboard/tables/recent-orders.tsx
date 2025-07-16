@@ -92,15 +92,15 @@ const RecentOrders = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-medium">Recent Orders</h1>
         <Button
-          variant="flat"
-          as={Link}
-          href="/dashboard/orders"
+          variant="outline"
+          asChild
           size="sm"
-          color="primary"
           className="dark:bg-zinc-800 dark:text-white"
-          endContent={<ChevronRight size={15} />}
         >
-          View All
+          <Link href="/dashboard/orders">
+            View All
+            <ChevronRight size={15} />
+          </Link>
         </Button>
       </div>
       <div className="px-0">

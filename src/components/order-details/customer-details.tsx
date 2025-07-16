@@ -19,13 +19,13 @@ const CustomerDetails = ({ data }: { data: CustomerDetailsProps }) => {
         <div className="flex items-center justify-between p-3">
           <h1>Customer details</h1>
           <Button
-            as={Link}
-            href={`/dashboard/customers/${data.id}`}
+            asChild
             size="sm"
-            color="primary"
-            variant="light"
+            variant="ghost"
           >
-            View Profile
+            <Link href={`/dashboard/customers/${data.id}`}>
+              View Profile
+            </Link>
           </Button>
         </div>
         <hr />

@@ -91,20 +91,17 @@ const EditCategoryForm = ({
         </div>
         <div className="mt-6 flex items-center justify-end gap-4">
           <Button
-            color="danger"
             type="button"
-            variant="light"
-            onPress={onClose}
+            variant="ghost"
+            onClick={onClose}
           >
             Close
           </Button>
           <Button
-            color="primary"
             type="submit"
-            isLoading={mutation.isPending}
-            isDisabled={!form.formState.isDirty}
+            disabled={mutation.isPending || !form.formState.isDirty}
           >
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </form>

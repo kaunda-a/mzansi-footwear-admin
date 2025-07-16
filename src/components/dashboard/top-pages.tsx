@@ -13,13 +13,12 @@ const TopPages = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top Pages</h1>
           {/* <Button
-            variant="flat"
+            variant="outline"
             size="sm"
-            color="primary"
             className="dark:bg-zinc-800 dark:text-white"
-            endContent={<ChevronRight size={15} />}
           >
             View All
+            <ChevronRight size={15} />
           </Button> */}
         </div>
         {topPages.length > 0 ? (

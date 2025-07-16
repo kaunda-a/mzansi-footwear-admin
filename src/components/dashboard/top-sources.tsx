@@ -14,13 +14,12 @@ const TopSources = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top Sources</h1>
           {/* <Button
-            variant="flat"
+            variant="outline"
             size="sm"
-            color="primary"
             className="dark:bg-zinc-800 dark:text-white"
-            endContent={<ChevronRight size={15} />}
           >
             View All
+            <ChevronRight size={15} />
           </Button> */}
         </div>
         {topSources.length > 0 ? (

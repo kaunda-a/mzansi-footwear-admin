@@ -148,12 +148,13 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
               <Button
                 isIconOnly
                 size="sm"
-                variant="light"
-                as={Link}
-                radius="full"
-                href={`/dashboard/orders/${order.oid}`}
+                variant="ghost"
+                asChild
+                className="rounded-full"
               >
-                <Eye className="text-zinc-500" />
+                <Link href={`/dashboard/orders/${order.oid}`}>
+                  <Eye className="text-zinc-500" />
+                </Link>
               </Button>
             </div>
           );

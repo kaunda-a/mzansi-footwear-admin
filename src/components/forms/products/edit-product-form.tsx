@@ -69,12 +69,11 @@ const EditProductForm = ({ product }: { product: EditProductProps }) => {
         </div>
         <div className="flex justify-end border-t p-5">
           <Button
-            isLoading={edit_product_mutation.isPending}
+            disabled={edit_product_mutation.isPending}
             type="submit"
-            color="primary"
             onClick={setColors}
           >
-            Edit Product
+            {edit_product_mutation.isPending ? "Editing..." : "Edit Product"}
           </Button>
         </div>
       </form>
