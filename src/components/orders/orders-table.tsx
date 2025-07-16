@@ -325,6 +325,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
                   onPreviousPage();
                 }}
                 className={pages === 1 ? "pointer-events-none opacity-50" : ""}
+                size="default"
               />
             </PaginationItem>
             {Array.from({ length: pages }, (_, i) => i + 1).map((pageNum) => (
