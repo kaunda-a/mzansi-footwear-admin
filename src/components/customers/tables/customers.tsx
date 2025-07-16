@@ -338,7 +338,7 @@ export default function Customers() {
             <PaginationItem>
               <PaginationNext
                 onClick={onNextPage}
-                className={page === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
                 size="default"
               />
             </PaginationItem>
