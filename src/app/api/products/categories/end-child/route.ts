@@ -18,7 +18,7 @@ export async function GET() {
         name: "asc",
       },
     });
-    if (!categories) return error500({ categories: null });
+    if (!categories) return error500("Categories not found");
     return success200({ categories });
   } catch (error: any) {
     return error500("Internal Server Error");
