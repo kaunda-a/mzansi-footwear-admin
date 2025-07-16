@@ -336,6 +336,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
                     setPage(pageNum);
                   }}
                   isActive={pageNum === page}
+                  size="default"
                 >
                   {pageNum}
                 </PaginationLink>
