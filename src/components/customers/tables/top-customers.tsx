@@ -274,6 +274,7 @@ export default function TopCustomers() {
                     onClick={() => setPage(pageNum)}
                     isActive={pageNum === page}
                     className="cursor-pointer"
+                    size="default"
                   >
                     {pageNum}
                   </PaginationLink>
