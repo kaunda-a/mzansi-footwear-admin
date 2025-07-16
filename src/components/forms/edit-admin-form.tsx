@@ -25,7 +25,7 @@ import { useUpdateAdmin } from "@/api-hooks/admins/edit-admin";
 import type { FormFieldRenderProps } from "@/types/react-components";
 
 // Use the actual schema type
-type FormData = z.infer<typeof ZodAdminSchema.partial()>;
+type FormData = Partial<z.infer<typeof ZodAdminSchema>>;
 
 const EditAdminForm = ({
   onClose,
