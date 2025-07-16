@@ -80,8 +80,39 @@ export function makeColorVariant({
   return result;
 }
 
-export function makeColorVariantForEdit(color: string) {
-  return color; // This function needs a proper implementation based on its usage
+export function makeColorVariantForEdit({
+  colors,
+  images,
+}: { colors: string; images: Image[] }): ColorVariantReturn[] {
+  const colorArray = colors.split(",");
+  const result: ColorVariantReturn[] = [];
+
+  colorArray.forEach((color) => {
+    const thumbnailImage = images.find(
+      (image) =>
+        image.url.includes(color.toLowerCase()) &&
+        image.url.endsWith("-thumb"),
+    );
+    const otherImages = images.filter(
+      (image) =>
+        image.url.includes(color.toLowerCase()) &&
+        !image.url.endsWith("-thumb"),
+    );
+
+    result.push({
+      color,
+      thumbnail: {
+        id: thumbnailImage?.id,
+        url: thumbnailImage?.url,
+      },
+      others: otherImages.map((image) => ({
+        id: image.id,
+        url: image.url,
+      })),
+    });
+  });
+
+  return result;
 }
 
 export function formatCurrency(amount: number, currency: string = "USD") {
