@@ -82,14 +82,7 @@ declare module '@/components/ui/dropdown-menu' {
   export const DropdownMenuLabel: React.FC<any>;
 }
 
-declare module '@/components/ui/pagination' {
-  export const Pagination: React.FC<any>;
-  export const PaginationContent: React.FC<any>;
-  export const PaginationItem: React.FC<any>;
-  export const PaginationLink: React.FC<any>;
-  export const PaginationNext: React.FC<any>;
-  export const PaginationPrevious: React.FC<any>;
-}
+
 
 declare module '@/components/ui/select' {
   export const Select: React.FC<any>;
