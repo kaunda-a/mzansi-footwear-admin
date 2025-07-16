@@ -240,45 +240,24 @@ export default function AddressTable() {
     addressData?.addresses.length,
   ]);
 
-  const bottomContent = React.useMemo(() => {
-    return (
-      <div className="flex items-center justify-between px-2 py-2">
-        <div className="text-sm text-muted-foreground">
-          Page {page} of {pages}
-        </div>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={onPreviousPage}
-                className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                size="default"
-              />
-            </PaginationItem>
-            {Array.from({ length: pages }, (_, i) => i + 1).map((pageNum) => (
-              <PaginationItem key={pageNum}>
-                <PaginationLink
-                  onClick={() => setPage(pageNum)}
-                  isActive={pageNum === page}
-                  className="cursor-pointer"
-                  size="default"
-                >
-                  {pageNum}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={onNextPage}
-                className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                size="default"
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+  <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
       </div>
-    );
-  }, [page, pages, onNextPage, onPreviousPage, setPage]);
 
   return (
     <div className="space-y-4">
