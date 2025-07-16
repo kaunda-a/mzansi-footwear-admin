@@ -35,7 +35,7 @@ const EditAdminForm = ({
   admin: AdminProps;
 }) => {
   const form = useForm<FormData>({
-    resolver: zodResolver(ZodAdminSchema),
+    resolver: zodResolver(ZodAdminSchema.partial()),
     defaultValues: {
       name: admin.name,
       email: admin.email,
