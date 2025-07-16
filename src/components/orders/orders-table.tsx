@@ -251,8 +251,10 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search by order id..."
-              value={filterValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onSearchChange(e.target.value)}
+              value={table.getColumn("id")?.getFilterValue() as string ?? ""}
+              onChange={(event) =>
+                table.getColumn("id")?.setFilterValue(event.target.value)
+              }
               className="pl-10"
             />
           </div>
@@ -265,100 +267,52 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48">
-                {columns.map((column: any) => (
-                  <DropdownMenuItem
-                    key={column.uid}
-                    className="capitalize"
-                    onClick={() => {
-                      const newVisibleColumns = new Set(visibleColumns);
-                      if (newVisibleColumns.has(column.uid)) {
-                        newVisibleColumns.delete(column.uid);
-                      } else {
-                        newVisibleColumns.add(column.uid);
-                      }
-                      setVisibleColumns(newVisibleColumns);
-                    }}
-                  >
-                    {capitalize(column.name)}
-                  </DropdownMenuItem>
-                ))}
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuItem key={column.id} className="capitalize">
+                        <input
+                          type="checkbox"
+                          checked={column.getIsVisible()}
+                          onChange={column.getToggleVisibilityHandler()}
+                          className="mr-2"
+                        />
+                        {column.id}
+                      </DropdownMenuItem>
+                    );
+                  })}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {orders?.length || 0} orders
+            Total {table.getFilteredRowModel().rows.length} orders
           </span>
           <label className="flex items-center text-small text-default-400">
             Rows per page:
             <select
               className="bg-transparent text-small text-default-400 outline-none"
-              onChange={onRowsPerPageChange}
+              onChange={(event) => {
+                table.setPageSize(Number(event.target.value));
+              }}
+              defaultValue={table.getState().pagination.pageSize}
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              {[5, 10, 15].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
             </select>
           </label>
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    visibleColumns,
-    onSearchChange,
-    onRowsPerPageChange,
-    orders?.length,
-  ]);
+  }, [table]);
 
-  const bottomContent = React.useMemo(() => {
-    return (
-      <div className="flex items-center justify-between px-2 py-2">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  onPreviousPage();
-                }}
-                className={pages === 1 ? "pointer-events-none opacity-50" : ""}
-                size="default"
-              />
-            </PaginationItem>
-            {Array.from({ length: pages }, (_, i) => i + 1).map((pageNum) => (
-              <PaginationItem key={pageNum}>
-                <PaginationLink
-                  href="#"
-                  onClick={(e: React.MouseEvent) => {
-                    e.preventDefault();
-                    setPage(pageNum);
-                  }}
-                  isActive={pageNum === page}
-                  size="default"
-                >
-                  {pageNum}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  onNextPage();
-                }}
-                className={pages === 1 ? "pointer-events-none opacity-50" : ""}
-                size="default"
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
-    );
-  }, [page, pages, onNextPage, onPreviousPage]);
+  
 
   return (
     <div className="space-y-4">
@@ -417,7 +371,24 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
           </TableBody>
         </Table>
       </div>
-      {bottomContent}
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }

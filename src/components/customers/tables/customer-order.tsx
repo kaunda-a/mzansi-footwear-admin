@@ -253,33 +253,49 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {columns.map((column: any) => (
-                <DropdownMenuItem key={column.uid} className="capitalize">
-                  {capitalize(column.name)}
-                </DropdownMenuItem>
-              ))}
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuItem key={column.id} className="capitalize">
+                      <input
+                        type="checkbox"
+                        checked={column.getIsVisible()}
+                        onChange={column.getToggleVisibilityHandler()}
+                        className="mr-2"
+                      />
+                      {column.id}
+                    </DropdownMenuItem>
+                  );
+                })}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {orders?.orders?.length} orders
+            Total {table.getFilteredRowModel().rows.length} orders
           </span>
           <label className="flex items-center text-small text-default-400">
             Rows per page:
             <select
               className="bg-transparent text-small text-default-400 outline-none"
-              onChange={onRowsPerPageChange}
+              onChange={(event) => {
+                table.setPageSize(Number(event.target.value));
+              }}
+              defaultValue={table.getState().pagination.pageSize}
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              {[5, 10, 15].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
             </select>
           </label>
         </div>
       </div>
     );
-  }, [onRowsPerPageChange, orders?.orders?.length]);
+  }, [table]);
 
   return (
     <>
@@ -304,35 +320,49 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
         <div className="rounded-md border shadow-md">
           <Table>
             <TableHeader>
-              {headerColumns.map((column: any) => (
-                <TableHead
-                  key={column.uid}
-                  className={column.uid === "actions" ? "text-center" : ""}
-                >
-                  {column.name}
-                </TableHead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
               ))}
             </TableHeader>
             <TableBody>
-              {(!orders?.orders || orders.orders.length === 0) ? (
-                <TableRow>
-                  <TableCell colSpan={headerColumns.length} className="text-center py-8">
-                    No orders placed
-                  </TableCell>
-                </TableRow>
-              ) : (
-                orders.orders.map((item: any) => (
-                  <TableRow key={item.oid}>
-                    {headerColumns.map((column: any) => (
-                      <TableCell
-                        key={column.uid}
-                        className={column.uid === "actions" ? "text-center" : ""}
-                      >
-                        {renderCell(item, column.uid)}
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
                 ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
               )}
             </TableBody>
           </Table>

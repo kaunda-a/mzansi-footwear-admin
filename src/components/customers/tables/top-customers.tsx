@@ -43,7 +43,7 @@ const columns = [
   { name: "AMOUNT SPENT", uid: "amountSpent", sortable: true },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "amountSpent", "purchases"];
+
 
 export default function TopCustomers() {
   const { data: topCustomersData } = useTopCustomers();

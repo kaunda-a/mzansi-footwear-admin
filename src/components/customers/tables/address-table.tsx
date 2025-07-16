@@ -37,12 +37,7 @@ import { useAddresses } from "@/api-hooks/addresses/get-addresses";
 import { toast } from "sonner";
 import DeleteAddress from "@/components/dialog/customer/delete-address";
 
-// Type definitions for shadcn/ui compatibility
-type Selection = Set<string> | "all";
-type SortDescriptor = {
-  column: string;
-  direction: "ascending" | "descending";
-};
+
 
 const columns = [
   { name: "ID", uid: "id" },
@@ -61,15 +56,7 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = [
-  "name",
-  "user_id",
-  "is_deleted",
-  "address",
-  "district",
-  "state",
-  "actions",
-];
+
 
 export default function AddressTable() {
   const { data: addressData } = useAddresses();
@@ -299,42 +286,49 @@ export default function AddressTable() {
       <div className="rounded-md border max-h-[382px] overflow-auto">
         <Table>
           <TableHeader>
-            {headerColumns.map((column: any) => (
-              <TableHead
-                key={column.uid}
-                className={column.uid === "actions" ? "text-center" : ""}
-              >
-                {column.name}
-              </TableHead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {sortedItems.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={headerColumns.length} className="text-center py-8">
-                  <div className="text-center py-8">
-                    <div className="text-lg font-semibold text-gray-600 mb-2">
-                      No Customer Addresses Yet
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      Customer addresses will appear here when customers add shipping addresses to their accounts.
-                    </div>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ) : (
-              sortedItems.map((item: any) => (
-                <TableRow key={item.id}>
-                  {headerColumns.map((column: any) => (
-                    <TableCell
-                      key={column.uid}
-                      className={column.uid === "actions" ? "text-center" : ""}
-                    >
-                      {renderCell(item, column.uid)}
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

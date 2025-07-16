@@ -54,15 +54,7 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = [
-  "title",
-  "basePrice",
-  "offerPrice",
-  "stock",
-  "purchases",
-  "earnings",
-  "actions",
-];
+
 
 type SortDescriptor = {
   column: string;
@@ -260,8 +252,10 @@ export default function ProductsTable() {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search by name..."
-              value={filterValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onSearchChange(e.target.value)}
+              value={table.getColumn("title")?.getFilterValue() as string ?? ""}
+              onChange={(event) =>
+                table.getColumn("title")?.setFilterValue(event.target.value)
+              }
               className="pl-10"
             />
           </div>
@@ -274,23 +268,22 @@ export default function ProductsTable() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48">
-                {columns.map((column: any) => (
-                  <DropdownMenuItem
-                    key={column.uid}
-                    className="capitalize"
-                    onClick={() => {
-                      const newVisibleColumns = new Set(visibleColumns);
-                      if (newVisibleColumns.has(column.uid)) {
-                        newVisibleColumns.delete(column.uid);
-                      } else {
-                        newVisibleColumns.add(column.uid);
-                      }
-                      setVisibleColumns(newVisibleColumns);
-                    }}
-                  >
-                    {capitalize(column.name)}
-                  </DropdownMenuItem>
-                ))}
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuItem key={column.id} className="capitalize">
+                        <input
+                          type="checkbox"
+                          checked={column.getIsVisible()}
+                          onChange={column.getToggleVisibilityHandler()}
+                          className="mr-2"
+                        />
+                        {column.id}
+                      </DropdownMenuItem>
+                    );
+                  })}
               </DropdownMenuContent>
             </DropdownMenu>
             <Button asChild>
@@ -303,75 +296,30 @@ export default function ProductsTable() {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">
-            Total {data?.products.length} products
+            Total {table.getFilteredRowModel().rows.length} products
           </span>
           <label className="flex items-center text-sm text-muted-foreground gap-2">
             Rows per page:
             <select
               className="bg-background border border-input rounded px-2 py-1 text-sm outline-none focus:ring-2 focus:ring-ring"
-              onChange={onRowsPerPageChange}
-              defaultValue="5"
+              onChange={(event) => {
+                table.setPageSize(Number(event.target.value));
+              }}
+              defaultValue={table.getState().pagination.pageSize}
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              {[5, 10, 15].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
             </select>
           </label>
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    visibleColumns,
-    onSearchChange,
-    onRowsPerPageChange,
-    data?.products.length,
-  ]);
+  }, [table]);
 
-  const bottomContent = React.useMemo(() => {
-    return (
-      <div className="flex items-center justify-between px-2 py-2">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                  e.preventDefault();
-                  onPreviousPage();
-                }}
-                className={pages === 1 ? "pointer-events-none opacity-50" : ""}
-              />
-            </PaginationItem>
-            {Array.from({ length: pages }, (_, i) => i + 1).map((pageNum) => (
-              <PaginationItem key={pageNum}>
-                <PaginationLink
-                  href="#"
-                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                    e.preventDefault();
-                    setPage(pageNum);
-                  }}
-                  isActive={pageNum === page}
-                >
-                  {pageNum}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                  e.preventDefault();
-                  onNextPage();
-                }}
-                className={pages === 1 ? "pointer-events-none opacity-50" : ""}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
-    );
-  }, [page, pages, onNextPage, onPreviousPage]);
+  
 
   return (
     <div className="space-y-4">
@@ -405,27 +353,53 @@ export default function ProductsTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {sortedItems && sortedItems.length > 0 ? (
-              sortedItems.map((item: any) => (
-                <TableRow key={item.id} className="hover:bg-muted/50">
-                  {headerColumns.map((column: any) => (
-                    <TableCell key={column.uid} className={column.uid === "actions" ? "text-center" : ""}>
-                      {renderCell(item, column.uid)}
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={headerColumns.length} className="text-center py-8 text-muted-foreground">
-                  No Products found
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      {bottomContent}
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
