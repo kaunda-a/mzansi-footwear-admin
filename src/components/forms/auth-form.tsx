@@ -132,7 +132,6 @@ function AuthForm() {
         <div className="mt-6 flex flex-col gap-3">
           <Button
             disabled={signInLoading}
-            size="lg"
             className="w-full h-12 font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white shadow-lg hover:shadow-xl transition-all duration-200"
             type="submit"
           >

@@ -64,7 +64,7 @@ const EditProfileForm = ({
           render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
-                <Input placeholder="Name" {...field} radius="sm" size="sm" />
+                <Input placeholder="Name" {...field} className="rounded-sm h-9" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -76,7 +76,7 @@ const EditProfileForm = ({
           render={({ field }: FormFieldRenderProps) => (
             <FormItem className="mb-3">
               <FormControl>
-                <Input placeholder="Image URL" {...field} radius="sm" size="sm" />
+                <Input placeholder="Image URL" {...field} className="rounded-sm h-9" />
               </FormControl>
               <FormMessage />
             </FormItem>

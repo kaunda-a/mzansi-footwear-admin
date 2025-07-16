@@ -26,7 +26,11 @@ declare global {
 // Specific component type overrides
 // Avatar components are properly typed in their source file
 
-// Button component is properly typed in its source file
+// Button component React 19 compatibility fix
+declare module '@/components/ui/button' {
+  export const Button: React.FC<any>;
+  export const buttonVariants: any;
+}
 
 // Table components are properly typed in their source file
 

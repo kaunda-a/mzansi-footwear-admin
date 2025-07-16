@@ -222,20 +222,23 @@ export default function Customers() {
     return (
       <div className="mt-5 flex flex-col gap-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <Input
-            isClearable
-            className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
-            size="sm"
-            classNames={{
-              inputWrapper:
-                "bg-default-200 dark:bg-default-100 group-data-[focus=true]:bg-default-200 dark:group-data-[focus=true]:bg-default-100",
-            }}
-            startContent={<Search />}
-            value={filterValue}
-            onClear={() => onClear()}
-            onValueChange={onSearchChange}
-          />
+          <div className="relative w-full sm:max-w-[44%]">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+            <Input
+              className="pl-10 bg-default-200 dark:bg-default-100 h-9"
+              placeholder="Search by name..."
+              value={filterValue}
+              onChange={(e) => onSearchChange(e.target.value)}
+            />
+            {filterValue && (
+              <button
+                onClick={() => onClear()}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            )}
+          </div>
           <div className="ms-auto flex items-center gap-3 md:ms-0">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

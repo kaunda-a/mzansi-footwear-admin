@@ -146,14 +146,13 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
             <div className="flex items-center justify-center">
               {/* View order */}
               <Button
-                isIconOnly
                 size="sm"
                 variant="ghost"
                 asChild
-                className="rounded-full"
+                className="rounded-full h-8 w-8 p-0"
               >
                 <Link href={`/dashboard/orders/${order.oid}`}>
-                  <Eye className="text-zinc-500" />
+                  <Eye className="text-zinc-500" size={16} />
                 </Link>
               </Button>
             </div>

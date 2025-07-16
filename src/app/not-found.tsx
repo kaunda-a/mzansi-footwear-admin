@@ -64,8 +64,7 @@ export default function NotFound() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
                 asChild
-                size="lg"
-                className="flex-1 font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white flex items-center gap-2"
+                className="flex-1 font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white flex items-center gap-2 h-12"
               >
                 <Link href="/dashboard">
                   <Home size={18} />
@@ -75,8 +74,7 @@ export default function NotFound() {
               <Button
                 onClick={() => window.history.back()}
                 variant="outline"
-                size="lg"
-                className="flex-1 font-medium flex items-center gap-2"
+                className="flex-1 font-medium flex items-center gap-2 h-12"
               >
                 <ArrowLeft size={18} />
                 Go Back
