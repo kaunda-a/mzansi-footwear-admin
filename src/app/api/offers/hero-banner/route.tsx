@@ -139,7 +139,7 @@ export async function DELETE(req: NextRequest) {
     const publicId = req.nextUrl.searchParams.get("publicId");
 
     if (!id || !publicId)
-      return error400("Banner Id or Public Id missing or invalid", {});
+      return error400("Banner Id or Public Id missing or invalid");
 
     const promises = [
       cloudinary.uploader.destroy(`hero-banner/${publicId}`),
