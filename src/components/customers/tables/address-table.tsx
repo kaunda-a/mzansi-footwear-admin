@@ -265,6 +265,7 @@ export default function AddressTable() {
               <PaginationPrevious
                 onClick={onPreviousPage}
                 className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
               />
             </PaginationItem>
             {Array.from({ length: pages }, (_, i) => i + 1).map((pageNum) => (
@@ -282,6 +283,7 @@ export default function AddressTable() {
               <PaginationNext
                 onClick={onNextPage}
                 className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
               />
             </PaginationItem>
           </PaginationContent>
