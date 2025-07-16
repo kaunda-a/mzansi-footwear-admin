@@ -42,7 +42,7 @@ export async function GET() {
       })),
     });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -55,12 +55,12 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data = await req.json();
     if (!data || !data.id || !data.values) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodCustomerSchema.safeParse(data.values);
 
@@ -91,10 +91,10 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -107,12 +107,12 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data = await req.json();
     if (!data) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodCustomerSchemaWithPassword.safeParse(data);
 
@@ -153,10 +153,10 @@ export async function POST(req: NextRequest) {
     }
 
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
-    return error500({ admin: null });
+    return error500("Internal Server Error");
   }
 }
 
@@ -169,12 +169,12 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const customerId = req.nextUrl.searchParams.get("id");
     if (!customerId) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
 
     await db.user.delete({
@@ -184,6 +184,6 @@ export async function DELETE(req: NextRequest) {
     });
     return success200({});
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

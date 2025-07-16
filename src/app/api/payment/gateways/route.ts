@@ -27,6 +27,6 @@ export async function GET() {
     });
   } catch (error: any) {
     console.error("Get payment gateways error:", error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

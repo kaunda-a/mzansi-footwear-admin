@@ -70,7 +70,7 @@ export async function GET(request: Request) {
     });
   } catch (error: any) {
     console.error("Customer registrations API error:", error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 

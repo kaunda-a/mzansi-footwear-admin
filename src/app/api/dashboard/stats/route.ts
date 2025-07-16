@@ -188,6 +188,6 @@ export async function GET() {
     });
   } catch (error: any) {
     console.error("Dashboard stats error:", error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

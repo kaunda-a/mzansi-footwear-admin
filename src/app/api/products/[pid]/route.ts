@@ -32,7 +32,7 @@ export async function GET(
     const resolvedParams = await params;
     const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
-      return error400("Invalid product ID", {});
+      return error400("Invalid product ID");
     }
 
     const product = await db.product.findUnique({
@@ -45,12 +45,12 @@ export async function GET(
     });
 
     if (!product) {
-      return error400("Invalid product ID", {});
+      return error400("Invalid product ID");
     }
 
     return success200({ product });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -66,18 +66,18 @@ export async function PUT(
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const resolvedParams = await params;
     const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
-      return error400("Invalid product ID", {});
+      return error400("Invalid product ID");
     }
 
     const data: z.infer<typeof ZodProductSchema> = await req.json();
     if (!data) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodProductSchema.safeParse(data);
 
@@ -90,7 +90,7 @@ export async function PUT(
       },
     });
 
-    if (!dbProduct) return error400("Product with this ID not found", {});
+    if (!dbProduct) return error400("Product with this ID not found");
 
     if (result.success) {
       if (dbProduct.slug !== data.slug) {
@@ -145,11 +145,11 @@ export async function PUT(
     }
 
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
     console.log(error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -165,13 +165,13 @@ export async function DELETE(
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const resolvedParams = await params;
     const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
-      return error400("Invalid product ID", {});
+      return error400("Invalid product ID");
     }
 
     const dbProduct = await db.product.findUnique({
@@ -183,7 +183,7 @@ export async function DELETE(
       },
     });
 
-    if (!dbProduct) return error400("Product with this ID not found", {});
+    if (!dbProduct) return error400("Product with this ID not found");
 
     // List all resources (images) in the specified folder
     const result = await cloudinary.api.resources({
@@ -205,6 +205,6 @@ export async function DELETE(
 
     return success200({});
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

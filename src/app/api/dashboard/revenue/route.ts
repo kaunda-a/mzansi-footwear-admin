@@ -137,6 +137,6 @@ export async function GET(req: NextRequest) {
     });
   } catch (error: any) {
     console.error("Revenue data error:", error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

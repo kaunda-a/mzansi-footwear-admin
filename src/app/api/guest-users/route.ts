@@ -43,7 +43,7 @@ export async function GET() {
 
     return success200({ guest_users: formatGuestUsers(guestUsers) });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -56,12 +56,12 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const guestUserId = req.nextUrl.searchParams.get("id");
     if (!guestUserId) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
 
     await db.guestUser.delete({
@@ -71,6 +71,6 @@ export async function DELETE(req: NextRequest) {
     });
     return success200({});
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

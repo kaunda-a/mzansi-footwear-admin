@@ -185,10 +185,10 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return error500({});
+    return error500("Internal Server Error");
   } catch (error: any) {
     console.error("Customer analytics error:", error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 

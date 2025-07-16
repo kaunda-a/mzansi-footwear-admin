@@ -17,6 +17,6 @@ export async function GET() {
     });
     return success200({ productsCount, OutOfStockProductsCount });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

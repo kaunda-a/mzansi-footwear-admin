@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data: {
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     } = await req.json();
 
     if (!data || !data.values || !data.imageUrl) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodBestDealSchema.safeParse(data.values);
 
@@ -52,10 +52,10 @@ export async function POST(req: NextRequest) {
     }
 
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -68,7 +68,7 @@ export async function PUT(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data: {
@@ -78,7 +78,7 @@ export async function PUT(req: NextRequest) {
     } = await req.json();
 
     if (!data || !data.id || !data.values || !data.imageUrl) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodBestDealSchema.safeParse(data.values);
 
@@ -112,10 +112,10 @@ export async function PUT(req: NextRequest) {
       return success200({ updatedResult });
     }
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -128,7 +128,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const id = req.nextUrl.searchParams.get("id");
@@ -143,6 +143,6 @@ export async function DELETE(req: NextRequest) {
 
     return success200({});
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

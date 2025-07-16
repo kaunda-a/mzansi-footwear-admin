@@ -57,3 +57,10 @@ export function makeColorVariant(color: string) {
 export function makeColorVariantForEdit(color: string) {
   return color; // Placeholder, implement actual color variant for edit logic here
 }
+
+export function formatCurrency(amount: number, currency: string = "USD") {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+  }).format(amount);
+}

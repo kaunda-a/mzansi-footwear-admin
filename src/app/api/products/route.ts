@@ -67,7 +67,7 @@ export async function GET() {
       })),
     });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -80,12 +80,12 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data: z.infer<typeof ZodProductSchema> = await req.json();
     if (!data) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodProductSchema.safeParse(data);
 
@@ -125,9 +125,9 @@ export async function POST(req: NextRequest) {
     }
 
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
-    return error500({ product: null });
+    return error500("Internal Server Error");
   }
 }

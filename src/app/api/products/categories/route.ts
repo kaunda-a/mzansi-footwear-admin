@@ -39,7 +39,7 @@ export async function GET() {
       })),
     });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -52,12 +52,12 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data: z.infer<typeof ZodCategorySchema> = await req.json();
     if (!data) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodCategorySchema.safeParse(data);
 
@@ -71,10 +71,10 @@ export async function POST(req: NextRequest) {
       return success200({});
     }
     if (result.error) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
   } catch (error: any) {
-    return error500({ product: null });
+    return error500("Internal Server Error");
   }
 }
 
@@ -87,12 +87,12 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const cid = req.nextUrl.searchParams.get("cid");
     if (!cid) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
 
     await db.category.delete({
@@ -104,7 +104,7 @@ export async function DELETE(req: NextRequest) {
     return success200({});
   } catch (error: any) {
     console.log(error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -117,7 +117,7 @@ export async function PUT(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data:
@@ -127,7 +127,7 @@ export async function PUT(req: NextRequest) {
         }
       | undefined = await req.json();
     if (!data) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const result = ZodCategorySchema.safeParse(data.values);
 
@@ -145,6 +145,6 @@ export async function PUT(req: NextRequest) {
       return success200({ id: data.id, ...data.values });
     }
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

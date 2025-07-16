@@ -20,7 +20,7 @@ export async function GET(
     const orderId = resolvedParams.oid;
 
     if (!orderId) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
     const order = await db.order.findUnique({
       where: {
@@ -82,6 +82,6 @@ export async function GET(
       },
     });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

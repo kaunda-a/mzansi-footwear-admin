@@ -23,6 +23,6 @@ export async function GET() {
       banners: heroBanner,
     });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

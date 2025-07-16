@@ -18,7 +18,7 @@ export async function GET(
     const resolvedParams = await params;
     const pid = resolvedParams.pid;
     if (!pid || pid.length < 20) {
-      return error400("Invalid product ID", {});
+      return error400("Invalid product ID");
     }
 
     const orders = await db.orderItem.findMany({
@@ -32,6 +32,6 @@ export async function GET(
 
     return success200({ orders });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

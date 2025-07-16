@@ -25,7 +25,7 @@ export async function GET(
     const customerId = resolvedParams.customerId;
 
     if (!customerId) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
 
     const customerOrders = await db.user.findUnique({
@@ -37,7 +37,7 @@ export async function GET(
       },
     });
 
-    if (!customerOrders) return error400("No customer found with this ID", {});
+    if (!customerOrders) return error400("No customer found with this ID");
 
     return success200({
       customer: {
@@ -61,6 +61,6 @@ export async function GET(
       })),
     });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

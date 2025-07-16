@@ -42,7 +42,7 @@ export async function GET() {
 
     return success200({ orders: formattedOrders });
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
 
@@ -55,12 +55,12 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error403();
+      return error403("Forbidden");
     }
 
     const data = await req.json();
     if (!data && !data.id && !data.status) {
-      return error400("Invalid data format.", {});
+      return error400("Invalid data format.");
     }
 
     const dbData: any = {
@@ -86,6 +86,6 @@ export async function PATCH(req: NextRequest) {
 
     return success200({});
   } catch (error: any) {
-    return error500({});
+    return error500("Internal Server Error");
   }
 }

@@ -9,7 +9,7 @@ export async function PATCH(req: Request) {
     const session = await getServerSession(authOptions);
     if (!session) return error401("Unauthorized");
     if (session.user.role === "GUEST")
-      return error403();
+      return error403("Forbidden");
 
     const body = await req.json();
     const { name, image } = ZodProfileSchema.parse(body);
@@ -35,9 +35,6 @@ export async function PATCH(req: Request) {
       data: admin,
     });
   } catch (error: any) {
-    return error500({
-      error,
-      message: "Error in updating profile!",
-    });
+    return error500("Internal Server Error");
   }
 }

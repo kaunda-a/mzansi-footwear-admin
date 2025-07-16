@@ -34,7 +34,7 @@ export async function GET(
     });
 
     if (!order) {
-      return error404("Order not found", {});
+      return error404("Order not found");
     }
 
     // Check if order belongs to user (for customer orders) or user is admin
@@ -69,6 +69,6 @@ export async function GET(
     });
   } catch (error: any) {
     console.error("Payment status check error:", error);
-    return error500({});
+    return error500("Internal Server Error");
   }
 }
