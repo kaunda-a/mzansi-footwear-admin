@@ -206,6 +206,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
               <PaginationPrevious
                 onClick={onPreviousPage}
                 className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
               />
             </PaginationItem>
             {Array.from({ length: Math.min(pages, 5) }, (_, i) => {
@@ -216,6 +217,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
                     onClick={() => setPage(pageNum)}
                     isActive={pageNum === page}
                     className="cursor-pointer"
+                    size="default"
                   >
                     {pageNum}
                   </PaginationLink>
@@ -226,6 +228,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
               <PaginationNext
                 onClick={onNextPage}
                 className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
               />
             </PaginationItem>
           </PaginationContent>
