@@ -283,6 +283,7 @@ export default function TopCustomers() {
               <PaginationNext
                 onClick={onNextPage}
                 className={page === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
               />
             </PaginationItem>
           </PaginationContent>
