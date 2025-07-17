@@ -312,4 +312,5 @@ export type {
   ColorVariantRes,
   DealsAndOffers,
   DealsAndOffersRes,
+  SortDescriptor,
 };
