@@ -34,7 +34,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "@/components/ui/pagination"; 
 import { Loader2 } from "lucide-react";
 import { ChevronDown, Eye } from "lucide-react";
 import Link from "next/link";

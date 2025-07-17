@@ -28,7 +28,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "@/components/ui/pagination"; 
 import { ChevronDown, Eye, Pencil, PlusIcon, Search } from "lucide-react";
 import { capitalize } from "@/lib/utils";
 import { useCustomers } from "@/api-hooks/customers/get-customers";
