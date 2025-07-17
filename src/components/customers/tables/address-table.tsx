@@ -72,63 +72,30 @@ const INITIAL_VISIBLE_COLUMNS = [
 export default function AddressTable() {
   const { data: addressData } = useAddresses();
 
-  const [filterValue, setFilterValue] = React.useState("");
-  const [visibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS),
-  );
+  const { data: addressData } = useAddresses();
 
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor] = React.useState<SortDescriptor>({
-    column: "name",
-    direction: "ascending",
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+
+  const table = useReactTable({
+    data: addressData?.addresses || [],
+    columns,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+      rowSelection,
+    },
   });
-
-  const [page, setPage] = React.useState(1);
-
-  const hasSearchFilter = Boolean(filterValue);
-
-  const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
-
-    return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
-    );
-  }, [visibleColumns]);
-
-  const filteredItems = React.useMemo(() => {
-    if (!addressData?.addresses || addressData.addresses.length === 0) return [];
-
-    let filteredAddresses = [...addressData.addresses];
-
-    if (hasSearchFilter) {
-      filteredAddresses = filteredAddresses.filter((address) =>
-        address.name.toLowerCase().includes(filterValue.toLowerCase()),
-      );
-    }
-
-    return filteredAddresses;
-  }, [addressData?.addresses, filterValue, hasSearchFilter]);
-
-  const pages = Math.ceil(filteredItems.length / rowsPerPage);
-
-  const items = React.useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return filteredItems.slice(start, end);
-  }, [page, filteredItems, rowsPerPage]);
-
-  const sortedItems = React.useMemo(() => {
-    if (!items || items.length === 0) return [];
-
-    return [...items].sort((a: Address, b: Address) => {
-      const first = a[sortDescriptor.column as keyof Address] as number;
-      const second = b[sortDescriptor.column as keyof Address] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback(
     (address: Address, columnKey: React.Key) => {
@@ -186,28 +153,6 @@ export default function AddressTable() {
     [],
   );
 
-  const onNextPage = React.useCallback(() => {
-    if (page < pages) {
-      setPage(page + 1);
-    }
-  }, [page, pages]);
-
-  const onPreviousPage = React.useCallback(() => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  }, [page]);
-
-  const onRowsPerPageChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setRowsPerPage(Number(e.target.value));
-      setPage(1);
-    },
-    [],
-  );
-
-  // Search functionality can be added here if needed
-
   const topContent = React.useMemo(() => {
     return (
       <div className="mt-6 flex flex-col gap-4">
@@ -262,26 +207,50 @@ export default function AddressTable() {
         </div>
       </div>
     );
-  }, []);
+  }, [table]);
 
-  <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+  const bottomContent = React.useMemo(() => {
+    return (
+      <div className="flex items-center justify-between px-2 py-2">
+        <div className="text-sm text-muted-foreground">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => table.previousPage()}
+                className={!table.getCanPreviousPage() ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
+              />
+            </PaginationItem>
+            {Array.from({ length: table.getPageCount() }, (_, i) => {
+              const pageNum = i + 1;
+              return (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    onClick={() => table.setPageIndex(i)}
+                    isActive={pageNum === table.getState().pagination.pageIndex + 1}
+                    className="cursor-pointer"
+                    size="default"
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => table.nextPage()}
+                className={!table.getCanNextPage() ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                size="default"
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
+    );
+  }, [table]);
 
   return (
     <div className="space-y-4">
