@@ -58,6 +58,17 @@ const columns = [
 
 
 
+type Selection = Set<string> | "all";
+
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "phone",
+  "address",
+  "is_default",
+  "is_deleted",
+  "actions",
+];
+
 export default function AddressTable() {
   const { data: addressData } = useAddresses();
 
