@@ -295,7 +295,7 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
         </div>
       </div>
     );
-  }, [table]);
+  }, []);
 
   return (
     <>

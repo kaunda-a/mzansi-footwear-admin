@@ -251,7 +251,7 @@ export default function AddressTable() {
         </div>
       </div>
     );
-  }, [table]);
+  }, []);
 
   <div className="flex items-center justify-end space-x-2 py-4">
         <Button

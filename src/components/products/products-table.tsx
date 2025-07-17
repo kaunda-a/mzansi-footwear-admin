@@ -317,7 +317,7 @@ export default function ProductsTable() {
         </div>
       </div>
     );
-  }, [table]);
+  }, []);
 
   
 

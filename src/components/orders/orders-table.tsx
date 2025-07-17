@@ -310,7 +310,7 @@ export default function OrdersTable({ orders }: { orders?: OrderProps[] }) {
         </div>
       </div>
     );
-  }, [table]);
+  }, []);
 
   
 
