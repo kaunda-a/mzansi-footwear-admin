@@ -72,8 +72,6 @@ const INITIAL_VISIBLE_COLUMNS = [
 export default function AddressTable() {
   const { data: addressData } = useAddresses();
 
-  const { data: addressData } = useAddresses();
-
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
