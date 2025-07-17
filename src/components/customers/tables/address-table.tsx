@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ChevronDown, Trash2 } from "lucide-react";
 import { capitalize, textTruncate } from "@/lib/utils";
-import { Address } from "@/lib/types/types";
+import { Address, SortDescriptor } from "@/lib/types/types";
 import { useAddresses } from "@/api-hooks/addresses/get-addresses";
 import { toast } from "sonner";
 import DeleteAddress from "@/components/dialog/customer/delete-address";
