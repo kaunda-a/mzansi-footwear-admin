@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender, ColumnDef, SortingState, ColumnFiltersState, VisibilityState } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
